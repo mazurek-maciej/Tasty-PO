@@ -1,27 +1,18 @@
 import React, { Component } from 'react';
 
-import Header from './components/header'
+import Header from './components/Navbar/header'
+import RestaurantTile from './components/RestaurantDetails/restaurant_tile'
 
 class App extends Component {
+
   render() {
     return (
       <div className="App">
         <Header />
-        <section className='ui container'>
-            <div class="ui one cards">
-              <a class="red card">
-                cos tam
-              </a>
-              <a class="green card">
-                content
-              </a>
-              <a class="yellow card">
-                content
-              </a>
-              <a class="blue card">
-                content
-              </a>
-            </div>
+        <section className='section'>
+            <RestaurantTile restaurantName='mcdonalds'/>
+            <RestaurantTile restaurantName='kfc'/>
+            <RestaurantTile restaurantName='taco loco'/>
         </section>
       </div>
     );
