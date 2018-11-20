@@ -1,6 +1,9 @@
 import React, {Component} from 'react'
 import styled from 'styled-components'
+import { connect } from 'react-redux'
 import SearchMenu from './search_menu'
+import SignedOutLinks from './signed-out-links'
+import SignedInLinks from './signed-in-links'
 import '../index.scss'
 
 const Navbar = styled.div `
@@ -44,8 +47,10 @@ class Header extends Component {
             this.setState({ isSearchMenuActive: '' })
         }
     };
-
+    
     render() {
+        const { auth } = this.props;
+        const links = auth.uid ? <SignedInLinks/> : <SignedOutLinks/>;
         return (
             <div>
                 <Navbar>
@@ -53,8 +58,8 @@ class Header extends Component {
                             <LogoButton href="/">Tasty PO</LogoButton>
                         </LogoContainer>
                         <ButtonsContainer className="column">
-                            <MenuButton className='button is-dark'>login</MenuButton>
-                            <MenuButton className='button is-dark' onClick={this.toggleMenu}>menu</MenuButton>
+                            { links }
+                            <MenuButton className='button is-dark' onClick={this.toggleMenu}><ion-icon name="menu"></ion-icon></MenuButton>
                         </ButtonsContainer>
                 </Navbar>
                 <SearchMenu isSearchMenuActive={this.state.isSearchMenuActive} />
@@ -63,4 +68,11 @@ class Header extends Component {
     }
 }
 
-export default Header
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+        auth: state.firebase.auth
+    }
+};
+
+export default connect(mapStateToProps)(Header)
