@@ -28,7 +28,7 @@ class SignUp extends Component {
             <div className="section">
                 <div className='container'>
                     <div className="columns">
-                        <div className="column is-8">
+                        <div className="column is-7">
                             <form onSubmit={this.handleSubmit}>
                                 <h3 className='subtitle'>Zarejestruj się</h3>
                                 <div className='field'>

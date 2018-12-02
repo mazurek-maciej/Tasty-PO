@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import SearchMenu from './search_menu'
 import SignedOutLinks from './signed-out-links'
 import SignedInLinks from './signed-in-links'
@@ -55,7 +56,7 @@ class Header extends Component {
             <div>
                 <Navbar>
                         <LogoContainer className="column">
-                            <LogoButton href="/">Tasty PO</LogoButton>
+                            <LogoButton as={Link} to="/">Tasty PO</LogoButton>
                         </LogoContainer>
                         <ButtonsContainer className="column">
                             { links }
