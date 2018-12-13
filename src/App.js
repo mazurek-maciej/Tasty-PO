@@ -6,6 +6,7 @@ import SignUp from './components/Authentication/signUp'
 import Header from './components/Navbar/header';
 import RestaurantTile from './components/RestaurantDetails/restaurant_tile';
 import RestaurantDetails from './components/RestaurantDetails/restaurant_details'
+import AddRestaurant from './components/RestaurantDetails/add_restaurant';
 
 class App extends Component {
 
@@ -18,7 +19,8 @@ class App extends Component {
               <Route exact path='/' component={RestaurantTile} />
               <Route path='/restaurant/:name' component={RestaurantDetails} />s
               <Route path='/signin' component={SignIn} />
-              <Route path='/signup' component={SignUp} />
+              <Route path='/signup' component={SignUp} /> 
+              <Route path='/add' component={AddRestaurant} /> 
           </Switch>
       </div>
     </BrowserRouter>

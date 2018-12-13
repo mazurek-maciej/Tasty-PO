@@ -7,7 +7,13 @@ const initState = {
 };
 
 const restaurantsReducer = (state = initState, action) => {
-    return state
+    switch(action.type) {
+        case "GET_RESTAURANTS":
+            console.log(action.restaurants);
+        default:
+            return state;
+    }
+    
 };
 
 export default restaurantsReducer;
