@@ -10,12 +10,17 @@ const MenuButton = styled.li`
     color: #fff
   }
 `;
+const LinksWraper = styled.ul`
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+`;
 
 const SignedInLinks = (props) => (
-    <ul>
+    <LinksWraper>
         <MenuButton className='button is-dark'><Link to={`/favourites`}>Ulubione</Link></MenuButton>
         <MenuButton onClick={props.signOut} className='button is-dark'>Wyloguj się</MenuButton>
-    </ul>
+    </LinksWraper>
 );
 
 const mapDispatchToProps = (dispatch) => {

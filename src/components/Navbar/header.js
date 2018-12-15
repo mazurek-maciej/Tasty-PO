@@ -12,11 +12,11 @@ const Navbar = styled.div `
     justify-content: flex-end;
     width: 100vw; 
     height: 70px;
-    border-bottom: 1px solid #777777;
-    background-color: #ff3860;
+    border-bottom: ${({ bB }) => bB ? '1px solid transparent' : '1px solid #363636'};
+    background-color: #ed4263;
 `;
 const MenuButton = styled.a`
-  margin: 5px
+  margin: 1rem
 `;
 const LogoButton = styled.a`
   font-size: 2rem;
@@ -39,31 +39,39 @@ const LogoContainer = styled.div`
 
 class Header extends Component {
     state = {
-        isSearchMenuActive: ''
+        isSearchMenuActive: '',
+        bB: false
     };
     toggleMenu = () => {
         if(this.state.isSearchMenuActive === '') {
-            this.setState({ isSearchMenuActive: 'active' })
+            this.setState({
+                isSearchMenuActive: 'active',
+                bB: true
+            })
         } else {
-            this.setState({ isSearchMenuActive: '' })
+            this.setState({
+                isSearchMenuActive: '',
+                bB: false
+            })
         }
     };
     
     render() {
         const { auth } = this.props;
+        const { bB } = this.state
         const links = auth.uid ? <SignedInLinks/> : <SignedOutLinks/>;
+        console.log(this.state.bB)
         return (
             <div>
-                <Navbar>
+                <Navbar bB={bB}>
                         <LogoContainer className="column">
                             <LogoButton as={Link} to="/">Tasty PO</LogoButton>
                         </LogoContainer>
                         <ButtonsContainer className="column">
-                            { links }
                             <MenuButton className='button is-dark' onClick={this.toggleMenu}><ion-icon name="menu"></ion-icon></MenuButton>
                         </ButtonsContainer>
                 </Navbar>
-                <SearchMenu isSearchMenuActive={this.state.isSearchMenuActive} />
+                <SearchMenu isSearchMenuActive={this.state.isSearchMenuActive} links={links}/>
             </div>
         )
     }

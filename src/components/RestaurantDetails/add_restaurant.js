@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {Redirect} from "react-router-dom";
 import { addRestaurant } from '../../store/actions/addActions';
 
 class AddRestaurant extends Component {
@@ -28,6 +29,8 @@ class AddRestaurant extends Component {
 
 
     render() {
+        const { auth } = this.props;
+        if (!auth.uid) return <Redirect to='/signin' />;
         return (
             <div className='section'>
                 <div className='container'>
@@ -78,10 +81,16 @@ class AddRestaurant extends Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        auth: state.firebase.auth
+    }
+};
+
 const mapDispatchToProps = (dispatch) => {
     return {
         addRestaurant: (info) => dispatch(addRestaurant(info))
     }
-}
+};
 
-export default connect(null, mapDispatchToProps)(AddRestaurant);
+export default connect(mapStateToProps, mapDispatchToProps)(AddRestaurant);

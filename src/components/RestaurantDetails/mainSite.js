@@ -10,6 +10,7 @@ import { getRestaurants } from '../../store/actions/restuarantActions';
 
 // Style
 import styled from 'styled-components';
+import Loading from '../Loading'
 
 // Mapa
 import 'leaflet/dist/leaflet.css';
@@ -40,7 +41,7 @@ let myIcon = L.icon({
     shadowAnchor: [22, 94]
 });
 
-class RestaurantTile extends Component {
+class MainSite extends Component {
     state = {
         lat: 50.674577,
         lng: 17.918693,
@@ -56,15 +57,15 @@ class RestaurantTile extends Component {
     }
     render() {
         const { auth, restaurant } = this.props;
-        const position = [this.state.lat, this.state.lng]
+        const position = [this.state.lat, this.state.lng];
         if (!auth.uid) return <Redirect to='/signin' />;
-        if (!this.props.restaurant) return <div>Loading</div>
-        
+        if (!this.props.restaurant) return <Loading/>;
+        console.log(auth);
         return (
-            <section className="section">
+            <section>
                 <div className="container">
                 <MapContainer>
-                    <Map style={{height: '600px'}} center={position} zoom={this.state.zoom}>
+                    <Map style={{height: '100vh', width: '100vw'}} center={position} zoom={this.state.zoom}>
                         <TileLayer
                         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                         url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
@@ -115,4 +116,4 @@ export default compose(
     firestoreConnect([
         { collection: 'restaurants' }
     ])
-    )(RestaurantTile)
+    )(MainSite)
