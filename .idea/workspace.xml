@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8e58a70c-8cf2-49df-8230-4ec0380053f9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbar/header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbar/search_menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/search_menu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbar/signed-in-links.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/signed-in-links.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/RestaurantDetails/add_restaurant.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RestaurantDetails/add_restaurant.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/RestaurantDetails/restaurant_tile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RestaurantDetails/mainSite.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/colors.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/colors.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/RestaurantDetails/mainSite.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RestaurantDetails/mainSite.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -25,8 +18,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/RestaurantDetails/mainSite.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="473">
-              <caret line="62" column="26" selection-start-line="62" selection-start-column="26" selection-end-line="62" selection-end-column="26" />
+            <state relative-caret-position="751">
+              <caret line="92" column="22" selection-start-line="92" selection-start-column="22" selection-end-line="92" selection-end-column="22" />
               <folding>
                 <element signature="e#370#409#0" expanded="true" />
               </folding>
@@ -188,7 +181,7 @@
       <workItem from="1542787222162" duration="2154000" />
       <workItem from="1542799050391" duration="6000" />
       <workItem from="1544861481498" duration="1823000" />
-      <workItem from="1544870668387" duration="4033000" />
+      <workItem from="1544870668387" duration="4164000" />
     </task>
     <task id="LOCAL-00001" summary="Wersja pogladowa">
       <created>1542562812256</created>
@@ -222,7 +215,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37124000" />
+    <option name="totallyTimeSpent" value="37255000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1371" height="1080" extended-state="6" />
@@ -463,8 +456,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/RestaurantDetails/mainSite.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="473">
-          <caret line="62" column="26" selection-start-line="62" selection-start-column="26" selection-end-line="62" selection-end-column="26" />
+        <state relative-caret-position="751">
+          <caret line="92" column="22" selection-start-line="92" selection-start-column="22" selection-end-line="92" selection-end-column="22" />
           <folding>
             <element signature="e#370#409#0" expanded="true" />
           </folding>

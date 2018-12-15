@@ -63,7 +63,6 @@ class MainSite extends Component {
         console.log(auth);
         return (
             <section>
-                <div className="container">
                 <MapContainer>
                     <Map style={{height: '100vh', width: '100vw'}} center={position} zoom={this.state.zoom}>
                         <TileLayer
@@ -91,7 +90,6 @@ class MainSite extends Component {
 
                     </Map>
                 </MapContainer>
-                </div>
             </section>
         )
     }
