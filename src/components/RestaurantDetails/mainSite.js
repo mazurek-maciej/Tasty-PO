@@ -7,6 +7,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { getRestaurants } from '../../store/actions/restuarantActions';
+import { addFavourites } from "../../store/actions/addFavouritesAction";
 
 // Style
 import styled from 'styled-components';
@@ -30,7 +31,6 @@ const MarkerWraper = styled.div `
     justify-content: flex-end;
     align-items: center;
 `;
-
 let myIcon = L.icon({
     iconUrl: icon,
     iconSize: [30, 50],
@@ -47,14 +47,28 @@ class MainSite extends Component {
         lng: 17.918693,
         zoom: 13,
         title: '',
-        rating: 0
-      }
+        rating: 0,
+        favs: [],
+      };
     componentDidUpdate({ markerPosition }) {
     // check if position has changed 
     if (this.props.markerPosition !== markerPosition) {
         this.marker.setLatLng(this.props.markerPosition);
     }
     }
+    handleClick = (e, id) => {
+        if (this.state.favs.includes(e)) {
+            console.log('lokal już został zapisany')
+        } else {
+            this.setState({
+                favs: [...this.state.favs, e]
+            });
+        }
+        this.props.addFavourites(this.state.favs, id)
+        console.log(this.state.favs)
+        // this.props.addFavourites(e)
+    };
+
     render() {
         const { auth, restaurant } = this.props;
         const position = [this.state.lat, this.state.lng];
@@ -81,7 +95,8 @@ class MainSite extends Component {
                                         {res.title}
                                     </h2>
                                     <div>
-                                        <Link className='button is-info' to={{ pathname: `/restaurant/${res.title}`, state: res }}>Sprawdź</Link>
+                                        <Link className='button is-info' to={{ pathname: `/restaurant/${res.id}`, state: res }}>Sprawdź</Link>
+                                        <button onClick={() => this.handleClick(res.id, auth.uid) } className='button'>Fav</button>
                                     </div>
                                 </MarkerWraper>
                                 </Popup>
@@ -96,18 +111,19 @@ class MainSite extends Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state.firestore.ordered.restaurants)
+    console.log(state)
     return {
         auth: state.firebase.auth,
-        restaurant: state.firestore.ordered.restaurants
+        restaurant: state.firestore.ordered.restaurants,
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getRestaurants: (restaurant) => dispatch(getRestaurants(restaurant))
+        getRestaurants: (restaurant) => dispatch(getRestaurants(restaurant)),
+        addFavourites: (fav, id) => dispatch(addFavourites(fav, id))
     }
-}
+};
 
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),

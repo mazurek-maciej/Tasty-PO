@@ -10,4 +10,4 @@ export const addRestaurant = (info) => {
             dispatch({ type: "ADD_RESTAURANT", info});
         })
     }
-}
+};

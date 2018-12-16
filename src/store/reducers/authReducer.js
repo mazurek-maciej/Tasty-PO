@@ -30,6 +30,12 @@ const authReducer = (state = initState, action) => {
                 ...state,
                 authError: action.err.message
             };
+        case 'ADD_FAVOURITES':
+            console.log('added to favourite list');
+            return {
+                ...state,
+                authError: null
+            }
         default:
             return state;
     }
