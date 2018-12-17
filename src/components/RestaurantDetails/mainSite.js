@@ -78,7 +78,7 @@ class MainSite extends Component {
         return (
             <section>
                 <MapContainer>
-                    <Map style={{height: '90vh', width: '100vw'}} center={position} zoom={this.state.zoom}>
+                    <Map style={{height: '90vh', width: '90vw'}} center={position} zoom={this.state.zoom}>
                         <TileLayer
                         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                         url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'

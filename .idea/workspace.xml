@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8e58a70c-8cf2-49df-8230-4ec0380053f9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbar/header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/header.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/RestaurantDetails/mainSite.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RestaurantDetails/mainSite.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -21,7 +19,7 @@
         <entry file="file://$PROJECT_DIR$/src/components/RestaurantDetails/mainSite.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="584">
-              <caret line="80" column="43" selection-start-line="80" selection-start-column="43" selection-end-line="80" selection-end-column="43" />
+              <caret line="80" column="58" selection-start-line="80" selection-start-column="58" selection-end-line="80" selection-end-column="58" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
                 <element signature="e#159#191#0" expanded="true" />
@@ -227,7 +225,7 @@
       <workItem from="1544881323129" duration="2910000" />
       <workItem from="1544886675560" duration="6962000" />
       <workItem from="1544901621904" duration="9000" />
-      <workItem from="1545079668499" duration="563000" />
+      <workItem from="1545079668499" duration="662000" />
     </task>
     <task id="LOCAL-00001" summary="Wersja pogladowa">
       <created>1542562812256</created>
@@ -261,7 +259,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47929000" />
+    <option name="totallyTimeSpent" value="48028000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
@@ -557,7 +555,7 @@
     <entry file="file://$PROJECT_DIR$/src/components/RestaurantDetails/mainSite.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="584">
-          <caret line="80" column="43" selection-start-line="80" selection-start-column="43" selection-end-line="80" selection-end-column="43" />
+          <caret line="80" column="58" selection-start-line="80" selection-start-column="58" selection-end-line="80" selection-end-column="58" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
             <element signature="e#159#191#0" expanded="true" />
