@@ -4,10 +4,11 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import SignIn from './components/Authentication/signIn'
 import SignUp from './components/Authentication/signUp'
 import Header from './components/Navbar/header';
-import RestaurantTile from './components/RestaurantDetails/mainSite';
+import MainSite from './components/RestaurantDetails/mainSite';
 import RestaurantDetails from './components/RestaurantDetails/restaurant_details'
 import AddRestaurant from './components/RestaurantDetails/add_restaurant';
 import Favourites from './components/Favourites/Favourites';
+import LogoutMain from './components/RestaurantDetails/logoutMain';
 
 class App extends Component {
 
@@ -17,7 +18,8 @@ class App extends Component {
       <div className="App">
         <Header />
           <Switch>
-              <Route exact path='/' component={RestaurantTile} />
+              <Route exact path='/' component={LogoutMain} />
+              <Route path='/main' component={MainSite} />
               <Route path='/restaurant/:name' component={RestaurantDetails} />s
               <Route path='/signin' component={SignIn} />
               <Route path='/signup' component={SignUp} />

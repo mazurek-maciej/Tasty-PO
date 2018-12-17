@@ -49,12 +49,12 @@ class MainSite extends Component {
         title: '',
         rating: 0,
         favs: [],
-      };
+    };
     componentDidUpdate({ markerPosition }) {
-    // check if position has changed 
-    if (this.props.markerPosition !== markerPosition) {
-        this.marker.setLatLng(this.props.markerPosition);
-    }
+        // check if position has changed
+        if (this.props.markerPosition !== markerPosition) {
+            this.marker.setLatLng(this.props.markerPosition);
+        }
     }
     handleClick = (e, id) => {
         if (this.state.favs.includes(e)) {
@@ -72,7 +72,6 @@ class MainSite extends Component {
     render() {
         const { auth, restaurant } = this.props;
         const position = [this.state.lat, this.state.lng];
-        if (!auth.uid) return <Redirect to='/signin' />;
         if (!this.props.restaurant) return <Loading/>;
         console.log(auth);
         return (
@@ -80,25 +79,24 @@ class MainSite extends Component {
                 <MapContainer>
                     <Map style={{height: '90vh', width: '100vw'}} center={position} zoom={this.state.zoom}>
                         <TileLayer
-                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                        url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                            url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
                         />
 
-                        {this.props.restaurant.map(res => 
-                            <Marker 
+                        {this.props.restaurant.map(res =>
+                            <Marker
                                 position={[res.lat, res.lng]}
                                 icon={myIcon}
-                                >
+                            >
                                 <Popup>
-                                <MarkerWraper>
-                                    <h2 className='subtitle'>
-                                        {res.title}
-                                    </h2>
-                                    <div>
-                                        <Link className='button is-info' to={{ pathname: `/restaurant/${res.id}`, state: res }}>Sprawdź</Link>
-                                        <button onClick={() => this.handleClick(res.id, auth.uid) } className='button'>Fav</button>
-                                    </div>
-                                </MarkerWraper>
+                                    <MarkerWraper>
+                                        <h2 className='subtitle'>
+                                            {res.title}
+                                        </h2>
+                                        <div>
+                                            <Link className='button is-info' to={{ pathname: `/restaurant/${res.id}`, state: res }}>Sprawdź</Link>
+                                        </div>
+                                    </MarkerWraper>
                                 </Popup>
                             </Marker>
                         )}
@@ -130,4 +128,4 @@ export default compose(
     firestoreConnect([
         { collection: 'restaurants' }
     ])
-    )(MainSite)
+)(MainSite)

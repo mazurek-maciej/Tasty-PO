@@ -14,6 +14,7 @@ const Navbar = styled.div `
     height: 70px;
     border-bottom: ${({ bB }) => bB ? '1px solid transparent' : '1px solid #363636'};
     background-color: #ed4263;
+    position: sticky;
 `;
 const MenuButton = styled.a`
   margin: 1rem
