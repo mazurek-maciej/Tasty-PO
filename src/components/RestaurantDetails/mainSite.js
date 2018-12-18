@@ -11,7 +11,9 @@ import { addFavourites } from "../../store/actions/addFavouritesAction";
 
 // Style
 import styled from 'styled-components';
-import Loading from '../Loading'
+import Loading from '../Loading';
+import {Favorite} from 'styled-icons/material/Favorite';
+import {Info} from 'styled-icons/material/Info';
 
 // Mapa
 import 'leaflet/dist/leaflet.css';
@@ -56,6 +58,18 @@ const H2 = styled.h2`
     font-size: 1rem;
   }
 `;
+const FavIcon = styled(Favorite)`
+  width: 3rem;
+  height: 3rem;
+  color: ${({theme}) => theme.colors.$primary};
+  cursor: pointer;
+`;
+const InfoIcon = styled(Info)`
+  width: 3rem;
+  height: 3rem;
+  color: ${({theme}) => theme.colors.$dark};
+  cursor: pointer;
+`;
 const HelloWraper = styled.div`
   width: 100vw;
   height: 20vh;
@@ -81,6 +95,9 @@ class MainSite extends Component {
         }
     }
     handleClick = (e, id) => {
+
+        // sprawdzenie czy tablica ulubionych pobrana z firestore zawiera element
+        // przesłany z buttona, czyli w tym przypadku ID danego lokalu
         if (this.props.favouritesTable.favourites.includes(e)) {
             console.log('lokal już został zapisany')
         } else {
@@ -124,13 +141,13 @@ class MainSite extends Component {
                                     </h2>
                                     <div>
                                         <Link
-                                            className='button is-info'
                                             to={{ pathname: `/restaurant/${res.id}`,
                                                 state: {
                                                     res: res,
                                                 }}}
-                                        >Sprawdź</Link>
-                                        <button onClick={() => this.handleClick(res.id, auth.uid) } className='button'>Fav</button>
+                                        ><InfoIcon/></Link>
+                                        {/*<a  className='button'><Favorite/></a>*/}
+                                        <FavIcon onClick={() => this.handleClick(res.id, auth.uid) }/>
                                     </div>
                                 </MarkerWraper>
                                 </Popup>
