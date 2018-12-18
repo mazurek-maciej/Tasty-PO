@@ -89,7 +89,7 @@ class MainSite extends Component {
                         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                         url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
                     />
-                    this.props.restaurant.map(res =>
+                    {this.props.restaurant.map(res =>
                     <Marker
                         position={[res.lat, res.lng]}
                         icon={myIcon}

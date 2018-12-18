@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8e58a70c-8cf2-49df-8230-4ec0380053f9" name="Default Changelist" comment="Mapa v2">
-      <change beforePath="$PROJECT_DIR$/src/components/Favourites/Favourites.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Favourites/Favourites.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/RestaurantDetails/logoutMain.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RestaurantDetails/logoutMain.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -45,8 +44,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/RestaurantDetails/logoutMain.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="730">
-              <caret line="110" column="36" selection-start-line="110" selection-start-column="36" selection-end-line="110" selection-end-column="36" />
+            <state relative-caret-position="-230">
+              <caret line="91" column="21" selection-start-line="91" selection-start-column="21" selection-end-line="91" selection-end-column="21" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -251,7 +250,7 @@
       <workItem from="1544886675560" duration="6962000" />
       <workItem from="1544901621904" duration="9000" />
       <workItem from="1545079668499" duration="915000" />
-      <workItem from="1545144738178" duration="16614000" />
+      <workItem from="1545144738178" duration="16785000" />
     </task>
     <task id="LOCAL-00001" summary="Wersja pogladowa">
       <created>1542562812256</created>
@@ -285,7 +284,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="64895000" />
+    <option name="totallyTimeSpent" value="65066000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
@@ -627,8 +626,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/RestaurantDetails/logoutMain.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="730">
-          <caret line="110" column="36" selection-start-line="110" selection-start-column="36" selection-end-line="110" selection-end-column="36" />
+        <state relative-caret-position="-230">
+          <caret line="91" column="21" selection-start-line="91" selection-start-column="21" selection-end-line="91" selection-end-column="21" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
