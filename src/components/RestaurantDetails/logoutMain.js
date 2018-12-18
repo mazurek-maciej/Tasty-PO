@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Redirect } from 'react-router-dom';
 
 // Baza danych / autentykacja
 import { compose } from 'redux';
@@ -21,9 +20,8 @@ import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 
 const MapContainer = styled.div `
-    .leaflet-pane .leaflet-marker-pane {
-        background-color: red
-    }
+    height: 90vh;
+    width: 100vw;
 `;
 const MarkerWraper = styled.div `
     display: flex;
@@ -56,28 +54,16 @@ class MainSite extends Component {
             this.marker.setLatLng(this.props.markerPosition);
         }
     }
-    handleClick = (e, id) => {
-        if (this.state.favs.includes(e)) {
-            console.log('lokal już został zapisany')
-        } else {
-            this.setState({
-                favs: [...this.state.favs, e]
-            });
-        }
-        this.props.addFavourites(this.state.favs, id)
-        console.log(this.state.favs)
-        // this.props.addFavourites(e)
-    };
 
     render() {
-        const { auth, restaurant } = this.props;
+        const { auth } = this.props;
         const position = [this.state.lat, this.state.lng];
         if (!this.props.restaurant) return <Loading/>;
         console.log(auth);
         return (
-            <section>
+            <div>
                 <MapContainer>
-                    <Map style={{height: '90vh', width: '100vw'}} center={position} zoom={this.state.zoom}>
+                    <Map style={{height: '80vh'}} center={position} zoom={this.state.zoom}>
                         <TileLayer
                             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                             url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
@@ -103,13 +89,13 @@ class MainSite extends Component {
 
                     </Map>
                 </MapContainer>
-            </section>
+            </div>
         )
     }
 }
 
 const mapStateToProps = (state) => {
-    console.log(state)
+    console.log(state);
     return {
         auth: state.firebase.auth,
         restaurant: state.firestore.ordered.restaurants,

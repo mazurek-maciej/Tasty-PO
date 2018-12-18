@@ -21,9 +21,9 @@ import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 
 const MapContainer = styled.div `
-    .leaflet-pane .leaflet-marker-pane {
-        background-color: red
-    }
+    width: 100vw;
+    height: 100vh;
+    
 `;
 const MarkerWraper = styled.div `
     display: flex;
@@ -64,7 +64,7 @@ class MainSite extends Component {
                 favs: [...this.state.favs, e]
             });
         }
-        this.props.addFavourites(this.state.favs, id)
+        this.props.addFavourites(this.state.favs, id);
         console.log(this.state.favs)
         // this.props.addFavourites(e)
     };
@@ -76,9 +76,9 @@ class MainSite extends Component {
         if (!this.props.restaurant) return <Loading/>;
         console.log(auth);
         return (
-            <section>
+            <div className='container'>
                 <MapContainer>
-                    <Map style={{height: '90vh', width: '90vw'}} center={position} zoom={this.state.zoom}>
+                    <Map style={{width: '100vw'}} center={position} zoom={this.state.zoom}>
                         <TileLayer
                         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                         url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
@@ -105,13 +105,13 @@ class MainSite extends Component {
 
                     </Map>
                 </MapContainer>
-            </section>
+            </div>
         )
     }
 }
 
 const mapStateToProps = (state) => {
-    console.log(state)
+    console.log(state);
     return {
         auth: state.firebase.auth,
         restaurant: state.firestore.ordered.restaurants,
