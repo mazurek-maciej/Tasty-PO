@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Layout from '../Layout/layout';
 
 // Baza danych / autentykacja
 import { compose } from 'redux';
@@ -20,8 +21,9 @@ import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 
 const MapContainer = styled.div `
-    height: 90vh;
+    height: 100vh;
     width: 100vw;
+    background-color: ${({theme}) => theme.colors.$dark};
 `;
 const MarkerWraper = styled.div `
     display: flex;
@@ -38,6 +40,23 @@ let myIcon = L.icon({
     shadowSize: [68, 95],
     shadowAnchor: [22, 94]
 });
+const H1 = styled.h1`
+  color: ${({theme}) => theme.colors.$white};
+  font-size: 3rem;
+  font-weight: 300;
+  @media (min-width: 320px) and (max-width: 480px) {
+    font-size: 2rem;
+  }
+`;
+
+const HelloWraper = styled.div`
+  width: 100vw;
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
 class MainSite extends Component {
     state = {
@@ -62,33 +81,15 @@ class MainSite extends Component {
         console.log(auth);
         return (
             <div>
-                <MapContainer>
-                    <Map style={{height: '80vh'}} center={position} zoom={this.state.zoom}>
-                        <TileLayer
-                            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                            url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-                        />
-
-                        {this.props.restaurant.map(res =>
-                            <Marker
-                                position={[res.lat, res.lng]}
-                                icon={myIcon}
-                            >
-                                <Popup>
-                                    <MarkerWraper>
-                                        <h2 className='subtitle'>
-                                            {res.title}
-                                        </h2>
-                                        <div>
-                                            <Link className='button is-info' to={{ pathname: `/restaurant/${res.id}`, state: res }}>Sprawdź</Link>
-                                        </div>
-                                    </MarkerWraper>
-                                </Popup>
-                            </Marker>
-                        )}
-
-                    </Map>
-                </MapContainer>
+                <HelloWraper>
+                    <H1>Znajdź swój ulubiony lokal</H1>
+                </HelloWraper>
+                <Map style={{height: '60vh'}} center={position} zoom={this.state.zoom}>
+                    <TileLayer
+                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                        url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                    />
+                </Map>
             </div>
         )
     }

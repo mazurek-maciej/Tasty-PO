@@ -4,8 +4,9 @@ export const addFavourites = (info, id) => {
         const firestore = getFirestore();
         const profile = getState().firebase.profile;
         const userId = getState().firebase.auth.uid;
-        firestore.collection("users").doc(id).set({
-            favourites: info,
+        const favours = getState().firebase.profile.favourites;
+        firestore.collection("users").doc(id).update({
+            favourites: favours.concat(info),
             name: profile.name,
             surname: profile.surname
         }).then(() => {

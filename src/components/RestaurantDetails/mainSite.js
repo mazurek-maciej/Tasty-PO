@@ -22,7 +22,8 @@ import L from 'leaflet';
 
 const MapContainer = styled.div `
     width: 100vw;
-    height: 100vh;
+    height: 60vh;
+    background-color: ${({theme}) => theme.colors.$dark};
     
 `;
 const MarkerWraper = styled.div `
@@ -40,6 +41,29 @@ let myIcon = L.icon({
     shadowSize: [68, 95],
     shadowAnchor: [22, 94]
 });
+const H1 = styled.h1`
+  color: ${({theme}) => theme.colors.$white};
+  font-size: 3rem;
+  font-weight: 300;
+  @media (min-width: 320px) and (max-width: 480px) {
+    font-size: 2rem;
+  }
+`;
+const H2 = styled.h2`
+  color: ${({theme}) => theme.colors.$primary};
+  font-size: 2rem;
+  @media (min-width: 320px) and (max-width: 480px) {
+    font-size: 1rem;
+  }
+`;
+const HelloWraper = styled.div`
+  width: 100vw;
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
 class MainSite extends Component {
     state = {
@@ -51,34 +75,37 @@ class MainSite extends Component {
         favs: [],
       };
     componentDidUpdate({ markerPosition }) {
-    // check if position has changed 
-    if (this.props.markerPosition !== markerPosition) {
-        this.marker.setLatLng(this.props.markerPosition);
-    }
+        // check if position has changed
+        if (this.props.markerPosition !== markerPosition) {
+            this.marker.setLatLng(this.props.markerPosition);
+        }
     }
     handleClick = (e, id) => {
-        if (this.state.favs.includes(e)) {
+        if (this.props.favouritesTable.favourites.includes(e)) {
             console.log('lokal już został zapisany')
         } else {
             this.setState({
                 favs: [...this.state.favs, e]
             });
+            this.props.addFavourites(e, id);
         }
-        this.props.addFavourites(this.state.favs, id);
-        console.log(this.state.favs)
+        // console.log(this.props.favs)
         // this.props.addFavourites(e)
     };
 
     render() {
-        const { auth, restaurant } = this.props;
+        const { auth, restaurant, favouritesTable } = this.props;
         const position = [this.state.lat, this.state.lng];
         if (!auth.uid) return <Redirect to='/signin' />;
-        if (!this.props.restaurant) return <Loading/>;
-        console.log(auth);
+        if (!restaurant) return <Loading/>;
+        console.log(favouritesTable);
         return (
-            <div className='container'>
-                <MapContainer>
-                    <Map style={{width: '100vw'}} center={position} zoom={this.state.zoom}>
+            <div>
+                <HelloWraper>
+                    <H1>Witaj {favouritesTable.name} {favouritesTable.surname}!</H1>
+                    <H2>Znajdź swój ulubiony lokal</H2>
+                </HelloWraper>
+                    <Map style={{height: '60vh'}} center={position} zoom={this.state.zoom}>
                         <TileLayer
                         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                         url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
@@ -88,6 +115,7 @@ class MainSite extends Component {
                             <Marker 
                                 position={[res.lat, res.lng]}
                                 icon={myIcon}
+                                key={res.id}
                                 >
                                 <Popup>
                                 <MarkerWraper>
@@ -95,16 +123,20 @@ class MainSite extends Component {
                                         {res.title}
                                     </h2>
                                     <div>
-                                        <Link className='button is-info' to={{ pathname: `/restaurant/${res.id}`, state: res }}>Sprawdź</Link>
+                                        <Link
+                                            className='button is-info'
+                                            to={{ pathname: `/restaurant/${res.id}`,
+                                                state: {
+                                                    res: res,
+                                                }}}
+                                        >Sprawdź</Link>
                                         <button onClick={() => this.handleClick(res.id, auth.uid) } className='button'>Fav</button>
                                     </div>
                                 </MarkerWraper>
                                 </Popup>
                             </Marker>
                         )}
-
                     </Map>
-                </MapContainer>
             </div>
         )
     }
@@ -115,6 +147,8 @@ const mapStateToProps = (state) => {
     return {
         auth: state.firebase.auth,
         restaurant: state.firestore.ordered.restaurants,
+        favourites: state.firebase.profile.favourites,
+        favouritesTable: state.firebase.profile
     }
 };
 

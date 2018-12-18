@@ -9,25 +9,31 @@ import RestaurantDetails from './components/RestaurantDetails/restaurant_details
 import AddRestaurant from './components/RestaurantDetails/add_restaurant';
 import Favourites from './components/Favourites/Favourites';
 import LogoutMain from './components/RestaurantDetails/logoutMain';
+import Footer from './components/Footer';
+import Layout from "./components/Layout/layout";
 
 class App extends Component {
 
   render() {
     return (
-    <BrowserRouter>
-      <div className="App">
-        <Header />
-          <Switch>
-              <Route exact path='/' component={LogoutMain} />
-              <Route path='/main' component={MainSite} />
-              <Route path='/restaurant/:name' component={RestaurantDetails} />s
-              <Route path='/signin' component={SignIn} />
-              <Route path='/signup' component={SignUp} />
-              <Route path='/favourites' component={Favourites} />
-              <Route path='/add' component={AddRestaurant} /> 
-          </Switch>
-      </div>
-    </BrowserRouter>
+    <Layout>
+        <BrowserRouter>
+            <>
+            <Header />
+              <Switch>
+                  <Route exact path='/' component={LogoutMain} />
+                  <Route path='/main' component={MainSite} />
+                  <Route path='/restaurant/:name' component={RestaurantDetails} />s
+                  <Route path='/signin' component={SignIn} />
+                  <Route path='/signup' component={SignUp} />
+                  <Route path='/favourites' component={Favourites} />
+                  <Route path='/add' component={AddRestaurant} />
+              </Switch>
+            <Footer/>
+
+            </>
+        </BrowserRouter>
+    </Layout>
     );
   }
 }

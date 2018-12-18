@@ -11,7 +11,7 @@ const Navbar = styled.div `
     display: flex;
     justify-content: flex-end;
     width: 100vw; 
-    height: 70px;
+    height: 10vh;
     border-bottom: ${({ bB }) => bB ? '1px solid transparent' : '1px solid #363636'};
     background-color: #ed4263;
     position: sticky;
@@ -39,6 +39,10 @@ const LogoContainer = styled.div`
 `;
 
 class Header extends Component {
+    constructor(props) {
+        super(props);
+        this.navToggle = React.createRef();
+    }
     state = {
         isSearchMenuActive: '',
         bB: false
@@ -56,20 +60,31 @@ class Header extends Component {
             })
         }
     };
+
+    toggleOutsideClick = (event) => {
+        if (this.state.isSearchMenuActive === 'active' && !this.navToggle.current.contains(event.target)) {
+            this.setState({
+                isSearchMenuActive: ''
+            })
+        }
+    };
+    componentDidMount() {
+        window.addEventListener('click', this.toggleOutsideClick)
+    }
     
     render() {
         const { auth } = this.props;
         const { bB } = this.state
         const links = auth.uid ? <SignedInLinks/> : <SignedOutLinks/>;
-        console.log(this.state.bB)
+        // console.log(this.state.bB)
         return (
             <div>
                 <Navbar bB={bB}>
                         <LogoContainer className="column">
-                            <LogoButton as={Link} to="/">Tasty PO</LogoButton>
+                            <LogoButton as={Link} to="/main">Tasty PO</LogoButton>
                         </LogoContainer>
                         <ButtonsContainer className="column">
-                            <MenuButton className='button is-dark' onClick={this.toggleMenu}><ion-icon name="menu"></ion-icon></MenuButton>
+                            <MenuButton className='button is-dark' ref={this.navToggle} onClick={this.toggleMenu}><ion-icon name="menu"></ion-icon></MenuButton>
                         </ButtonsContainer>
                 </Navbar>
                 <SearchMenu isSearchMenuActive={this.state.isSearchMenuActive} links={links}/>
@@ -79,7 +94,7 @@ class Header extends Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
+    // console.log(state);
     return {
         auth: state.firebase.auth
     }
