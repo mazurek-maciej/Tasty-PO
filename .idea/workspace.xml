@@ -2,20 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8e58a70c-8cf2-49df-8230-4ec0380053f9" name="Default Changelist" comment="Mapa v2">
-      <change afterPath="$PROJECT_DIR$/src/components/Footer/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Authentication/signIn.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Authentication/signIn.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Authentication/signUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Authentication/signUp.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Favourites/Favourites.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Favourites/Favourites.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Layout/layout.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Layout/layout.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbar/header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/header.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/RestaurantDetails/logoutMain.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RestaurantDetails/logoutMain.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/RestaurantDetails/mainSite.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RestaurantDetails/mainSite.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/RestaurantDetails/restaurant_details.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RestaurantDetails/restaurant_details.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/actions/addFavouritesAction.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/actions/addFavouritesAction.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -28,32 +16,37 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/components/Navbar/header.js">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/RestaurantDetails/mainSite.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="635">
-              <caret line="89" column="28" selection-start-line="89" selection-start-column="28" selection-end-line="89" selection-end-column="28" />
+            <state relative-caret-position="961">
+              <caret line="137" column="26" lean-forward="true" selection-start-line="113" selection-start-column="25" selection-end-line="137" selection-end-column="26" />
               <folding>
-                <element signature="e#0#38#0" expanded="true" />
+                <element signature="e#0#41#0" expanded="true" />
+                <element signature="e#159#191#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/Navbar/search_menu.js">
+        <entry file="file://$PROJECT_DIR$/src/components/Favourites/Favourites.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="409">
-              <caret line="35" column="47" lean-forward="true" selection-start-line="35" selection-start-column="47" selection-end-line="35" selection-end-column="47" />
+            <state relative-caret-position="223">
+              <caret line="57" column="32" selection-start-line="57" selection-start-column="32" selection-end-line="57" selection-end-column="32" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+                <element signature="e#152#190#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../../Bitbucket/nutrikon/src/templates/header.js">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/components/RestaurantDetails/logoutMain.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="82" column="10" lean-forward="true" selection-start-line="82" selection-start-column="10" selection-end-line="82" selection-end-column="10" />
+            <state relative-caret-position="730">
+              <caret line="110" column="36" selection-start-line="110" selection-start-column="36" selection-end-line="110" selection-end-column="36" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -123,11 +116,11 @@
         <option value="$PROJECT_DIR$/src/components/Footer/index.js" />
         <option value="$PROJECT_DIR$/src/components/RestaurantDetails/mainSite.js" />
         <option value="$PROJECT_DIR$/src/components/RestaurantDetails/restaurant_details.js" />
-        <option value="$PROJECT_DIR$/src/components/RestaurantDetails/logoutMain.js" />
-        <option value="$PROJECT_DIR$/src/components/Favourites/Favourites.js" />
         <option value="$PROJECT_DIR$/../../Bitbucket/nutrikon/src/templates/header.js" />
         <option value="$PROJECT_DIR$/src/components/Navbar/search_menu.js" />
         <option value="$PROJECT_DIR$/src/components/Navbar/header.js" />
+        <option value="$PROJECT_DIR$/src/components/Favourites/Favourites.js" />
+        <option value="$PROJECT_DIR$/src/components/RestaurantDetails/logoutMain.js" />
       </list>
     </option>
   </component>
@@ -258,7 +251,7 @@
       <workItem from="1544886675560" duration="6962000" />
       <workItem from="1544901621904" duration="9000" />
       <workItem from="1545079668499" duration="915000" />
-      <workItem from="1545144738178" duration="16365000" />
+      <workItem from="1545144738178" duration="16614000" />
     </task>
     <task id="LOCAL-00001" summary="Wersja pogladowa">
       <created>1542562812256</created>
@@ -292,7 +285,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="64646000" />
+    <option name="totallyTimeSpent" value="64895000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
@@ -563,16 +556,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/RestaurantDetails/logoutMain.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
-          <caret line="50" lean-forward="true" selection-start-line="50" selection-end-line="50" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/RestaurantDetails/restaurant_details.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="593">
@@ -593,34 +576,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Favourites/Favourites.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1137">
-          <caret line="50" column="36" lean-forward="true" selection-start-line="50" selection-start-column="36" selection-end-line="50" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-            <element signature="e#152#190#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/RestaurantDetails/mainSite.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-886">
-          <caret line="43" selection-start-line="43" selection-end-line="50" selection-end-column="2" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-            <element signature="e#159#191#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../Bitbucket/nutrikon/src/templates/header.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="188">
           <caret line="82" column="10" lean-forward="true" selection-start-line="82" selection-start-column="10" selection-end-line="82" selection-end-column="10" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Navbar/header.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="635">
+          <caret line="89" column="28" selection-start-line="89" selection-start-column="28" selection-end-line="89" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -632,12 +603,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Navbar/header.js">
+    <entry file="file://$PROJECT_DIR$/src/components/Favourites/Favourites.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="635">
-          <caret line="89" column="28" selection-start-line="89" selection-start-column="28" selection-end-line="89" selection-end-column="28" />
+        <state relative-caret-position="223">
+          <caret line="57" column="32" selection-start-line="57" selection-start-column="32" selection-end-line="57" selection-end-column="32" />
           <folding>
-            <element signature="e#0#38#0" expanded="true" />
+            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#152#190#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/RestaurantDetails/mainSite.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="961">
+          <caret line="137" column="26" lean-forward="true" selection-start-line="113" selection-start-column="25" selection-end-line="137" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#159#191#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/RestaurantDetails/logoutMain.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="730">
+          <caret line="110" column="36" selection-start-line="110" selection-start-column="36" selection-end-line="110" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
           </folding>
         </state>
       </provider>

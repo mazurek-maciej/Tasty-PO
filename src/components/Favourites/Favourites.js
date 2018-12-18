@@ -53,6 +53,9 @@ class Favourites extends Component {
         let i;
         let a;
         let restaurantFav = [];
+        // pętla sprawdza dla tablicy z ulubionymi czy w tablicy z pobranymi restauracjami
+        // pojawia się element z tablicy ulubionych o takich samych id i wrzuca je do
+        // tablicy restaurantFav
         for (i=0; i < this.props.favourites.length; i++) {
             a = this.props.restaurant.find(res => res.id === this.props.favourites[i]);
             restaurantFav.push(a);

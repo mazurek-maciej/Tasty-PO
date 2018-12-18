@@ -89,6 +89,30 @@ class MainSite extends Component {
                         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                         url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
                     />
+                    this.props.restaurant.map(res =>
+                    <Marker
+                        position={[res.lat, res.lng]}
+                        icon={myIcon}
+                        key={res.id}
+                    >
+                        <Popup>
+                            <MarkerWraper>
+                                <h2 className='subtitle'>
+                                    {res.title}
+                                </h2>
+                                <div>
+                                    <Link
+                                        className='button is-info'
+                                        to={{ pathname: `/restaurant/${res.id}`,
+                                            state: {
+                                                res: res,
+                                            }}}
+                                    >Sprawdź</Link>
+                                </div>
+                            </MarkerWraper>
+                        </Popup>
+                    </Marker>
+                    )}
                 </Map>
             </div>
         )
