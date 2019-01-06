@@ -1,30 +1,40 @@
 import React from 'react'
 import styled from 'styled-components'
+import posed from 'react-pose';
 
-const Wraper = styled.div`
-    display: none;
+const PosedNav = posed.div({
+    visible: {
+        opacity: 1,
+        x: 0,
+        transition: {
+            opacity: { ease: 'easeIn', duration: 300 },
+        }
+    },
+    hidden: {
+        opacity: 0,
+        x: '100%',
+        transition: {
+            opacity: { ease: 'easeOut', duration: 300 },
+        }
+    }
+})
+
+const Wraper = styled(PosedNav)`
     position: absolute;
     z-index: 99999;
-    height: 30vh;
-    width: 100%;
+    height: 100vh;
+    width: 50%;
+    right: 0;
     justify-content: center;
     align-content: center;
     background-color: snow;
     border-bottom: 1px solid #363636;
 `;
-const MenuWraper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
-  width: 70vw;
-  padding: 2rem;
-  border-top: 1px solid #363636;
-`;
+
 const LinksWraper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 30vw;
+  width: 100%;
   height: 100%;
   padding: 1rem;
   align-items: center;
@@ -34,18 +44,9 @@ const LinksWraper = styled.div`
 
 
 const SearchMenu = ({ isSearchMenuActive, links }) => (
-    <Wraper className={isSearchMenuActive}>
-        <MenuWraper>
-            <h1 className='subtitle'>Znajdź swój ulubiony lokal!</h1>
-            <form>
-                <div className="field">
-                    <input className='input' type="text"/>
-                </div>
-                <div className="field">
-                    <button className='button is-info'>Szukaj</button>
-                </div>
-            </form>
-        </MenuWraper>
+    <Wraper 
+    pose={ isSearchMenuActive ? 'visible' : 'hidden'}
+    className={isSearchMenuActive}>
         <LinksWraper>
             {links}
         </LinksWraper>

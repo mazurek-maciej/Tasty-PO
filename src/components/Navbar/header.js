@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import SearchMenu from './search_menu'
 import SignedOutLinks from './signed-out-links'
 import SignedInLinks from './signed-in-links'
+import { Menu } from 'styled-icons/feather/Menu';
 import '../index.scss'
 
 const Navbar = styled.div `
@@ -12,7 +13,6 @@ const Navbar = styled.div `
     justify-content: flex-end;
     width: 100vw; 
     height: 10vh;
-    border-bottom: ${({ bB }) => bB ? '1px solid transparent' : '1px solid #363636'};
     background-color: #ed4263;
     position: sticky;
 `;
@@ -37,6 +37,11 @@ const LogoContainer = styled.div`
   display: flex;
   align-items: center;
 `;
+const MenuIcon = styled(Menu) `
+    color: ${({theme}) => theme.colors.$white};
+    width: 1rem;
+    height: 1rem;
+`
 
 class Header extends Component {
     constructor(props) {
@@ -45,18 +50,15 @@ class Header extends Component {
     }
     state = {
         isSearchMenuActive: '',
-        bB: false
     };
     toggleMenu = () => {
         if(this.state.isSearchMenuActive === '') {
             this.setState({
                 isSearchMenuActive: 'active',
-                bB: true
             })
         } else {
             this.setState({
                 isSearchMenuActive: '',
-                bB: false
             })
         }
     };
@@ -74,17 +76,16 @@ class Header extends Component {
     
     render() {
         const { auth } = this.props;
-        const { bB } = this.state
         const links = auth.uid ? <SignedInLinks/> : <SignedOutLinks/>;
         // console.log(this.state.bB)
         return (
             <div>
-                <Navbar bB={bB}>
+                <Navbar>
                         <LogoContainer className="column">
                             <LogoButton as={Link} to="/main">Tasty PO</LogoButton>
                         </LogoContainer>
                         <ButtonsContainer className="column">
-                            <MenuButton className='button is-dark' ref={this.navToggle} onClick={this.toggleMenu}><ion-icon name="menu"></ion-icon></MenuButton>
+                            <MenuButton className='button is-dark' ref={this.navToggle} onClick={this.toggleMenu}><MenuIcon/></MenuButton>
                         </ButtonsContainer>
                 </Navbar>
                 <SearchMenu isSearchMenuActive={this.state.isSearchMenuActive} links={links}/>

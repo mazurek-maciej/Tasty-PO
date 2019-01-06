@@ -21,6 +21,9 @@ import icon from 'leaflet/dist/images/marker-icon.png';
 import shadowIcon from 'leaflet/dist/images/marker-shadow.png';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
+import { ReactLeafletSearch } from 'react-leaflet-search'
+import '../../../node_modules/react-leaflet-search/lib/react-leaflet-search.css'
+
 
 const MapContainer = styled.div `
     width: 100vw;
@@ -78,7 +81,6 @@ const HelloWraper = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
 class MainSite extends Component {
     state = {
         lat: 50.674577,
@@ -88,27 +90,7 @@ class MainSite extends Component {
         rating: 0,
         favs: [],
       };
-    componentDidUpdate({ markerPosition }) {
-        // check if position has changed
-        if (this.props.markerPosition !== markerPosition) {
-            this.marker.setLatLng(this.props.markerPosition);
-        }
-    }
-    handleClick = (e, id) => {
-
-        // sprawdzenie czy tablica ulubionych pobrana z firestore zawiera element
-        // przesłany z buttona, czyli w tym przypadku ID danego lokalu
-        if (this.props.favouritesTable.favourites.includes(e)) {
-            console.log('lokal już został zapisany')
-        } else {
-            this.setState({
-                favs: [...this.state.favs, e]
-            });
-            this.props.addFavourites(e, id);
-        }
-        // console.log(this.props.favs)
-        // this.props.addFavourites(e)
-    };
+      
 
     render() {
         const { auth, restaurant, favouritesTable } = this.props;
@@ -157,6 +139,28 @@ class MainSite extends Component {
             </div>
         )
     }
+
+    componentDidUpdate({ markerPosition }) {
+        // check if position has changed
+        if (this.props.markerPosition !== markerPosition) {
+            this.marker.setLatLng(this.props.markerPosition);
+        }
+    }
+    handleClick = (e, id) => {
+
+        // sprawdzenie czy tablica ulubionych pobrana z firestore zawiera element
+        // przesłany z buttona, czyli w tym przypadku ID danego lokalu
+        if (this.props.favouritesTable.favourites.includes(e)) {
+            console.log('lokal już został zapisany')
+        } else {
+            this.setState({
+                favs: [...this.state.favs, e]
+            });
+            this.props.addFavourites(e, id);
+        }
+        // console.log(this.props.favs)
+        // this.props.addFavourites(e)
+    };
 }
 
 const mapStateToProps = (state) => {
