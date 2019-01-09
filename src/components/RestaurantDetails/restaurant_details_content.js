@@ -1,6 +1,7 @@
 import React from "react";
 import img from "../../images/img1.jpeg";
 
+
 const RestaurantDetailsContent = () => (
     <div className="container">
         <div className="tile is-ancestor">
@@ -29,7 +30,9 @@ const RestaurantDetailsContent = () => (
                     tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
             </div>
         </div>
+        
+
     </div>
-)
+    )
 
 export default RestaurantDetailsContent

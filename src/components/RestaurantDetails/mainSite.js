@@ -46,7 +46,7 @@ let myIcon = L.icon({
     shadowSize: [68, 95],
     shadowAnchor: [22, 94]
 });
-const H1 = styled.h1`
+const H1 = styled.h1 `
   color: ${({theme}) => theme.colors.$white};
   font-size: 3rem;
   font-weight: 300;
@@ -54,7 +54,7 @@ const H1 = styled.h1`
     font-size: 2rem;
   }
 `;
-const H2 = styled.h2`
+const H2 = styled.h2 `
   color: ${({theme}) => theme.colors.$primary};
   font-size: 2rem;
   @media (min-width: 320px) and (max-width: 480px) {
@@ -97,7 +97,7 @@ class MainSite extends Component {
         const position = [this.state.lat, this.state.lng];
         if (!auth.uid) return <Redirect to='/signin' />;
         if (!restaurant) return <Loading/>;
-        console.log(favouritesTable);
+        console.log(this.props.all)
         return (
             <div>
                 <HelloWraper>
@@ -110,26 +110,26 @@ class MainSite extends Component {
                         url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
                         />
 
-                        {this.props.restaurant.map(res => 
+                        {this.props.restaurant.map(restaurant => 
                             <Marker 
-                                position={[res.lat, res.lng]}
+                                position={[restaurant.lat, restaurant.lng]}
                                 icon={myIcon}
-                                key={res.id}
+                                key={restaurant.id}
                                 >
                                 <Popup>
                                 <MarkerWraper>
                                     <h2 className='subtitle'>
-                                        {res.title}
+                                        {restaurant.title}
                                     </h2>
                                     <div>
                                         <Link
-                                            to={{ pathname: `/restaurant/${res.id}`,
+                                            to={{ pathname: `/restaurant/${restaurant.id}`,
                                                 state: {
-                                                    res: res,
+                                                    res: restaurant,
                                                 }}}
                                         ><InfoIcon/></Link>
                                         {/*<a  className='button'><Favorite/></a>*/}
-                                        <FavIcon onClick={() => this.handleClick(res.id, auth.uid) }/>
+                                        <FavIcon onClick={() => this.handleClick(restaurant.id, auth.uid) }/>
                                     </div>
                                 </MarkerWraper>
                                 </Popup>
@@ -169,7 +169,8 @@ const mapStateToProps = (state) => {
         auth: state.firebase.auth,
         restaurant: state.firestore.ordered.restaurants,
         favourites: state.firebase.profile.favourites,
-        favouritesTable: state.firebase.profile
+        favouritesTable: state.firebase.profile,
+        all: state.firestore
     }
 };
 

@@ -36,6 +36,18 @@ const authReducer = (state = initState, action) => {
                 ...state,
                 authError: null
             }
+        case 'ADD_RATING':
+            console.log('rating succeed');
+            return {
+                ...state,
+                authError: null
+            };
+        case 'ADD_RATING_TO_USER_PROFILE':
+            console.log('rating successfuly added to user profile');
+            return {
+                ...state,
+                authError: null
+            };
         default:
             return state;
     }

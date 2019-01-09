@@ -74,6 +74,9 @@ class MainSite extends Component {
         }
     }
 
+    // Potrzebne przekierowanie do /main jeśli uzytkownik jest juz zalogowany
+
+
     render() {
         const { auth } = this.props;
         const position = [this.state.lat, this.state.lng];

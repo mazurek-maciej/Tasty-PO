@@ -1,11 +1,19 @@
-import React, {Component} from 'react'
+import React, {
+    Component
+} from 'react'
 import styled from 'styled-components'
-import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import {
+    connect
+} from 'react-redux'
+import {
+    Link
+} from 'react-router-dom'
 import SearchMenu from './search_menu'
 import SignedOutLinks from './signed-out-links'
 import SignedInLinks from './signed-in-links'
-import { Menu } from 'styled-icons/feather/Menu';
+import {
+    Menu
+} from 'styled-icons/feather/Menu';
 import '../index.scss'
 
 const Navbar = styled.div `
@@ -16,10 +24,10 @@ const Navbar = styled.div `
     background-color: #ed4263;
     position: sticky;
 `;
-const MenuButton = styled.a`
+const MenuButton = styled.a `
   margin: 1rem
-`;
-const LogoButton = styled.a`
+`
+const LogoButton = styled.a `
   font-size: 2rem;
   color: #282c34;
   font-weight: lighter;
@@ -28,16 +36,17 @@ const LogoButton = styled.a`
     color: #fff;
   }
 `;
-const ButtonsContainer = styled.div`
+const ButtonsContainer = styled.div `
   display: flex;
   justify-content: flex-end;
   align-items: center;
 `;
-const LogoContainer = styled.div`
+const LogoContainer = styled.div `
   display: flex;
   align-items: center;
 `;
-const MenuIcon = styled(Menu) `
+const MenuIcon = styled(Menu)
+`
     color: ${({theme}) => theme.colors.$white};
     width: 1rem;
     height: 1rem;
@@ -49,10 +58,10 @@ class Header extends Component {
         this.navToggle = React.createRef();
     }
     state = {
-        isSearchMenuActive: '',
+        isSearchMenuActive: ''
     };
     toggleMenu = () => {
-        if(this.state.isSearchMenuActive === '') {
+        if (this.state.isSearchMenuActive === '') {
             this.setState({
                 isSearchMenuActive: 'active',
             })
@@ -73,29 +82,47 @@ class Header extends Component {
     componentDidMount() {
         window.addEventListener('click', this.toggleOutsideClick)
     }
-    
+
     render() {
-        const { auth } = this.props;
-        const links = auth.uid ? <SignedInLinks/> : <SignedOutLinks/>;
+        const {
+            auth
+        } = this.props;
+        const links = auth.uid ? < SignedInLinks / > : < SignedOutLinks / > ;
         // console.log(this.state.bB)
-        return (
+        return ( 
             <div>
                 <Navbar>
-                        <LogoContainer className="column">
-                            <LogoButton as={Link} to="/main">Tasty PO</LogoButton>
-                        </LogoContainer>
-                        <ButtonsContainer className="column">
-                            <MenuButton className='button is-dark' ref={this.navToggle} onClick={this.toggleMenu}><MenuIcon/></MenuButton>
-                        </ButtonsContainer>
-                </Navbar>
-                <SearchMenu isSearchMenuActive={this.state.isSearchMenuActive} links={links}/>
+                    <LogoContainer className = "column" >
+                        <LogoButton as = {
+                            Link
+                        }
+                        to = "/main" > Tasty PO </LogoButton> 
+                    </LogoContainer> 
+                    <ButtonsContainer className = "column">
+                    <MenuButton className = 'button is-dark'
+                        ref = {
+                            this.navToggle
+                        }
+                        onClick = {
+                            this.toggleMenu
+                        }> 
+                    <MenuIcon/> 
+                    </MenuButton> 
+                    </ButtonsContainer> 
+                </Navbar> 
+                <SearchMenu isSearchMenuActive = {
+                    this.state.isSearchMenuActive
+                }
+                links = {
+                    links
+                }
+                /> 
             </div>
         )
     }
 }
 
 const mapStateToProps = (state) => {
-    // console.log(state);
     return {
         auth: state.firebase.auth
     }
