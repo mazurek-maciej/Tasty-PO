@@ -87,36 +87,27 @@ class Header extends Component {
         const {
             auth
         } = this.props;
-        const links = auth.uid ? < SignedInLinks / > : < SignedOutLinks / > ;
+        const links = auth.uid ? < SignedInLinks/> : < SignedOutLinks/> ;
         // console.log(this.state.bB)
-        return ( 
+        return (
             <div>
                 <Navbar>
-                    <LogoContainer className = "column" >
-                        <LogoButton as = {
-                            Link
-                        }
-                        to = "/main" > Tasty PO </LogoButton> 
-                    </LogoContainer> 
+                    <LogoContainer className = "column">
+                        <LogoButton as = {Link}
+                                    to ="/main"> Tasty PO </LogoButton>
+                    </LogoContainer>
                     <ButtonsContainer className = "column">
                     <MenuButton className = 'button is-dark'
-                        ref = {
-                            this.navToggle
-                        }
-                        onClick = {
-                            this.toggleMenu
-                        }> 
-                    <MenuIcon/> 
-                    </MenuButton> 
-                    </ButtonsContainer> 
-                </Navbar> 
-                <SearchMenu isSearchMenuActive = {
-                    this.state.isSearchMenuActive
-                }
-                links = {
-                    links
-                }
-                /> 
+                        ref = {this.navToggle}
+                        onClick = {this.toggleMenu}>
+                    <MenuIcon/>
+                    </MenuButton>
+                    </ButtonsContainer>
+                </Navbar>
+                <SearchMenu
+                  isSearchMenuActive = {this.state.isSearchMenuActive}
+                  links = {links}
+                />
             </div>
         )
     }

@@ -20,22 +20,20 @@ const PosedNav = posed.div({
 });
 
 const Wraper = styled(PosedNav)`
+  display: ${props => props.active ? 'block' : 'none'};
   position: absolute;
-  z-index: 99999;
-  height: 100vh;
-  width: 50%;
+  z-index: 99999999;
   right: 0;
-  justify-content: center;
-  align-content: center;
-  background-color: snow;
+  width: 20vw;
+  height: 90vh;
   border-bottom: 1px solid #363636;
 `;
 
 const LinksWraper = styled.div`
   display: flex;
   flex-direction: column;
+  z-index: 99999999;
   width: 100%;
-  height: 100%;
   padding: 1rem;
   align-items: center;
   background-color: #ed4263;
@@ -44,6 +42,7 @@ const LinksWraper = styled.div`
 
 const SearchMenu = ({ isSearchMenuActive, links }) => (
   <Wraper
+    active={isSearchMenuActive ? true: false}
     pose={isSearchMenuActive ? "visible" : "hidden"}
     className={isSearchMenuActive}
   >

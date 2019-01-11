@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import Layout from '../Layout/layout';
+import {Link, Redirect} from 'react-router-dom';
 
 // Baza danych / autentykacja
 import { compose } from 'redux';
@@ -20,11 +19,7 @@ import shadowIcon from 'leaflet/dist/images/marker-shadow.png';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 
-const MapContainer = styled.div `
-    height: 100vh;
-    width: 100vw;
-    background-color: ${({theme}) => theme.colors.$dark};
-`;
+
 const MarkerWraper = styled.div `
     display: flex;
     flex-direction: column;
@@ -74,14 +69,11 @@ class MainSite extends Component {
         }
     }
 
-    // Potrzebne przekierowanie do /main jeśli uzytkownik jest juz zalogowany
-
-
     render() {
         const { auth } = this.props;
         const position = [this.state.lat, this.state.lng];
+        if (auth.uid) return <Redirect to='/main' />;
         if (!this.props.restaurant) return <Loading/>;
-        console.log(auth);
         return (
             <div>
                 <HelloWraper>

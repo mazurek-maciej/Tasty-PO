@@ -38,13 +38,13 @@ const MarkerWraper = styled.div `
     align-items: center;
 `;
 let myIcon = L.icon({
-    iconUrl: icon,
-    iconSize: [30, 50],
-    iconAnchor: [15, 50],
-    popupAnchor: [0, -48],
-    shadowUrl: shadowIcon,
-    shadowSize: [68, 95],
-    shadowAnchor: [22, 94]
+  iconUrl: icon,
+  iconSize: [30, 50],
+  iconAnchor: [15, 50],
+  popupAnchor: [0, -48],
+  shadowUrl: shadowIcon,
+  shadowSize: [68, 95],
+  shadowAnchor: [22, 94]
 });
 const H1 = styled.h1 `
   color: ${({theme}) => theme.colors.$white};
@@ -82,108 +82,138 @@ const HelloWraper = styled.div`
   align-items: center;
 `;
 class MainSite extends Component {
-    state = {
-        lat: 50.674577,
-        lng: 17.918693,
-        zoom: 13,
-        title: '',
-        rating: 0,
-        favs: [],
-      };
-      
+  state = {
+    lat: 50.674577,
+    lng: 17.918693,
+    zoom: 15,
+    title: '',
+    rating: 0,
+    favs: [],
+    userLong: 0,
+    userLat: 0,
+    userGeoIsLoaded: false
+  };
 
-    render() {
-        const { auth, restaurant, favouritesTable } = this.props;
-        const position = [this.state.lat, this.state.lng];
-        if (!auth.uid) return <Redirect to='/signin' />;
-        if (!restaurant) return <Loading/>;
-        console.log(this.props.all)
-        return (
-            <div>
-                <HelloWraper>
-                    <H1>Witaj {favouritesTable.name} {favouritesTable.surname}!</H1>
-                    <H2>Znajdź swój ulubiony lokal</H2>
-                </HelloWraper>
-                    <Map style={{height: '60vh'}} center={position} zoom={this.state.zoom}>
-                        <TileLayer
-                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                        url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-                        />
 
-                        {this.props.restaurant.map(restaurant => 
-                            <Marker 
-                                position={[restaurant.lat, restaurant.lng]}
-                                icon={myIcon}
-                                key={restaurant.id}
-                                >
-                                <Popup>
-                                <MarkerWraper>
-                                    <h2 className='subtitle'>
-                                        {restaurant.title}
-                                    </h2>
-                                    <div>
-                                        <Link
-                                            to={{ pathname: `/restaurant/${restaurant.id}`,
-                                                state: {
-                                                    res: restaurant,
-                                                }}}
-                                        ><InfoIcon/></Link>
-                                        {/*<a  className='button'><Favorite/></a>*/}
-                                        <FavIcon onClick={() => this.handleClick(restaurant.id, auth.uid) }/>
-                                    </div>
-                                </MarkerWraper>
-                                </Popup>
-                            </Marker>
-                        )}
-                    </Map>
-            </div>
-        )
+  render() {
+    window.navigator.geolocation.getCurrentPosition(
+      position => {
+        this.setState({
+          userLat: position.coords.latitude,
+          userLong: position.coords.longitude,
+          userGeoIsLoaded: true
+        })
+      },
+      err => console.log(err),
+    );
+    const { auth, restaurant, favouritesTable } = this.props;
+    const { userLong, userLat, userGeoIsLoaded, lat, lng } = this.state;
+    const position = userLat ? [userLat, userLong] : [ lat, lng ];
+    if (!auth.uid) return <Redirect to='/signin' />;
+    if (!restaurant && !userGeoIsLoaded) return <Loading/>;
+    console.log(restaurant)
+    return (
+      <div>
+        <HelloWraper>
+          <H1>Witaj {favouritesTable.name} {favouritesTable.surname}!</H1>
+          <H2>Znajdź swój ulubiony lokal</H2>
+        </HelloWraper>
+        <Map style={{height: '60vh'}} center={position} zoom={this.state.zoom}>
+          <TileLayer
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+          />
+
+          {this.props.restaurant.map(restaurant =>
+            <Marker
+              position={[restaurant.lat, restaurant.lng]}
+              icon={myIcon}
+              key={restaurant.id}
+            >
+              <Popup>
+                <MarkerWraper>
+                  <h2 className='subtitle'>
+                    {restaurant.title}
+                  </h2>
+                  {this.calcRating(restaurant.rating, restaurant.ratingCount)}
+                  <div>
+                    <Link
+                      to={{ pathname: `/restaurant/${restaurant.id}`,
+                        state: {
+                          res: restaurant,
+                        }}}
+                    ><InfoIcon/></Link>
+                    {/*<a  className='button'><Favorite/></a>*/}
+                    <FavIcon onClick={() => this.handleClick(restaurant.id, auth.uid) }/>
+                  </div>
+                </MarkerWraper>
+              </Popup>
+            </Marker>
+          )}
+        </Map>
+      </div>
+    )
+  }
+  componentDidMount() {
+
+  }
+
+  componentDidUpdate({ markerPosition }) {
+    // check if position has changed
+    if (this.props.markerPosition !== markerPosition) {
+      this.marker.setLatLng(this.props.markerPosition);
     }
+  }
+  handleClick = (e, id) => {
 
-    componentDidUpdate({ markerPosition }) {
-        // check if position has changed
-        if (this.props.markerPosition !== markerPosition) {
-            this.marker.setLatLng(this.props.markerPosition);
-        }
+    // sprawdzenie czy tablica ulubionych pobrana z firestore zawiera element
+    // przesłany z buttona, czyli w tym przypadku ID danego lokalu
+    if (this.props.favouritesTable.favourites.includes(e)) {
+      console.log('lokal już został zapisany')
+    } else {
+      this.setState({
+        favs: [...this.state.favs, e]
+      });
+      this.props.addFavourites(e, id);
     }
-    handleClick = (e, id) => {
+    // console.log(this.props.favs)
+    // this.props.addFavourites(e)
+  };
+  calcRating = (rate, amount) => {
+    if (!rate && !amount) {
+      return (
+        <p style={{margin: 0}}>Nie oceniono</p>
+      )
+    }
+    const calculation = rate / amount;
+    return (
+      <p style={{margin: 0}}>{parseInt(calculation)}</p>
+    )
+  }
 
-        // sprawdzenie czy tablica ulubionych pobrana z firestore zawiera element
-        // przesłany z buttona, czyli w tym przypadku ID danego lokalu
-        if (this.props.favouritesTable.favourites.includes(e)) {
-            console.log('lokal już został zapisany')
-        } else {
-            this.setState({
-                favs: [...this.state.favs, e]
-            });
-            this.props.addFavourites(e, id);
-        }
-        // console.log(this.props.favs)
-        // this.props.addFavourites(e)
-    };
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
-    return {
-        auth: state.firebase.auth,
-        restaurant: state.firestore.ordered.restaurants,
-        favourites: state.firebase.profile.favourites,
-        favouritesTable: state.firebase.profile,
-        all: state.firestore
-    }
+  console.log(state);
+  return {
+    auth: state.firebase.auth,
+    restaurant: state.firestore.ordered.restaurants,
+    favourites: state.firebase.profile.favourites,
+    favouritesTable: state.firebase.profile,
+    all: state.firestore
+  }
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-        getRestaurants: (restaurant) => dispatch(getRestaurants(restaurant)),
-        addFavourites: (fav, id) => dispatch(addFavourites(fav, id))
-    }
+  return {
+    getRestaurants: (restaurant) => dispatch(getRestaurants(restaurant)),
+    addFavourites: (fav, id) => dispatch(addFavourites(fav, id))
+  }
 };
 
 export default compose(
-    connect(mapStateToProps, mapDispatchToProps),
-    firestoreConnect([
-        { collection: 'restaurants' }
-    ])
-    )(MainSite)
+  connect(mapStateToProps, mapDispatchToProps),
+  firestoreConnect([
+    { collection: 'restaurants' }
+  ])
+)(MainSite)
