@@ -9,26 +9,46 @@ import img from "../../images/img1.jpeg";
 import Loading from '../Loading'
 import { addRatingToRestaurant } from "../../store/actions/addRatingToRestaurant";
 import { addRatingToUserProfile } from "../../store/actions/addRatingToUserProfile";
+import {ArrowLeft} from 'styled-icons/feather/ArrowLeft'
 
 const RestaurantWraper = styled.div`
   width: 100vw;
-  height: 80vh;
-`;
-const Wraper = styled.div `
-    width: 100vw;
-    display: ${props => props.disp ? 'flex' : 'none'};
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
 `;
 const RatingWraper = styled.div `
     display: flex;
     flex-direction: column;
     max-width: 900px;
     text-align: center;
+    padding-bottom: 2rem;
     * > h2 {
         font-size: 3rem;
         color: ${({theme}) => theme.colors.$white};
     }
+    @media (min-width: 320px) and (max-width: 480px) {
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+`;
+const BackButton = styled(Link)`
+  padding: 1rem;
+  text-align: center;
+`;
+const ALeft = styled(ArrowLeft)`
+  color: ${({theme}) => theme.colors.$white};
+  width: 2rem;
+  transition: all .2s;
+  :hover {
+    transform: translateX(-20%);
+  }
+`;
+const Wraper = styled.div `
+    width: 100vw;
+    display: ${props => props.disp ? 'flex' : 'none'};
+    justify-content: center;
+    align-items: center;
 `;
 const RatingStar = styled.button `
     flex: 1;
@@ -47,6 +67,10 @@ const RatingStar = styled.button `
     };
     :active {
         box-shadow: 0 0 20px 0 rgba(0,0,0, .8);
+    }
+    @media (min-width: 320px) and (max-width: 480px) {
+      font-size: 1rem;
+      padding: 10px 15px;
     }
 `;
 const PosedPopUp = posed.div({
@@ -121,8 +145,10 @@ class RestaurantDetails extends Component {
       </PopUp>
 
       <RestaurantWraper>
-        <div className='container'>
-          <Link className='button is-dark' to='/main'><ion-icon name="arrow-back"></ion-icon>Powrót</Link>
+        <div className='section'>
+          <div>
+            <BackButton to='/main'><ALeft/></BackButton>
+          </div>
           {/*<button onClick={() => this.handleClick(place.id, id) } className='button'>Fav</button>*/}
           <div className="tile is-ancestor">
             <div className="tile is-vertical ">

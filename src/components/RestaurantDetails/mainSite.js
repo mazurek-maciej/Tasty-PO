@@ -66,12 +66,20 @@ const FavIcon = styled(Favorite)`
   height: 3rem;
   color: ${({theme}) => theme.colors.$primary};
   cursor: pointer;
+  transition: all .2s;
+  :hover {
+    transform: scale(1.1);
+  }
 `;
 const InfoIcon = styled(Info)`
   width: 3rem;
   height: 3rem;
   color: ${({theme}) => theme.colors.$dark};
   cursor: pointer;
+  transition: all .2s;
+  :hover {
+    transform: scale(1.1);
+  }
 `;
 const HelloWraper = styled.div`
   width: 100vw;
