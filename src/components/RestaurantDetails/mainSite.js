@@ -1,41 +1,39 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Redirect } from 'react-router-dom';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 // Baza danych / autentykacja
-import { compose } from 'redux';
-import { connect } from 'react-redux';
-import { firestoreConnect } from 'react-redux-firebase';
-import { getRestaurants } from '../../store/actions/restuarantActions';
+import { compose } from "redux";
+import { connect } from "react-redux";
+import { firestoreConnect } from "react-redux-firebase";
+import { getRestaurants } from "../../store/actions/restuarantActions";
 import { addFavourites } from "../../store/actions/addFavouritesAction";
 
 // Style
-import styled from 'styled-components';
-import Loading from '../Loading';
-import {Favorite} from 'styled-icons/material/Favorite';
-import {Info} from 'styled-icons/material/Info';
+import styled from "styled-components";
+import Loading from "../Loading";
+import { Favorite } from "styled-icons/material/Favorite";
+import { Info } from "styled-icons/material/Info";
 
 // Mapa
-import 'leaflet/dist/leaflet.css';
-import icon from 'leaflet/dist/images/marker-icon.png';
-import shadowIcon from 'leaflet/dist/images/marker-shadow.png';
-import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
-import L from 'leaflet';
-import { ReactLeafletSearch } from 'react-leaflet-search'
-import '../../../node_modules/react-leaflet-search/lib/react-leaflet-search.css'
+import "leaflet/dist/leaflet.css";
+import icon from "leaflet/dist/images/marker-icon.png";
+import shadowIcon from "leaflet/dist/images/marker-shadow.png";
+import { Map, TileLayer, Marker, Popup } from "react-leaflet";
+import L from "leaflet";
+import { ReactLeafletSearch } from "react-leaflet-search";
+import "../../../node_modules/react-leaflet-search/lib/react-leaflet-search.css";
 
-
-const MapContainer = styled.div `
-    width: 100vw;
-    height: 60vh;
-    background-color: ${({theme}) => theme.colors.$dark};
-    
+const MapContainer = styled.div`
+  width: 100vw;
+  height: 60vh;
+  background-color: ${({ theme }) => theme.colors.$dark};
 `;
-const MarkerWraper = styled.div `
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
+const MarkerWraper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
 `;
 let myIcon = L.icon({
   iconUrl: icon,
@@ -46,16 +44,16 @@ let myIcon = L.icon({
   shadowSize: [68, 95],
   shadowAnchor: [22, 94]
 });
-const H1 = styled.h1 `
-  color: ${({theme}) => theme.colors.$white};
+const H1 = styled.h1`
+  color: ${({ theme }) => theme.colors.$white};
   font-size: 3rem;
   font-weight: 300;
   @media (min-width: 320px) and (max-width: 480px) {
     font-size: 2rem;
   }
 `;
-const H2 = styled.h2 `
-  color: ${({theme}) => theme.colors.$primary};
+const H2 = styled.h2`
+  color: ${({ theme }) => theme.colors.$primary};
   font-size: 2rem;
   @media (min-width: 320px) and (max-width: 480px) {
     font-size: 1rem;
@@ -64,9 +62,9 @@ const H2 = styled.h2 `
 const FavIcon = styled(Favorite)`
   width: 3rem;
   height: 3rem;
-  color: ${({theme}) => theme.colors.$primary};
+  color: ${({ theme }) => theme.colors.$primary};
   cursor: pointer;
-  transition: all .2s;
+  transition: all 0.2s;
   :hover {
     transform: scale(1.1);
   }
@@ -74,9 +72,9 @@ const FavIcon = styled(Favorite)`
 const InfoIcon = styled(Info)`
   width: 3rem;
   height: 3rem;
-  color: ${({theme}) => theme.colors.$dark};
+  color: ${({ theme }) => theme.colors.$dark};
   cursor: pointer;
-  transition: all .2s;
+  transition: all 0.2s;
   :hover {
     transform: scale(1.1);
   }
@@ -93,15 +91,14 @@ class MainSite extends Component {
   state = {
     lat: 50.674577,
     lng: 17.918693,
-    zoom: 15,
-    title: '',
+    zoom: 16,
+    title: "",
     rating: 0,
     favs: [],
     userLong: 0,
     userLat: 0,
     userGeoIsLoaded: false
   };
-
 
   render() {
     window.navigator.geolocation.getCurrentPosition(
@@ -110,29 +107,35 @@ class MainSite extends Component {
           userLat: position.coords.latitude,
           userLong: position.coords.longitude,
           userGeoIsLoaded: true
-        })
+        });
       },
-      err => console.log(err),
+      err => console.log(err)
     );
     const { auth, restaurant, favouritesTable } = this.props;
     const { userLong, userLat, userGeoIsLoaded, lat, lng } = this.state;
-    const position = userLat ? [userLat, userLong] : [ lat, lng ];
-    if (!auth.uid) return <Redirect to='/signin' />;
-    if (!restaurant && !userGeoIsLoaded) return <Loading/>;
-    console.log(restaurant)
+    const position = userLat ? [userLat, userLong] : [lat, lng];
+    if (!auth.uid) return <Redirect to="/signin" />;
+    if (!restaurant && !userGeoIsLoaded) return <Loading />;
+    console.log(restaurant);
     return (
       <div>
         <HelloWraper>
-          <H1>Witaj {favouritesTable.name} {favouritesTable.surname}!</H1>
+          <H1>
+            Witaj {favouritesTable.name} {favouritesTable.surname}!
+          </H1>
           <H2>Znajdź swój ulubiony lokal</H2>
         </HelloWraper>
-        <Map style={{height: '60vh'}} center={position} zoom={this.state.zoom}>
+        <Map
+          style={{ height: "60vh" }}
+          center={position}
+          zoom={this.state.zoom}
+        >
           <TileLayer
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+            url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
           />
 
-          {this.props.restaurant.map(restaurant =>
+          {this.props.restaurant.map(restaurant => (
             <Marker
               position={[restaurant.lat, restaurant.lng]}
               icon={myIcon}
@@ -140,31 +143,33 @@ class MainSite extends Component {
             >
               <Popup>
                 <MarkerWraper>
-                  <h2 className='subtitle'>
-                    {restaurant.title}
-                  </h2>
+                  <h2 className="subtitle">{restaurant.title}</h2>
                   {this.calcRating(restaurant.rating, restaurant.ratingCount)}
                   <div>
                     <Link
-                      to={{ pathname: `/restaurant/${restaurant.id}`,
+                      to={{
+                        pathname: `/restaurant/${restaurant.id}`,
                         state: {
-                          res: restaurant,
-                        }}}
-                    ><InfoIcon/></Link>
+                          res: restaurant
+                        }
+                      }}
+                    >
+                      <InfoIcon />
+                    </Link>
                     {/*<a  className='button'><Favorite/></a>*/}
-                    <FavIcon onClick={() => this.handleClick(restaurant.id, auth.uid) }/>
+                    <FavIcon
+                      onClick={() => this.handleClick(restaurant.id, auth.uid)}
+                    />
                   </div>
                 </MarkerWraper>
               </Popup>
             </Marker>
-          )}
+          ))}
         </Map>
       </div>
-    )
+    );
   }
-  componentDidMount() {
-
-  }
+  componentDidMount() {}
 
   componentDidUpdate({ markerPosition }) {
     // check if position has changed
@@ -173,11 +178,10 @@ class MainSite extends Component {
     }
   }
   handleClick = (e, id) => {
-
     // sprawdzenie czy tablica ulubionych pobrana z firestore zawiera element
     // przesłany z buttona, czyli w tym przypadku ID danego lokalu
     if (this.props.favouritesTable.favourites.includes(e)) {
-      console.log('lokal już został zapisany')
+      console.log("lokal już został zapisany");
     } else {
       this.setState({
         favs: [...this.state.favs, e]
@@ -189,19 +193,16 @@ class MainSite extends Component {
   };
   calcRating = (rate, amount) => {
     if (!rate && !amount) {
-      return (
-        <p style={{margin: 0}}>Nie oceniono</p>
-      )
+      return <p style={{ margin: 0 }}>Nie oceniono</p>;
+    } else if (rate === 0 && amount === 0) {
+      return <p style={{ margin: 0 }}>Nie oceniono</p>;
     }
     const calculation = rate / amount;
-    return (
-      <p style={{margin: 0}}>{parseInt(calculation)}</p>
-    )
-  }
-
+    return <p style={{ margin: 0 }}>{parseInt(calculation)}</p>;
+  };
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   console.log(state);
   return {
     auth: state.firebase.auth,
@@ -209,19 +210,20 @@ const mapStateToProps = (state) => {
     favourites: state.firebase.profile.favourites,
     favouritesTable: state.firebase.profile,
     all: state.firestore
-  }
+  };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    getRestaurants: (restaurant) => dispatch(getRestaurants(restaurant)),
+    getRestaurants: restaurant => dispatch(getRestaurants(restaurant)),
     addFavourites: (fav, id) => dispatch(addFavourites(fav, id))
-  }
+  };
 };
 
 export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  firestoreConnect([
-    { collection: 'restaurants' }
-  ])
-)(MainSite)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
+  firestoreConnect([{ collection: "restaurants" }])
+)(MainSite);

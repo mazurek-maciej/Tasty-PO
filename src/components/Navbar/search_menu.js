@@ -24,7 +24,7 @@ const Wraper = styled(PosedNav)`
   position: absolute;
   z-index: 99999999;
   right: 0;
-  width: 20vw;
+  width: 30vw;
   height: 90vh;
   border-bottom: 1px solid #363636;
 `;

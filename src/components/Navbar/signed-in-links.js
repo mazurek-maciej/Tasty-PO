@@ -19,6 +19,7 @@ const LinksWraper = styled.ul`
 const SignedInLinks = (props) => (
     <LinksWraper>
         <MenuButton className='button is-dark'><Link to={`/favourites`}>Ulubione</Link></MenuButton>
+        <MenuButton className='button is-dark'><Link to={`/profile`}>Profil</Link></MenuButton>
         <MenuButton onClick={props.signOut} className='button is-dark'>Wyloguj się</MenuButton>
     </LinksWraper>
 );

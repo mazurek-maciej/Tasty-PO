@@ -28,6 +28,13 @@ const FavouriteWraper = styled.div`
   @media (min-width: 320px) and (max-width: 480px) {
     padding: .5rem 0 .5rem 0;
   }
+  :after {
+    content: '';
+    padding: 2px;
+    margin: 1rem 0;
+    border-radius: 20px;
+    background-color: ${({theme}) => theme.colors.$white};
+  }
 `;
 const H1 = styled.h1`
   color: ${({theme}) => theme.colors.$white};
