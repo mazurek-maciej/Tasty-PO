@@ -1,32 +1,35 @@
-import React from "react";
-import styled from "styled-components";
-import posed from "react-pose";
+import React from 'react';
+import styled from 'styled-components';
+import posed from 'react-pose';
 
 const PosedNav = posed.div({
   visible: {
     opacity: 1,
     x: 0,
     transition: {
-      opacity: { ease: "easeIn", duration: 300 }
-    }
+      opacity: {ease: 'easeIn', duration: 300},
+    },
   },
   hidden: {
     opacity: 0,
-    x: "100%",
+    x: '100%',
     transition: {
-      opacity: { ease: "easeOut", duration: 300 }
-    }
-  }
+      opacity: {ease: 'easeOut', duration: 300},
+    },
+  },
 });
 
 const Wraper = styled(PosedNav)`
-  display: ${props => props.active ? 'block' : 'none'};
+  display: ${props => (props.active ? 'block' : 'none')};
   position: absolute;
   z-index: 99999999;
   right: 0;
   width: 30vw;
   height: 90vh;
   border-bottom: 1px solid #363636;
+  @media (min-width: 320px) and (max-width: 480px) {
+    width: 40vw;
+  }
 `;
 
 const LinksWraper = styled.div`
@@ -40,10 +43,10 @@ const LinksWraper = styled.div`
   border-left: 1px solid #363636;
 `;
 
-const SearchMenu = ({ isSearchMenuActive, links }) => (
+const SearchMenu = ({isSearchMenuActive, links}) => (
   <Wraper
-    active={isSearchMenuActive ? true: false}
-    pose={isSearchMenuActive ? "visible" : "hidden"}
+    active={isSearchMenuActive ? true : false}
+    pose={isSearchMenuActive ? 'visible' : 'hidden'}
     className={isSearchMenuActive}
   >
     <LinksWraper>{links}</LinksWraper>

@@ -187,6 +187,7 @@ class MainSite extends Component {
         favs: [...this.state.favs, e]
       });
       this.props.addFavourites(e, id);
+      console.log("a")
     }
     // console.log(this.props.favs)
     // this.props.addFavourites(e)

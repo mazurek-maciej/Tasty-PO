@@ -1,15 +1,16 @@
-import React, { Component } from "react";
-import styled from "styled-components";
-import posed from "react-pose";
-import { Link } from "react-router-dom";
-import { compose } from "redux";
-import { connect } from "react-redux";
-import { firestoreConnect } from "react-redux-firebase";
-import img from "../../images/img1.jpeg";
-import Loading from "../Loading";
-import { addRatingToRestaurant } from "../../store/actions/addRatingToRestaurant";
-import { addRatingToUserProfile } from "../../store/actions/addRatingToUserProfile";
-import { ArrowLeft } from "styled-icons/feather/ArrowLeft";
+import React, {Component} from 'react';
+import styled from 'styled-components';
+import posed from 'react-pose';
+import {Link} from 'react-router-dom';
+import {compose} from 'redux';
+import {connect} from 'react-redux';
+import {firestoreConnect} from 'react-redux-firebase';
+import CommentForm from './commentForm';
+import img from '../../images/img1.jpeg';
+import Loading from '../Loading';
+import {addRatingToRestaurant} from '../../store/actions/addRatingToRestaurant';
+import {addRatingToUserProfile} from '../../store/actions/addRatingToUserProfile';
+import {ArrowLeft} from 'styled-icons/feather/ArrowLeft';
 
 const AllWraper = styled.div`
   height: fit-content;
@@ -31,7 +32,7 @@ const RatingWraper = styled.div`
   padding-bottom: 2rem;
   * > h2 {
     font-size: 2rem;
-    color: ${({ theme }) => theme.colors.$white};
+    color: ${({theme}) => theme.colors.$white};
   }
   @media (min-width: 320px) and (max-width: 480px) {
     h2 {
@@ -44,7 +45,7 @@ const BackButton = styled(Link)`
   text-align: center;
 `;
 const ALeft = styled(ArrowLeft)`
-  color: ${({ theme }) => theme.colors.$white};
+  color: ${({theme}) => theme.colors.$white};
   width: 2rem;
   transition: all 0.2s;
   :hover {
@@ -53,7 +54,7 @@ const ALeft = styled(ArrowLeft)`
 `;
 const Wraper = styled.div`
   width: 100vw;
-  display: ${props => (props.disp ? "flex" : "none")};
+  display: ${props => (props.disp ? 'flex' : 'none')};
   justify-content: center;
   align-items: center;
 `;
@@ -61,16 +62,16 @@ const RatingStar = styled.button`
   flex: 1;
   margin: 1rem;
   padding: 20px 30px;
-  border: 1px solid ${({ theme }) => theme.colors.$primary};
-  color: ${({ theme }) => theme.colors.$white};
+  border: 1px solid ${({theme}) => theme.colors.$primary};
+  color: ${({theme}) => theme.colors.$white};
   font-size: 2rem;
   border-radius: 100%;
   background: transparent;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.4);
   transition: all 0.2s;
   :hover {
-    background-color: ${({ theme }) => theme.colors.$primary};
-    color: ${({ theme }) => theme.colors.$dark};
+    background-color: ${({theme}) => theme.colors.$primary};
+    color: ${({theme}) => theme.colors.$dark};
   }
   :active {
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.8);
@@ -82,14 +83,14 @@ const RatingStar = styled.button`
 `;
 const PosedPopUp = posed.div({
   visible: {
-    opacity: 1
+    opacity: 1,
   },
   hidden: {
-    opacity: 0
-  }
+    opacity: 0,
+  },
 });
 const PopUp = styled(PosedPopUp)`
-  display: ${props => (props.pop ? "flex" : "none")};
+  display: ${props => (props.pop ? 'flex' : 'none')};
   height: 90vh;
   width: 100vw;
   z-index: 999999;
@@ -97,7 +98,7 @@ const PopUp = styled(PosedPopUp)`
   align-items: center;
   position: absolute;
   font-size: 2.5rem;
-  color: ${({ theme }) => theme.colors.$white};
+  color: ${({theme}) => theme.colors.$white};
   background-color: rgba(0, 0, 0, 0.8);
 `;
 const PopUpWraper = styled.div`
@@ -111,7 +112,7 @@ const PopUpWraper = styled.div`
   }
 `;
 const H1 = styled.h1`
-  color: ${({ theme }) => theme.colors.$white};
+  color: ${({theme}) => theme.colors.$white};
   font-size: 3rem;
   text-align: center;
 `;
@@ -119,19 +120,22 @@ const RestaurantImage = styled.img`
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.4);
 `;
 const InfoWraper = styled.div`
-  color: ${({ theme }) => theme.colors.$white};
+  color: ${({theme}) => theme.colors.$white};
   font-size: 1.5rem;
   margin-top: 1rem;
   p,
   a {
-    color: ${({ theme }) => theme.colors.$primary};
+    color: ${({theme}) => theme.colors.$primary};
     margin: 0 0 4px 1rem;
   }
   h2 {
     display: flex;
     a:hover {
-      color: ${({ theme }) => theme.colors.$white};
+      color: ${({theme}) => theme.colors.$white};
     }
+  }
+  @media (min-width: 320px) and (max-width: 480px) {
+    font-size: 1rem;
   }
 `;
 
@@ -139,15 +143,15 @@ class RestaurantDetails extends Component {
   constructor(props) {
     super(props);
     this.checkIfUserRateThisLocation = this.checkIfUserRateThisLocation.bind(
-      this
+      this,
     );
     this.handleRatingClick = this.handleRatingClick.bind(this);
     this.handlePopUp = this.handlePopUp.bind(this);
     this.state = {
-      active: "",
+      active: '',
       favs: 0,
       activeRatings: false,
-      popUp: false
+      popUp: false,
     };
   }
 
@@ -156,8 +160,8 @@ class RestaurantDetails extends Component {
   }
 
   render() {
-    const { auth, restaurant, favourites, location, profile } = this.props;
-    const { activeRatings, popUp } = this.state;
+    const {auth, restaurant, favourites, location, profile} = this.props;
+    const {activeRatings, popUp} = this.state;
 
     if (!location.state) return <Loading />;
     if (!restaurant) return <Loading />;
@@ -166,14 +170,14 @@ class RestaurantDetails extends Component {
 
     const place = this.props.location.state.res;
     const restaurantIdFromUserProfile = profile.userRatings.find(
-      id => id === location.state.res.id
+      id => id === location.state.res.id,
     );
     console.log(restaurantIdFromUserProfile);
     console.log(place);
 
     return (
       <>
-        <PopUp pose={popUp ? "visible" : "hidden"} pop={popUp}>
+        <PopUp pose={popUp ? 'visible' : 'hidden'} pop={popUp}>
           <PopUpWraper>
             <h2>Dziękujemy za ocenę</h2>
             <button onClick={this.handlePopUp} className="button is-danger">
@@ -201,16 +205,16 @@ class RestaurantDetails extends Component {
                   Telefon: <p>{place.phone}</p>
                 </h2>
                 <h2>
-                  Możliwość przyjścia z psem: <p>{place.dog ? "Tak" : "Nie"}</p>
+                  Możliwość przyjścia z psem: <p>{place.dog ? 'Tak' : 'Nie'}</p>
                 </h2>
                 <h2>
-                  Zniżki studenckie: <p>{place.discount ? "Tak" : "Nie"}</p>
+                  Zniżki studenckie: <p>{place.discount ? 'Tak' : 'Nie'}</p>
                 </h2>
                 <h2>
-                  Dowóz: <p>{place.delivery ? "Tak" : "Nie"}</p>
+                  Dowóz: <p>{place.delivery ? 'Tak' : 'Nie'}</p>
                 </h2>
                 <h2>
-                  Strona internetowa:{" "}
+                  Strona internetowa:{' '}
                   <a a href={place.website}>
                     {place.title}
                   </a>
@@ -267,6 +271,7 @@ class RestaurantDetails extends Component {
               </RatingWraper>
             </Wraper>
           </RestaurantWraper>
+          <CommentForm restId={place.id} />
         </AllWraper>
       </>
     );
@@ -290,20 +295,20 @@ class RestaurantDetails extends Component {
     if (this.props.profile) {
       const restId = this.props.location.state.res.id;
       const restaurantIdFromUserProfile = this.props.profile.userRatings.find(
-        id => id === restId
+        id => id === restId,
       );
       if (!restaurantIdFromUserProfile) {
-        this.setState({ activeRatings: true });
+        this.setState({activeRatings: true});
       }
     }
   }
 
   handlePopUp() {
-    this.setState(prevState => ({ popUp: !prevState.popUp }));
+    this.setState(prevState => ({popUp: !prevState.popUp}));
   }
 
   handleState = () => {
-    this.setState({ active: "active" });
+    this.setState({active: 'active'});
   };
 }
 
@@ -314,7 +319,7 @@ const mapStateToProps = state => {
     restaurant: state.firestore.ordered.restaurants,
     favourites: state.firebase.profile.favourites,
     ratesFromProfile: state.firebase.profile.userRatings,
-    profile: state.firebase.profile
+    profile: state.firebase.profile,
   };
 };
 
@@ -323,14 +328,14 @@ const mapDispatchToProps = dispatch => {
     addRatingToRestaurant: (rate, count, id) =>
       dispatch(addRatingToRestaurant(rate, count, id)),
     addRatingToUserProfile: (restaurantId, userId) =>
-      dispatch(addRatingToUserProfile(restaurantId, userId))
+      dispatch(addRatingToUserProfile(restaurantId, userId)),
   };
 };
 
 export default compose(
   connect(
     mapStateToProps,
-    mapDispatchToProps
+    mapDispatchToProps,
   ),
-  firestoreConnect([{ collection: "restaurants" }])
+  firestoreConnect([{collection: 'restaurants'}]),
 )(RestaurantDetails);
