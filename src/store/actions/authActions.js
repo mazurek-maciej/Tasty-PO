@@ -43,6 +43,7 @@ export const signUp = newUser => {
             name: newUser.name,
             surname: newUser.surname,
             favourites: [],
+            userRatings: [],
           });
       })
       .then(() => {
