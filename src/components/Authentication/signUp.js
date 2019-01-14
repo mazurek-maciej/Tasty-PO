@@ -1,24 +1,25 @@
-import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
-import { connect } from "react-redux";
-import { signUp } from "../../store/actions/authActions";
-import Layout from "../Layout/layout";
-import styled from "styled-components";
+import React, {Component} from 'react';
+import {Redirect} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {signUp} from '../../store/actions/authActions';
+import Layout from '../Layout/layout';
+import styled from 'styled-components';
 
 const Wraper = styled.div`
   width: 100vw;
   height: 80vh;
-  h3, label {
-    color: ${({ theme }) => theme.colors.$white};
+  h3,
+  label {
+    color: ${({theme}) => theme.colors.$white};
   }
 `;
 
 class SignUp extends Component {
   state = {
-    email: "",
-    password: "",
-    name: "",
-    surname: ""
+    email: '',
+    password: '',
+    name: '',
+    surname: '',
   };
   handleSubmit = e => {
     e.preventDefault();
@@ -26,14 +27,13 @@ class SignUp extends Component {
   };
   handleChange = e => {
     this.setState({
-      [e.target.id]: e.target.value
+      [e.target.id]: e.target.value,
     });
   };
 
   render() {
-    const { auth } = this.props;
+    const {auth} = this.props;
     if (auth.uid) return <Redirect to="/main" />;
-
     return (
       <Layout>
         <Wraper>
@@ -51,10 +51,10 @@ class SignUp extends Component {
                         className="input"
                         type="text"
                         id="name"
-                        placeholder='Podaj swoje imię'
                         onChange={this.handleChange}
                       />
                     </div>
+
                     <div className="field">
                       <label className="label" htmlFor="password">
                         Nazwisko
@@ -63,10 +63,10 @@ class SignUp extends Component {
                         className="input"
                         type="text"
                         id="surname"
-                        placeholder='Podaj swoje nazwisko'
                         onChange={this.handleChange}
                       />
                     </div>
+
                     <div className="field">
                       <label className="label" htmlFor="email">
                         Email
@@ -75,10 +75,11 @@ class SignUp extends Component {
                         className="input"
                         type="email"
                         id="email"
-                        placeholder='Podaj swój email'
+                        placeholder="Podaj poprawny adres email"
                         onChange={this.handleChange}
                       />
                     </div>
+
                     <div className="field">
                       <label className="label" htmlFor="password">
                         Hasło
@@ -87,7 +88,7 @@ class SignUp extends Component {
                         className="input"
                         type="password"
                         id="password"
-                        placeholder='Podaj swoje hasło'
+                        placeholder="Hasło musi mieć conajmniej 6 znaków"
                         onChange={this.handleChange}
                       />
                     </div>
@@ -107,17 +108,17 @@ class SignUp extends Component {
 
 const mapStateToProps = state => {
   return {
-    auth: state.firebase.auth
+    auth: state.firebase.auth,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    signUp: newUser => dispatch(signUp(newUser))
+    signUp: newUser => dispatch(signUp(newUser)),
   };
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(SignUp);

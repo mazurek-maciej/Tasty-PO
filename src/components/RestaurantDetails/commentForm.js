@@ -27,7 +27,6 @@ const Comment = styled.div`
   padding: 1rem;
   margin: 0.5rem;
   box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.3);
-  border-radius: 5px;
   @media (min-width: 320px) and (max-width: 480px) {
     width: 200px;
   }
