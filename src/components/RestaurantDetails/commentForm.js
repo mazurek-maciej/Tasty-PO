@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import Loading from '../Loading';
 
 const Wraper = styled.div`
-  display: flex;
+  display: ${props => (props.disp ? 'flex' : 'none')};
   justify-content: center;
   width: 100%;
   color: ${({theme}) => theme.colors.$white};
@@ -49,15 +49,15 @@ class CommentForm extends React.Component {
     restaurantId: '',
   };
   render() {
-    const {store, restId} = this.props;
+    const {store, restId, disp} = this.props;
     if (!store.comments) return <Loading />;
     if (!store.comments) return <Loading />;
     const searchForComments = store.comments.filter(
       com => com.restaurantId === restId,
     );
-    console.log(searchForComments);
+    console.log(this.props);
     return (
-      <Wraper>
+      <Wraper disp={disp}>
         <div className="section">
           <div className="container">
             <div className="columns is-centered">
@@ -70,6 +70,7 @@ class CommentForm extends React.Component {
                       type="text"
                       id="name"
                       placeholder="Podaj swoje imię"
+                      value={this.state.name}
                       onChange={this.handleChange}
                     />
                   </div>
@@ -79,6 +80,7 @@ class CommentForm extends React.Component {
                       placeholder="Wprowadź swoją opinię"
                       id="comment"
                       type="text"
+                      value={this.state.comment}
                       onChange={this.handleChange}
                     />
                   </div>
@@ -109,6 +111,10 @@ class CommentForm extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
     this.props.addComment(this.state);
+    this.setState({
+      name: '',
+      comment: '',
+    });
   };
   handleChange = e => {
     const userId = this.props.auth.uid;

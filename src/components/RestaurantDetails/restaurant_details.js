@@ -156,7 +156,9 @@ class RestaurantDetails extends Component {
   }
 
   componentDidMount() {
-    setTimeout(this.checkIfUserRateThisLocation, 800);
+    if (this.props.profile.userRatings) {
+      setTimeout(this.checkIfUserRateThisLocation, 800);
+    }
   }
 
   render() {
@@ -166,14 +168,13 @@ class RestaurantDetails extends Component {
     if (!location.state) return <Loading />;
     if (!restaurant) return <Loading />;
     if (!profile) return <Loading />;
-    if (!auth.uid) return this.handleState();
+    // if (!auth.uid) return this.handleState();
 
     const place = this.props.location.state.res;
-    const restaurantIdFromUserProfile = profile.userRatings.find(
-      id => id === location.state.res.id,
-    );
-    console.log(restaurantIdFromUserProfile);
-    console.log(place);
+    const restaurantIdFromUserProfile = profile.userRatings
+      ? profile.userRatings.find(id => id === location.state.res.id)
+      : false;
+    console.log(activeRatings);
 
     return (
       <>
@@ -189,7 +190,7 @@ class RestaurantDetails extends Component {
           <RestaurantWraper>
             <div className="section">
               <div>
-                <BackButton to="/main">
+                <BackButton to="/">
                   <ALeft />
                 </BackButton>
               </div>
@@ -222,7 +223,7 @@ class RestaurantDetails extends Component {
               </InfoWraper>
             </div>
 
-            <Wraper disp={!restaurantIdFromUserProfile}>
+            <Wraper disp={activeRatings}>
               <RatingWraper>
                 <div>
                   <h2>Jak oceniasz tą restauracje?</h2>
@@ -271,7 +272,7 @@ class RestaurantDetails extends Component {
               </RatingWraper>
             </Wraper>
           </RestaurantWraper>
-          <CommentForm restId={place.id} />
+          <CommentForm disp={auth.uid} restId={place.id} />
         </AllWraper>
       </>
     );
