@@ -71,7 +71,7 @@ const RatingStar = styled.button`
   transition: all 0.2s;
   cursor: pointer;
   :hover {
-    background-color: #ff663d;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.6);
     color: ${({theme}) => theme.colors.$dark};
   }
   :active {
