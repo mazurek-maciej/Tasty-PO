@@ -45,7 +45,6 @@ let myIcon = L.icon({
   shadowAnchor: [22, 94],
 });
 const H1 = styled.h1`
-  color: ${({theme}) => theme.colors.$white};
   font-size: 3rem;
   font-weight: 300;
   @media (min-width: 320px) and (max-width: 480px) {
@@ -78,6 +77,17 @@ const InfoIcon = styled(Info)`
   :hover {
     transform: scale(1.1);
   }
+`;
+const PopUpTitle = styled.span`
+  font-size: 1.2rem;
+  margin-bottom: 4px;
+  color: hsl(0, 0%, 10%);
+  font-weight: 600;
+`;
+const RatingNumber = styled.span`
+  font-size: 1.2rem;
+  margin-bottom: 4px;
+  color: hsl(0, 0%, 38%);
 `;
 const HelloWraper = styled.div`
   width: 100vw;
@@ -129,7 +139,7 @@ class MainSite extends Component {
             >
               <Popup>
                 <MarkerWraper>
-                  <h2 className="subtitle">{restaurant.title}</h2>
+                  <PopUpTitle>{restaurant.title}</PopUpTitle>
                   {this.calcRating(restaurant.rating, restaurant.ratingCount)}
                   <div>
                     <Link
@@ -180,12 +190,12 @@ class MainSite extends Component {
   };
   calcRating = (rate, amount) => {
     if (!rate && !amount) {
-      return <p style={{margin: 0}}>Nie oceniono</p>;
+      return <RatingNumber>Nie oceniono</RatingNumber>;
     } else if (rate === 0 && amount === 0) {
-      return <p style={{margin: 0}}>Nie oceniono</p>;
+      return <RatingNumber>Nie oceniono</RatingNumber>;
     }
     const calculation = rate / amount;
-    return <p style={{margin: 0}}>{parseInt(calculation)}</p>;
+    return <RatingNumber>{parseInt(calculation)}</RatingNumber>;
   };
 }
 

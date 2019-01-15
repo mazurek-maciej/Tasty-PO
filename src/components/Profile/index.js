@@ -11,18 +11,22 @@ const MainWraper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 80vh;
+  @media (min-width: 320px) and (max-width: 480px) {
+    height: 100%;
+  }
 `;
 const InfoWraper = styled.div`
   flex: 2;
+  font-size: 1.1rem;
   p {
-    color: ${({theme}) => theme.colors.$white};
-    font-size: 1.2rem;
     padding: 4px 0;
+    color: hsla(0, 0%, 0%, 0.8);
+  }
+  span {
+    color: hsla(0, 0%, 0%, 0.4);
   }
 `;
 const H1 = styled.h1`
-  color: ${({theme}) => theme.colors.$white};
   font-size: 3rem;
   padding: 2rem;
 `;
@@ -30,9 +34,9 @@ const Avatar = styled.img`
   width: 300px;
   height: 300px;
   padding: 1rem;
-  border: 1px solid ${({theme}) => theme.colors.$primary};
+  border: 1px solid ${({theme}) => theme.colors.$dark};
   border-radius: 1rem;
-  box-shadow: 0 2px 20px 0 rgba(255, 56, 96, 0.4);
+  box-shadow: 0 2px 20px 0 hsla(0, 0%, 30%, 0.3);
 `;
 const BackButton = styled(Link)`
   padding: 1rem;
@@ -40,9 +44,9 @@ const BackButton = styled(Link)`
   align-self: flex-start;
 `;
 const ALeft = styled(ArrowLeft)`
-  color: ${({theme}) => theme.colors.$white};
   width: 2rem;
   transition: all 0.2s;
+  color: ${({theme}) => theme.colors.$primary};
   :hover {
     transform: translateX(-20%);
   }
@@ -62,14 +66,22 @@ class Profile extends React.Component {
           <ALeft />
         </BackButton>
         <div>
-          <H1>Zarządzaj swoim profilem</H1>
+          <H1>Twój profil</H1>
         </div>
         <InfoWraper>
           <Avatar src={avatar} alt="avatar" />
           <div>
-            <p>Imię: {profile.name}</p>
-            <p>Nazwisko: {profile.surname}</p>
-            <p>Email: {auth.email}</p>
+            <p>
+              <span>Imię:</span> {profile.name}
+            </p>
+
+            <p>
+              <span>Nazwisko:</span> {profile.surname}
+            </p>
+
+            <p>
+              <span>Email:</span> {auth.email}
+            </p>
           </div>
         </InfoWraper>
       </MainWraper>

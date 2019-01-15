@@ -7,7 +7,7 @@ const authReducer = (state = initState, action) => {
     case 'LOGIN_ERROR':
       return {
         ...state,
-        authError: 'Login failed',
+        authError: 'Podaj poprawne dane',
       };
     case 'LOGIN_SUCCESS':
       console.log('login success');
@@ -29,6 +29,8 @@ const authReducer = (state = initState, action) => {
       return {
         ...state,
         authError: action.err.message,
+        passwordError:
+          'Sprawdź czy hasło zawiera minimum 6 znaków, oraz czy mail jest poprawnie wpisany',
       };
     case 'ADD_FAVOURITES':
       console.log('added to favourite list');

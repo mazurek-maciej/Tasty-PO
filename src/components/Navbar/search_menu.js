@@ -39,7 +39,7 @@ const LinksWraper = styled.div`
   width: 100%;
   padding: 1rem;
   align-items: center;
-  background-color: #ed4263;
+  background-color: ${({theme}) => theme.colors.$primary};
   border-left: 1px solid #363636;
 `;
 

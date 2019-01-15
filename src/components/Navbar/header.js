@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
+import posed from 'react-pose';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import SearchMenu from './search_menu';
 import SignedOutLinks from './signed-out-links';
 import SignedInLinks from './signed-in-links';
 import {Menu} from 'styled-icons/feather/Menu';
+import {KeyboardArrowDown} from 'styled-icons/material/KeyboardArrowDown';
 import '../index.scss';
 
 const Navbar = styled.div`
@@ -13,7 +15,7 @@ const Navbar = styled.div`
   justify-content: flex-end;
   width: 100vw;
   height: 10vh;
-  background-color: #ed4263;
+  background-color: ${({theme}) => theme.colors.$primary};
   position: sticky;
 `;
 const MenuButton = styled.a`
@@ -28,6 +30,34 @@ const LogoButton = styled.a`
     color: #fff;
   }
 `;
+const PosedMenu = posed(Menu)({
+  visible: {
+    opacity: 1,
+    transition: {
+      opacity: {ease: 'easeIn', duration: 300},
+    },
+  },
+  hidden: {
+    opacity: 0,
+    transition: {
+      opacity: {ease: 'easeOut', duration: 300},
+    },
+  },
+});
+const PosedClickedMenu = posed(KeyboardArrowDown)({
+  visible: {
+    opacity: 1,
+    transition: {
+      opacity: {ease: 'easeIn', duration: 300},
+    },
+  },
+  hidden: {
+    opacity: 0,
+    transition: {
+      opacity: {ease: 'easeOut', duration: 300},
+    },
+  },
+});
 const ButtonsContainer = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -37,10 +67,23 @@ const LogoContainer = styled.div`
   display: flex;
   align-items: center;
 `;
-const MenuIcon = styled(Menu)`
+const MenuIcon = styled(PosedMenu)`
+  display: ${props => (!props.popOut ? 'flex' : 'none')};
   color: ${({theme}) => theme.colors.$white};
-  width: 1rem;
-  height: 1rem;
+  width: 2rem;
+  height: 2rem;
+  :active {
+    ${({theme}) => theme.colors.$dark}
+  }
+`;
+const ClickedMenuIcon = styled(PosedClickedMenu)`
+  display: ${props => (props.popOut ? 'block' : 'none')};
+  color: ${({theme}) => theme.colors.$white};
+  width: 2rem;
+  height: 2rem;
+  :active {
+    ${({theme}) => theme.colors.$dark}
+  }
 `;
 
 class Header extends Component {
@@ -50,15 +93,18 @@ class Header extends Component {
   }
   state = {
     isSearchMenuActive: '',
+    popMenu: false,
   };
   toggleMenu = () => {
     if (this.state.isSearchMenuActive === '') {
       this.setState({
         isSearchMenuActive: 'active',
+        popMenu: true,
       });
     } else {
       this.setState({
         isSearchMenuActive: '',
+        popMenu: false,
       });
     }
   };
@@ -70,6 +116,7 @@ class Header extends Component {
     ) {
       this.setState({
         isSearchMenuActive: '',
+        popMenu: false,
       });
     }
   };
@@ -80,7 +127,6 @@ class Header extends Component {
   render() {
     const {auth} = this.props;
     const links = auth.uid ? <SignedInLinks /> : <SignedOutLinks />;
-    // console.log(this.state.bB)
     return (
       <div>
         <Navbar>
@@ -91,12 +137,15 @@ class Header extends Component {
             </LogoButton>
           </LogoContainer>
           <ButtonsContainer className="column">
-            <MenuButton
-              className="button is-dark"
-              ref={this.navToggle}
-              onClick={this.toggleMenu}
-            >
-              <MenuIcon />
+            <MenuButton ref={this.navToggle} onClick={this.toggleMenu}>
+              <MenuIcon
+                popOut={this.state.popMenu}
+                pose={this.state.popMenu ? 'hidden' : 'visible'}
+              />
+              <ClickedMenuIcon
+                popOut={this.state.popMenu}
+                pose={this.state.popMenu ? 'visible' : 'hidden'}
+              />
             </MenuButton>
           </ButtonsContainer>
         </Navbar>

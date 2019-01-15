@@ -11,6 +11,7 @@ import Loading from '../Loading';
 import {addRatingToRestaurant} from '../../store/actions/addRatingToRestaurant';
 import {addRatingToUserProfile} from '../../store/actions/addRatingToUserProfile';
 import {ArrowLeft} from 'styled-icons/feather/ArrowLeft';
+import hero from '../../images/alternative.jpeg';
 
 const AllWraper = styled.div`
   height: fit-content;
@@ -31,12 +32,11 @@ const RatingWraper = styled.div`
   text-align: center;
   padding-bottom: 2rem;
   * > h2 {
-    font-size: 2rem;
-    color: ${({theme}) => theme.colors.$white};
+    font-size: 1.2rem;
   }
   @media (min-width: 320px) and (max-width: 480px) {
     h2 {
-      font-size: 1.5rem;
+      font-size: 1rem;
     }
   }
 `;
@@ -45,7 +45,7 @@ const BackButton = styled(Link)`
   text-align: center;
 `;
 const ALeft = styled(ArrowLeft)`
-  color: ${({theme}) => theme.colors.$white};
+  color: ${({theme}) => theme.colors.$primary};
   width: 2rem;
   transition: all 0.2s;
   :hover {
@@ -63,14 +63,15 @@ const RatingStar = styled.button`
   margin: 1rem;
   padding: 20px 30px;
   border: 1px solid ${({theme}) => theme.colors.$primary};
-  color: ${({theme}) => theme.colors.$white};
+  color: ${({theme}) => theme.colors.$dark};
   font-size: 2rem;
   border-radius: 100%;
-  background: transparent;
+  background: ${({theme}) => theme.colors.$primary};
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.4);
   transition: all 0.2s;
+  cursor: pointer;
   :hover {
-    background-color: ${({theme}) => theme.colors.$primary};
+    background-color: #ff663d;
     color: ${({theme}) => theme.colors.$dark};
   }
   :active {
@@ -112,15 +113,16 @@ const PopUpWraper = styled.div`
   }
 `;
 const H1 = styled.h1`
-  color: ${({theme}) => theme.colors.$white};
   font-size: 3rem;
   text-align: center;
 `;
+const TitleInfo = styled.span`
+  font-weight: 600;
+`;
 const RestaurantImage = styled.img`
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 15px 2px hsla(220, 15%, 80%, 1);
 `;
 const InfoWraper = styled.div`
-  color: ${({theme}) => theme.colors.$white};
   font-size: 1.5rem;
   margin-top: 1rem;
   p,
@@ -130,13 +132,13 @@ const InfoWraper = styled.div`
   }
   h2 {
     display: flex;
-    a:hover {
-      color: ${({theme}) => theme.colors.$white};
-    }
   }
   @media (min-width: 320px) and (max-width: 480px) {
     font-size: 1rem;
   }
+`;
+const HoursList = styled.li`
+  list-style-type: none;
 `;
 
 class RestaurantDetails extends Component {
@@ -174,7 +176,7 @@ class RestaurantDetails extends Component {
     const restaurantIdFromUserProfile = profile.userRatings
       ? profile.userRatings.find(id => id === location.state.res.id)
       : false;
-    console.log(activeRatings);
+    console.log(this.props.location.state.res);
 
     return (
       <>
@@ -194,32 +196,38 @@ class RestaurantDetails extends Component {
                   <ALeft />
                 </BackButton>
               </div>
-              <H1>{place.title}</H1>
               <div>
-                <RestaurantImage src={img} alt="" />
+                <RestaurantImage src={hero} alt={place.title} />
               </div>
+              <H1>{place.title}</H1>
               <InfoWraper>
                 <h2>
-                  Adres: <p a>{place.address}</p>
+                  <TitleInfo>Adres:</TitleInfo> <p a>{place.address}</p>
                 </h2>
                 <h2>
-                  Telefon: <p>{place.phone}</p>
+                  <TitleInfo>Telefon:</TitleInfo> <p>{place.phone}</p>
                 </h2>
                 <h2>
-                  Możliwość przyjścia z psem: <p>{place.dog ? 'Tak' : 'Nie'}</p>
+                  <TitleInfo>Możliwość przyjścia z psem:</TitleInfo>{' '}
+                  <p>{place.dog ? 'Tak' : 'Nie'}</p>
                 </h2>
                 <h2>
-                  Zniżki studenckie: <p>{place.discount ? 'Tak' : 'Nie'}</p>
+                  <TitleInfo />
+                  <TitleInfo>Zniżki studenckie:</TitleInfo>{' '}
+                  <p>{place.discount ? 'Tak' : 'Nie'}</p>
                 </h2>
                 <h2>
-                  Dowóz: <p>{place.delivery ? 'Tak' : 'Nie'}</p>
+                  <TitleInfo>Dowóz:</TitleInfo>{' '}
+                  <p>{place.delivery ? 'Tak' : 'Nie'}</p>
                 </h2>
                 <h2>
-                  Strona internetowa:{' '}
+                  <TitleInfo>Strona internetowa:</TitleInfo>{' '}
                   <a a href={place.website}>
                     {place.title}
                   </a>
                 </h2>
+                <TitleInfo>Godziny otwarcia</TitleInfo>
+                {this.returnOpeningTimes()}
               </InfoWraper>
             </div>
 
@@ -303,6 +311,13 @@ class RestaurantDetails extends Component {
       }
     }
   }
+
+  returnOpeningTimes = () => {
+    if (this.props.location.state.res) {
+      const openingTime = this.props.location.state.res.openingTime;
+      return openingTime.map(time => <HoursList>・{time}</HoursList>);
+    }
+  };
 
   handlePopUp() {
     this.setState(prevState => ({popUp: !prevState.popUp}));

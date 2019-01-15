@@ -37,7 +37,6 @@ let myIcon = L.icon({
   shadowAnchor: [22, 94],
 });
 const H1 = styled.h1`
-  color: ${({theme}) => theme.colors.$white};
   font-size: 3rem;
   font-weight: 300;
   @media (min-width: 320px) and (max-width: 480px) {

@@ -1,22 +1,25 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import styled from "styled-components";
-import { signIn } from "../../store/actions/authActions";
-import { Redirect } from "react-router-dom";
-import Layout from "../Layout/layout";
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import styled from 'styled-components';
+import {signIn} from '../../store/actions/authActions';
+import {Redirect} from 'react-router-dom';
+import Layout from '../Layout/layout';
 
 const Wraper = styled.div`
   width: 100vw;
   height: 80vh;
-  h3, label{
-    color: ${({theme}) => theme.colors.$white}
+  h3 {
+    font-weight: 600;
   }
+`;
+const Error = styled.p`
+  color: ${({theme}) => theme.colors.$primary};
 `;
 
 class SignIn extends Component {
   state = {
-    email: "",
-    password: ""
+    email: '',
+    password: '',
   };
   handleSubmit = e => {
     e.preventDefault();
@@ -24,18 +27,17 @@ class SignIn extends Component {
   };
   handleChange = e => {
     this.setState({
-      [e.target.id]: e.target.value
+      [e.target.id]: e.target.value,
     });
   };
 
   render() {
-    const { authError, auth } = this.props;
+    const {authError, auth} = this.props;
     if (auth.uid) return <Redirect to="/main" />;
 
     return (
       <Layout>
         <Wraper>
-
           <div className="section">
             <div className="container">
               <div className="columns">
@@ -50,7 +52,7 @@ class SignIn extends Component {
                         className="input"
                         type="email"
                         id="email"
-                        placeholder='Podaj swój email'
+                        placeholder="Podaj swój email"
                         onChange={this.handleChange}
                       />
                     </div>
@@ -62,10 +64,13 @@ class SignIn extends Component {
                         className="input"
                         type="password"
                         id="password"
-                        placeholder='Podaj swoje hasło'
+                        placeholder="Podaj swoje hasło"
                         onChange={this.handleChange}
                       />
                     </div>
+                    <Error>
+                      {authError ? <Error>{authError}</Error> : null}
+                    </Error>
                     <div className="field">
                       <button className="button is-success">Zaloguj</button>
                     </div>
@@ -73,7 +78,6 @@ class SignIn extends Component {
                 </div>
               </div>
             </div>
-            <div>{authError ? <p>{authError}</p> : null}</div>
           </div>
         </Wraper>
       </Layout>
@@ -84,17 +88,17 @@ class SignIn extends Component {
 const mapStateToProps = state => {
   return {
     authError: state.auth.authError,
-    auth: state.firebase.auth
+    auth: state.firebase.auth,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    signIn: creds => dispatch(signIn(creds))
+    signIn: creds => dispatch(signIn(creds)),
   };
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(SignIn);

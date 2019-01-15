@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Redirect, Link} from 'react-router-dom';
 import Loading from '../Loading';
 import {ArrowLeft} from 'styled-icons/feather/ArrowLeft';
+import {KeyboardArrowRight} from 'styled-icons/material/KeyboardArrowRight';
 
 // Baza danych / autentykacja
 import {connect} from 'react-redux';
@@ -12,7 +13,6 @@ import styled from 'styled-components';
 
 const FavouritesWraper = styled.div`
   width: 100vw;
-  height: 80vh;
   display: flex;
   flex-direction: column;
 `;
@@ -26,33 +26,36 @@ const FavsWraper = styled.div`
 const FavouriteWraper = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 1rem 0;
   @media (min-width: 320px) and (max-width: 480px) {
     padding: 0.5rem 0 0.5rem 0;
   }
-  :after {
-    content: '';
-    padding: 2px;
-    margin: 1rem 0;
-    border-radius: 20px;
-    background-color: ${({theme}) => theme.colors.$white};
-  }
 `;
-const H1 = styled.h1`
-  color: ${({theme}) => theme.colors.$white};
-  font-size: 3rem;
-  font-weight: 300;
+const H1 = styled.p`
+  font-size: 2rem;
+  font-weight: 600;
   text-align: center;
-  margin: 2rem;
   @media (min-width: 320px) and (max-width: 480px) {
     font-size: 2rem;
-    margin: 1rem;
   }
 `;
-const H2 = styled.h2`
-  color: ${({theme, t}) => (t ? theme.colors.$primary : theme.colors.$white)};
-  font-size: 2rem;
+const ArrowRight = styled(KeyboardArrowRight)`
+  width: 18px;
+  height: 18px;
+`;
+const H2 = styled.p`
+  padding-bottom: 4px;
+  padding: 4px 0;
+  color: ${props => (props.d ? 'hsl(0, 0%, 10%)' : 'hsl(0, 0%, 40%)')};
+  font-weight: ${props => (props.b ? '600' : '400')};
   @media (min-width: 320px) and (max-width: 480px) {
     font-size: 1rem;
+  }
+  a {
+    color: ${({theme}) => theme.colors.$dark};
+    :hover {
+      ${({theme}) => theme.colors.$primary}
+    }
   }
 `;
 const BackButton = styled(Link)`
@@ -61,7 +64,7 @@ const BackButton = styled(Link)`
   align-self: flex-start;
 `;
 const ALeft = styled(ArrowLeft)`
-  color: ${({theme}) => theme.colors.$white};
+  color: ${({theme}) => theme.colors.$primary};
   width: 2rem;
   transition: all 0.2s;
   :hover {
@@ -86,7 +89,21 @@ class Favourites extends Component {
     }
     return restaurantFav.map(res => (
       <FavouriteWraper>
-        <H2 t>{res.title}</H2>
+        <H2 b d>
+          {res.title}
+          <span>
+            <Link
+              to={{
+                pathname: `/restaurant/${res.id}`,
+                state: {
+                  res: res,
+                },
+              }}
+            >
+              <ArrowRight />
+            </Link>
+          </span>
+        </H2>
         <H2>{res.address}</H2>
         <H2>{res.website}</H2>
       </FavouriteWraper>
@@ -105,7 +122,7 @@ class Favourites extends Component {
         <BackButton to="/main">
           <ALeft />
         </BackButton>
-        <H1>Twoje zapisane lokale</H1>
+        <H1>Twoje ulubione lokale</H1>
         <FavsWraper>{this.action()}</FavsWraper>
       </FavouritesWraper>
     );

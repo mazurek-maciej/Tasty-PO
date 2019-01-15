@@ -8,10 +8,12 @@ import styled from 'styled-components';
 const Wraper = styled.div`
   width: 100vw;
   height: 80vh;
-  h3,
-  label {
-    color: ${({theme}) => theme.colors.$white};
+  h3 {
+    font-weight: 600;
   }
+`;
+const Error = styled.p`
+  color: ${({theme}) => theme.colors.$primary};
 `;
 
 class SignUp extends Component {
@@ -93,6 +95,9 @@ class SignUp extends Component {
                       />
                     </div>
                     <div className="field">
+                      <Error>{this.props.passwordError}</Error>
+                    </div>
+                    <div className="field">
                       <button className="button is-success">Rejestracja</button>
                     </div>
                   </form>
@@ -109,6 +114,7 @@ class SignUp extends Component {
 const mapStateToProps = state => {
   return {
     auth: state.firebase.auth,
+    passwordError: state.auth.passwordError,
   };
 };
 
