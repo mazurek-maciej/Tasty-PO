@@ -140,6 +140,11 @@ const InfoWraper = styled.div`
 const HoursList = styled.li`
   list-style-type: none;
 `;
+const RatingNumber = styled.span`
+  font-size: 1.2rem;
+  margin-bottom: 4px;
+  color: hsl(0, 0%, 38%);
+`;
 
 class RestaurantDetails extends Component {
   constructor(props) {
@@ -176,7 +181,7 @@ class RestaurantDetails extends Component {
     const restaurantIdFromUserProfile = profile.userRatings
       ? profile.userRatings.find(id => id === location.state.res.id)
       : false;
-    console.log(this.props.location.state.res);
+    console.log(restaurant);
 
     return (
       <>
@@ -201,6 +206,12 @@ class RestaurantDetails extends Component {
               </div>
               <H1>{place.title}</H1>
               <InfoWraper>
+                <h2>
+                  <TitleInfo>
+                    Ocena lokalu:{' '}
+                    {this.calcRating(place.rating, place.ratingCount)}
+                  </TitleInfo>
+                </h2>
                 <h2>
                   <TitleInfo>Adres:</TitleInfo> <p a>{place.address}</p>
                 </h2>
@@ -311,6 +322,16 @@ class RestaurantDetails extends Component {
       }
     }
   }
+
+  calcRating = (rate, amount) => {
+    if (!rate && !amount) {
+      return <RatingNumber>Nie oceniono</RatingNumber>;
+    } else if (rate === 0 && amount === 0) {
+      return <RatingNumber>Nie oceniono</RatingNumber>;
+    }
+    const calculation = rate / amount;
+    return <RatingNumber>{parseInt(calculation)}</RatingNumber>;
+  };
 
   returnOpeningTimes = () => {
     if (this.props.location.state.res) {
