@@ -22,7 +22,7 @@ const BottomContainer = styled.div`
   justify-content: center;
 `;
 const SearchButton = styled.input`
-  width: 170px;
+  width: 200px;
   height: 30px;
   border: 1px solid transparent;
   border-radius: 5px;
