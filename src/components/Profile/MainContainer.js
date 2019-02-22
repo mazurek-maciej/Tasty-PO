@@ -45,7 +45,7 @@ const BottomButtonsContainer = styled.div`
     z-index: 1;
   }
 `;
-const Button = styled.button`
+const Button = styled.a`
   align-self: center;
   font-size: 18px;
   color: ${({theme}) => theme.colors.$D9};
