@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 
 const MenuButton = styled.li`
-  margin-bottom: 1rem;
+  padding: 24px;
   cursor: pointer;
   a {
     color: ${({theme}) => theme.colors.$white};
@@ -12,16 +12,22 @@ const MenuButton = styled.li`
     }
   }
 `;
+const LinksWraper = styled.ul`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
 const SignedOutLinks = () => (
-  <ul>
+  <LinksWraper>
     <MenuButton>
       <Link to={`/signin`}>Zaloguj się</Link>
     </MenuButton>
     <MenuButton>
       <Link to={`/signup`}>Rejestracja</Link>
     </MenuButton>
-  </ul>
+  </LinksWraper>
 );
 
 export default SignedOutLinks;

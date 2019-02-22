@@ -11,6 +11,7 @@ import {addFavourites} from '../../store/actions/addFavouritesAction';
 // Style
 import styled from 'styled-components';
 import Loading from '../Loading';
+import H1 from '../Fonts/H1';
 
 // Mapa
 import 'leaflet/dist/leaflet.css';
@@ -18,14 +19,29 @@ import icon from 'leaflet/dist/images/marker-icon.png';
 import shadowIcon from 'leaflet/dist/images/marker-shadow.png';
 import {Map, TileLayer, Marker, Popup} from 'react-leaflet';
 import L from 'leaflet';
-import {Favorite} from 'styled-icons/material/Favorite';
 import {Info} from 'styled-icons/material/Info';
 
+const MapLoggedOffWraper = styled.div`
+  width: 100%;
+  height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+`;
 const MarkerWraper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
+`;
+const CallActionButton = styled(Link)`
+  color: ${({theme}) => theme.colors.$D7};
+  padding: 4px;
+  border: 1px solid ${({theme}) => theme.colors.$D2};
+  border-radius: 4px;
+  margin-top: 8px;
+  box-shadow: 0 2px 5px hsla(0, 0%, 0%, 0.2);
 `;
 let myIcon = L.icon({
   iconUrl: icon,
@@ -36,23 +52,6 @@ let myIcon = L.icon({
   shadowSize: [68, 95],
   shadowAnchor: [22, 94],
 });
-const H1 = styled.h1`
-  font-size: 3rem;
-  font-weight: 300;
-  @media (min-width: 320px) and (max-width: 480px) {
-    font-size: 2rem;
-  }
-`;
-const FavIcon = styled(Favorite)`
-  width: 3rem;
-  height: 3rem;
-  color: ${({theme}) => theme.colors.$primary};
-  cursor: pointer;
-  transition: all 0.2s;
-  :hover {
-    transform: scale(1.1);
-  }
-`;
 const InfoIcon = styled(Info)`
   width: 3rem;
   height: 3rem;
@@ -65,12 +64,12 @@ const InfoIcon = styled(Info)`
 `;
 
 const HelloWraper = styled.div`
-  width: 100vw;
+  align-self: center;
+  width: 80%;
   height: 20vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 `;
 
 class MainSite extends Component {
@@ -99,9 +98,12 @@ class MainSite extends Component {
     if (auth.uid) return <Redirect to="/main" />;
     if (!this.props.restaurant) return <Loading />;
     return (
-      <div>
+      <MapLoggedOffWraper>
         <HelloWraper>
-          <H1>Znajdź swój ulubiony lokal</H1>
+          <H1>Witamy w aplikacji Tasty!</H1>
+          <div style={{marginTop: '8px'}}>
+            <CallActionButton to="/signup">Dołącz do nas</CallActionButton>
+          </div>
         </HelloWraper>
         <Map style={{height: '60vh'}} center={position} zoom={this.state.zoom}>
           <TileLayer
@@ -130,17 +132,13 @@ class MainSite extends Component {
                     >
                       <InfoIcon />
                     </Link>
-                    {/*<a  className='button'><Favorite/></a>*/}
-                    <FavIcon
-                      onClick={() => this.handleClick(restaurant.id, auth.uid)}
-                    />
                   </div>
                 </MarkerWraper>
               </Popup>
             </Marker>
           ))}
         </Map>
-      </div>
+      </MapLoggedOffWraper>
     );
   }
   calcRating = (rate, amount) => {
