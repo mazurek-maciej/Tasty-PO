@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Redirect, Link} from 'react-router-dom';
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 import Loading from '../Loading';
 import {ArrowLeft} from 'styled-icons/feather/ArrowLeft';
 import avatar from '../../images/avatar-no-image.png';
@@ -15,9 +15,20 @@ const MainWraper = styled.div`
     height: 100%;
   }
 `;
+const animatedInfo = css`
+  opacity: 1;
+  transform: translateY(0px);
+`;
+const animatedH1 = css`
+  opacity: 1;
+`;
 const InfoWraper = styled.div`
   flex: 2;
+  transform: translateY(50px);
+  opacity: 0;
   font-size: 1.1rem;
+  transition: 0.5s ease all;
+  ${props => props.anim && animatedInfo}
   p {
     padding: 4px 0;
     color: hsla(0, 0%, 0%, 0.8);
@@ -29,6 +40,9 @@ const InfoWraper = styled.div`
 const H1 = styled.h1`
   font-size: 3rem;
   padding: 2rem;
+  opacity: 0;
+  transition: 0.8s ease all;
+  ${props => props.anim && animatedH1}
 `;
 const Avatar = styled.img`
   width: 300px;
@@ -53,6 +67,16 @@ const ALeft = styled(ArrowLeft)`
 `;
 
 class Profile extends React.Component {
+  state = {
+    anim: false,
+  };
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({anim: true});
+    }, 300);
+  }
+
   render() {
     const {auth, profile} = this.props;
     if (!auth.uid) return <Redirect to="/signin" />;
@@ -66,9 +90,9 @@ class Profile extends React.Component {
           <ALeft />
         </BackButton>
         <div>
-          <H1>Twój profil</H1>
+          <H1 anim={this.state.anim}>Twój profil</H1>
         </div>
-        <InfoWraper>
+        <InfoWraper anim={this.state.anim}>
           <Avatar src={avatar} alt="avatar" />
           <div>
             <p>

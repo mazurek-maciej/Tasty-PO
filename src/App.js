@@ -4,12 +4,12 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import SignIn from './components/Authentication/signIn';
 import SignUp from './components/Authentication/signUp';
 import Header from './components/Navbar/header';
-import MainSite from './components/RestaurantDetails/mainSite';
+import MainSite from './components/Main/mainSite';
 import RestaurantDetails from './components/RestaurantDetails/restaurant_details';
 import AddRestaurant from './components/RestaurantDetails/add_restaurant';
 import Favourites from './components/Favourites/Favourites';
 import Profile from './components/Profile';
-import LogoutMain from './components/RestaurantDetails/logoutMain';
+import LogoutMain from './components/MainLoggedOff/logoutMain';
 import Footer from './components/Footer';
 import Layout from './components/Layout/layout';
 
@@ -30,7 +30,6 @@ class App extends Component {
               <Route path="/favourites" component={Favourites} />
               <Route path="/add" component={AddRestaurant} />
             </Switch>
-            <Footer />
           </>
         </BrowserRouter>
       </Layout>

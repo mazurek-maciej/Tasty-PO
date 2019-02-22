@@ -3,13 +3,14 @@ import {Redirect, Link} from 'react-router-dom';
 import Loading from '../Loading';
 import {ArrowLeft} from 'styled-icons/feather/ArrowLeft';
 import {KeyboardArrowRight} from 'styled-icons/material/KeyboardArrowRight';
+import Fade from 'react-reveal/Fade';
 
 // Baza danych / autentykacja
 import {connect} from 'react-redux';
 import Layout from '../Layout/layout';
 import {compose} from 'redux';
 import {firestoreConnect} from 'react-redux-firebase';
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 
 const FavouritesWraper = styled.div`
   width: 100vw;
@@ -23,10 +24,18 @@ const FavsWraper = styled.div`
     padding: 2rem;
   }
 `;
+const animationFade = css`
+  opacity: 1;
+  transform: translateY(0);
+`;
 const FavouriteWraper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 1rem 0;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: 0.5s all ease-in-out;
+  ${props => props.anim && animationFade}
   @media (min-width: 320px) and (max-width: 480px) {
     padding: 0.5rem 0 0.5rem 0;
   }
@@ -73,6 +82,15 @@ const ALeft = styled(ArrowLeft)`
 `;
 
 class Favourites extends Component {
+  state = {
+    anim: false,
+  };
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({anim: true});
+    }, 300);
+  }
   action() {
     let i;
     let a;
@@ -85,10 +103,9 @@ class Favourites extends Component {
         res => res.id === this.props.favourites[i],
       );
       restaurantFav.push(a);
-      console.log(restaurantFav);
     }
     return restaurantFav.map(res => (
-      <FavouriteWraper>
+      <FavouriteWraper anim={this.state.anim}>
         <H2 b d>
           {res.title}
           <span>
@@ -115,14 +132,14 @@ class Favourites extends Component {
     if (!auth.uid) return <Redirect to="/signin" />;
     if (!favourites) return <Loading />;
     if (!restaurant) return <Loading />;
-    console.log(restaurant);
-    console.log(favourites);
     return (
       <FavouritesWraper>
         <BackButton to="/main">
           <ALeft />
         </BackButton>
-        <H1>Twoje ulubione lokale</H1>
+        <Fade>
+          <H1>Twoje ulubione lokale</H1>
+        </Fade>
         <FavsWraper>{this.action()}</FavsWraper>
       </FavouritesWraper>
     );

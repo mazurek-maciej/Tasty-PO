@@ -5,7 +5,7 @@ import {signOut} from '../../store/actions/authActions';
 import styled from 'styled-components';
 
 const MenuButton = styled.li`
-  margin-bottom: 1rem;
+  padding: 24px;
   cursor: pointer;
   a {
     color: ${({theme}) => theme.colors.$white};

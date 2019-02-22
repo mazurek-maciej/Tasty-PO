@@ -8,7 +8,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     font-size: 16px;
     color: ${({theme}) => theme.colors.$dark};
-    font-family: Montserrat;
+    font-family: Source Sans Pro;
     *, *::before, *::after {
       box-sizing: border-box;
     }

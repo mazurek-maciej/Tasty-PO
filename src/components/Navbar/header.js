@@ -6,17 +6,16 @@ import {Link} from 'react-router-dom';
 import SearchMenu from './search_menu';
 import SignedOutLinks from './signed-out-links';
 import SignedInLinks from './signed-in-links';
-import {Menu} from 'styled-icons/feather/Menu';
-import {KeyboardArrowDown} from 'styled-icons/material/KeyboardArrowDown';
-import '../index.scss';
+import {Menu, X} from 'styled-icons/feather';
 
 const Navbar = styled.div`
   display: flex;
   justify-content: flex-end;
-  width: 100vw;
-  height: 10vh;
+  width: 100%;
+  height: 60px;
   background-color: ${({theme}) => theme.colors.$primary};
   position: sticky;
+  box-shadow: 0 2px 5px hsla(0, 0%, 0%, 0.4);
 `;
 const MenuButton = styled.a`
   margin: 1rem;
@@ -44,7 +43,7 @@ const PosedMenu = posed(Menu)({
     },
   },
 });
-const PosedClickedMenu = posed(KeyboardArrowDown)({
+const PosedClickedMenu = posed(X)({
   visible: {
     opacity: 1,
     transition: {
@@ -128,12 +127,11 @@ class Header extends Component {
     const {auth} = this.props;
     const links = auth.uid ? <SignedInLinks /> : <SignedOutLinks />;
     return (
-      <div>
+      <>
         <Navbar>
           <LogoContainer className="column">
             <LogoButton as={Link} to="/">
-              {' '}
-              Tasty PO{' '}
+              Tasty
             </LogoButton>
           </LogoContainer>
           <ButtonsContainer className="column">
@@ -153,7 +151,7 @@ class Header extends Component {
           isSearchMenuActive={this.state.isSearchMenuActive}
           links={links}
         />
-      </div>
+      </>
     );
   }
 }
