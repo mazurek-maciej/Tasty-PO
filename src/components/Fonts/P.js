@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import {theme} from '../../utils/theme';
 
-const P = styled.h1`
+const P = styled.p`
   color: ${theme.colors.$D8};
   padding: ${props => `${props.padding}`};
   margin: ${props => `${props.margin}`};
