@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import H1 from '../Fonts/H1';
+import H2 from '../Fonts/H2';
 
 const HelloWraper = styled.div`
   width: 100%;
@@ -19,22 +21,6 @@ const BottomContainer = styled.div`
   align-items: center;
   justify-content: center;
 `;
-const H1 = styled.h1`
-  font-size: 3rem;
-  font-weight: 300;
-  padding-top: 16px;
-  @media (min-width: 320px) and (max-width: 480px) {
-    font-size: 2rem;
-  }
-`;
-const H2 = styled.h2`
-  color: ${({theme}) => theme.colors.$primary};
-  font-size: 2rem;
-  margin-bottom: 8px;
-  @media (min-width: 320px) and (max-width: 480px) {
-    font-size: 1rem;
-  }
-`;
 const SearchButton = styled.input`
   width: 170px;
   height: 30px;
@@ -47,12 +33,12 @@ const SearchButton = styled.input`
 const HelloUserContainer = ({userInfo}) => (
   <HelloWraper>
     <TopContainer>
-      <H1>
+      <H1 padding="16px 0 0 0">
         Witaj {userInfo.name} {userInfo.surname}!
       </H1>
     </TopContainer>
     <BottomContainer>
-      <H2>Skorzystaj z mapy, lub szybkiego wyszukiwania!</H2>
+      <H2 margin="0 0 8px 0">Skorzystaj z mapy, lub szybkiego wyszukiwania!</H2>
       <SearchButton type="text" placeholder="Under construction 🚧" />
     </BottomContainer>
   </HelloWraper>
