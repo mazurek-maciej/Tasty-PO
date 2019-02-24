@@ -6,12 +6,11 @@ import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {firestoreConnect} from 'react-redux-firebase';
 import CommentForm from './commentForm';
-import img from '../../images/img1.jpeg';
 import Loading from '../Loading';
+import RestaurantTile from './RestaurantTile';
 import {addRatingToRestaurant} from '../../store/actions/addRatingToRestaurant';
 import {addRatingToUserProfile} from '../../store/actions/addRatingToUserProfile';
 import {ArrowLeft} from 'styled-icons/feather/ArrowLeft';
-import hero from '../../images/alternative.jpeg';
 
 const AllWraper = styled.div`
   height: fit-content;
@@ -149,11 +148,6 @@ const RatingNumber = styled.span`
 class RestaurantDetails extends Component {
   constructor(props) {
     super(props);
-    this.checkIfUserRateThisLocation = this.checkIfUserRateThisLocation.bind(
-      this,
-    );
-    this.handleRatingClick = this.handleRatingClick.bind(this);
-    this.handlePopUp = this.handlePopUp.bind(this);
     this.state = {
       active: '',
       favs: 0,
@@ -181,7 +175,6 @@ class RestaurantDetails extends Component {
     const restaurantIdFromUserProfile = profile.userRatings
       ? profile.userRatings.find(id => id === location.state.res.id)
       : false;
-    console.log(restaurant);
 
     return (
       <>
@@ -195,53 +188,7 @@ class RestaurantDetails extends Component {
         </PopUp>
         <AllWraper>
           <RestaurantWraper>
-            <div className="section">
-              <div>
-                <BackButton to="/">
-                  <ALeft />
-                </BackButton>
-              </div>
-              <div>
-                <RestaurantImage src={hero} alt={place.title} />
-              </div>
-              <H1>{place.title}</H1>
-              <InfoWraper>
-                <h2>
-                  <TitleInfo>
-                    Ocena lokalu:{' '}
-                    {this.calcRating(place.rating, place.ratingCount)}
-                  </TitleInfo>
-                </h2>
-                <h2>
-                  <TitleInfo>Adres:</TitleInfo> <p a>{place.address}</p>
-                </h2>
-                <h2>
-                  <TitleInfo>Telefon:</TitleInfo> <p>{place.phone}</p>
-                </h2>
-                <h2>
-                  <TitleInfo>Możliwość przyjścia z psem:</TitleInfo>{' '}
-                  <p>{place.dog ? 'Tak' : 'Nie'}</p>
-                </h2>
-                <h2>
-                  <TitleInfo />
-                  <TitleInfo>Zniżki studenckie:</TitleInfo>{' '}
-                  <p>{place.discount ? 'Tak' : 'Nie'}</p>
-                </h2>
-                <h2>
-                  <TitleInfo>Dowóz:</TitleInfo>{' '}
-                  <p>{place.delivery ? 'Tak' : 'Nie'}</p>
-                </h2>
-                <h2>
-                  <TitleInfo>Strona internetowa:</TitleInfo>{' '}
-                  <a a href={place.website}>
-                    {place.title}
-                  </a>
-                </h2>
-                <TitleInfo>Godziny otwarcia</TitleInfo>
-                {this.returnOpeningTimes()}
-              </InfoWraper>
-            </div>
-
+            <RestaurantTile placeData={place} />
             <Wraper disp={activeRatings}>
               <RatingWraper>
                 <div>
@@ -311,7 +258,7 @@ class RestaurantDetails extends Component {
   //
 
   // Sprawdzenie czy lokal zostal oceniony
-  checkIfUserRateThisLocation() {
+  checkIfUserRateThisLocation = () => {
     if (this.props.profile) {
       const restId = this.props.location.state.res.id;
       const restaurantIdFromUserProfile = this.props.profile.userRatings.find(
@@ -321,7 +268,7 @@ class RestaurantDetails extends Component {
         this.setState({activeRatings: true});
       }
     }
-  }
+  };
 
   calcRating = (rate, amount) => {
     if (!rate && !amount) {
@@ -340,9 +287,9 @@ class RestaurantDetails extends Component {
     }
   };
 
-  handlePopUp() {
+  handlePopUp = () => {
     this.setState(prevState => ({popUp: !prevState.popUp}));
-  }
+  };
 
   handleState = () => {
     this.setState({active: 'active'});
