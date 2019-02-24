@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import {Link} from 'react-router-dom';
 import H2 from '../Fonts/H2';
 
 const TopBarWraper = styled.div`
@@ -14,9 +15,9 @@ const TopBarWraper = styled.div`
 `;
 const TopBar = ({title}) => (
   <TopBarWraper>
-    <a style={{marginRight: '8px'}}>
+    <Link to="/main" style={{marginRight: '8px'}}>
       <span style={{color: '#f9f9f9'}}>◁</span>
-    </a>
+    </Link>
     <H2 white big>
       {title}
     </H2>
