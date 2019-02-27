@@ -11,7 +11,8 @@ const H2 = styled.h2`
     props.big ? `${theme.fonts.$24}` : `${theme.fonts.$18}`};
   transition: 0.8s ease all;
   position: relative;
-  border-bottom: 1px solid ${theme.colors.$D9};
+  border-bottom: ${props =>
+    props.underline ? `1px solid ${theme.colors.$D9}` : null};
 `;
 
 export default H2;

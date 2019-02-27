@@ -1,9 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import TopBar from './TopBar';
 import ImageTile from './ImageTile';
 import H2 from '../Fonts/H2';
 import P from '../Fonts/P';
+import phoneIcon from '../../utils/icons/PhoneIcon.svg';
+import localizationIcon from '../../utils/icons/Localization.svg';
 
 const MainTileWraper = styled.div`
   display: flex;
@@ -42,34 +45,66 @@ const LeftHourWraper = styled.div`
 const RightHourWraper = styled.div`
   width: 50%;
 `;
+const IconsWraper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+const Img = styled.img`
+  margin: 0 8px 8px 0;
+`;
 
 const RestaurantTile = ({placeData}) => (
   <MainTileWraper>
+    {console.log(placeData)}
     <DarkBg />
     <TopBar title={placeData.title} />
     <ContentWraper>
-      <ImageTile rating={placeData.rating} />
+      <ImageTile
+        rating={placeData.rating}
+        ratingCount={placeData.ratingCount}
+      />
       <InfoWraper>
-        <H2 margin="8px 0 4px 0">Informacje</H2>
-        <P>{placeData.address}</P>
-        <P>{placeData.phone}</P>
-        <H2 margin="8px 0 4px 0">Godziny otwarcia</H2>
+        <H2 underline margin="8px 0 4px 0">
+          Informacje
+        </H2>
+        <IconsWraper>
+          <Img src={localizationIcon} alt="localization" />
+          <P>{placeData.address}</P>
+        </IconsWraper>
+        <IconsWraper>
+          <Img src={phoneIcon} alt="phone" />
+          <P>{placeData.phone}</P>
+        </IconsWraper>
+        <H2 underline margin="8px 0 4px 0">
+          Godziny otwarcia
+        </H2>
         <HoursWraper>
           <LeftHourWraper>
-            <P>Pn:</P>
-            <P>Wt:</P>
-            <P>Śr:</P>
-            <P>Czw:</P>
+            {placeData.openingTime.slice(0, 4).map((time, index) => (
+              <P hours key={index}>
+                {time}
+              </P>
+            ))}
           </LeftHourWraper>
           <RightHourWraper>
-            <P>Pt:</P>
-            <P>Sb:</P>
-            <P>Nd:</P>
+            {placeData.openingTime.slice(4, 8).map((time, index) => (
+              <P key={index}>{time}</P>
+            ))}
           </RightHourWraper>
         </HoursWraper>
       </InfoWraper>
     </ContentWraper>
   </MainTileWraper>
 );
+
+RestaurantTile.propTypes = {
+  placeData: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    rating: PropTypes.number,
+    ratingCount: PropTypes.number,
+    address: PropTypes.string.isRequired,
+    phone: PropTypes.string.isRequired,
+  }),
+};
 
 export default RestaurantTile;
