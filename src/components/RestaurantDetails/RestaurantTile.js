@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, {keyframes} from 'styled-components';
 import PropTypes from 'prop-types';
 import TopBar from './TopBar';
 import ImageTile from './ImageTile';

@@ -1,5 +1,6 @@
 const initState = {
   authError: null,
+  userRated: false,
 };
 
 const authReducer = (state = initState, action) => {
@@ -49,6 +50,7 @@ const authReducer = (state = initState, action) => {
       return {
         ...state,
         authError: null,
+        userRated: true,
       };
     case 'ADD_COMMENT':
       console.log('comment successfuly added to comments');

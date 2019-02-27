@@ -5,7 +5,7 @@ import SignIn from './components/Authentication/signIn';
 import SignUp from './components/Authentication/signUp';
 import Header from './components/Navbar/header';
 import MainSite from './components/Main/mainSite';
-import RestaurantDetails from './components/RestaurantDetails/restaurant_details';
+import RestaurantDetails from './components/RestaurantDetails';
 import AddRestaurant from './components/RestaurantDetails/add_restaurant';
 import Favourites from './components/Favourites/Favourites';
 import Profile from './components/Profile';
