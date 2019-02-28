@@ -1,10 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Redirect} from 'react-router-dom';
+import {Redirect, Link} from 'react-router-dom';
 import styled from 'styled-components';
 import Loading from '../Loading';
-import TopContainer from './TopContainer';
+import TopBar from './TopBar';
 import MainContainer from './MainContainer';
+import TextBar from './TextBar';
+import favIcon from '../../utils/icons/FavsIcon.svg';
 
 const MainWraper = styled.div`
   display: flex;
@@ -14,6 +16,12 @@ const MainWraper = styled.div`
   @media (min-width: 320px) and (max-width: 480px) {
     height: 100%;
   }
+`;
+const FavsButton = styled.div`
+  align-self: flex-start;
+  display: flex;
+  height: 24px;
+  margin: 32px 0 0 16px;
 `;
 
 class Profile extends React.Component {
@@ -36,8 +44,15 @@ class Profile extends React.Component {
 
     return (
       <MainWraper>
-        <TopContainer anim={this.state.anim} />
+        <TopBar anim={this.state.anim} />
         <MainContainer anim={this.state.anim} auth={auth} profile={profile} />
+        <TextBar profile={profile} email={auth.email} />
+        <FavsButton>
+          <img src={favIcon} />
+          <Link style={{marginLeft: '8px', color: '#45484D'}} to="/favourites">
+            Lista ulubionych
+          </Link>
+        </FavsButton>
       </MainWraper>
     );
   }

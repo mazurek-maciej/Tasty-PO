@@ -55,7 +55,6 @@ const Img = styled.img`
 
 const RestaurantTile = ({placeData}) => (
   <MainTileWraper>
-    {console.log(placeData)}
     <DarkBg />
     <TopBar title={placeData.title} />
     <ContentWraper>
