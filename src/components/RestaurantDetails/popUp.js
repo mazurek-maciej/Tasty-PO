@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import styled from 'styled-components';
 import posed from 'react-pose';
 import H2 from '../Fonts/H2';
@@ -38,4 +40,5 @@ const PopUp = ({active}) => (
     <H2 white>Dziękujemy za oddanie głosu!</H2>
   </Pop>
 );
+PopUp.propTypes = {active: PropTypes.bool};
 export default PopUp;

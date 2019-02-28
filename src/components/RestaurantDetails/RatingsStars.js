@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import styled, {css} from 'styled-components';
 import H2 from '../../components/Fonts/H2';
 
@@ -57,23 +59,31 @@ const RatingStar = styled.button`
     padding: 10px 15px;
   }
 `;
-const RatingsStars = ({place, auth, disp, handleClick, hide}) => (
+const RatingsStars = ({place, authUid, disp, handleClick, hide}) => (
   <RatingWraper disp={disp} hide={hide}>
     <div>
       <H2>Jak oceniasz tą restauracje?</H2>
     </div>
     <div>
-      <RatingStar onClick={() => handleClick(1, place, auth)}>1</RatingStar>
+      <RatingStar onClick={() => handleClick(1, place, authUid)}>1</RatingStar>
 
-      <RatingStar onClick={() => handleClick(2, place, auth)}>2</RatingStar>
+      <RatingStar onClick={() => handleClick(2, place, authUid)}>2</RatingStar>
 
-      <RatingStar onClick={() => handleClick(3, place, auth)}>3</RatingStar>
+      <RatingStar onClick={() => handleClick(3, place, authUid)}>3</RatingStar>
 
-      <RatingStar onClick={() => handleClick(4, place, auth)}>4</RatingStar>
+      <RatingStar onClick={() => handleClick(4, place, authUid)}>4</RatingStar>
 
-      <RatingStar onClick={() => handleClick(5, place, auth)}>5</RatingStar>
+      <RatingStar onClick={() => handleClick(5, place, authUid)}>5</RatingStar>
     </div>
   </RatingWraper>
 );
+
+RatingStar.propTypes = {
+  place: PropTypes.string,
+  authUid: PropTypes.string,
+  disp: PropTypes.bool,
+  hide: PropTypes.bool,
+  handleClick: PropTypes.func,
+};
 
 export default RatingsStars;

@@ -38,8 +38,6 @@ const TopBar = () => (
   </TopBarWraper>
 );
 
-TopBar.propTypes = {
-  title: PropTypes.string.isRequired,
-};
+TopBar.propTypes = {};
 
 export default TopBar;

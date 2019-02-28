@@ -1,11 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Redirect, Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Loading from '../Loading';
 import TopBar from './TopBar';
 import MainContainer from './MainContainer';
-import TextBar from './TextBar';
 import favIcon from '../../utils/icons/FavsIcon.svg';
 
 const MainWraper = styled.div`
@@ -39,14 +39,14 @@ class Profile extends React.Component {
     const {auth, profile} = this.props;
     if (!auth.uid) return <Redirect to="/signin" />;
     if (!profile.name) return <Loading />;
-    console.log(profile);
-    console.log(auth);
-
     return (
       <MainWraper>
         <TopBar anim={this.state.anim} />
-        <MainContainer anim={this.state.anim} auth={auth} profile={profile} />
-        <TextBar profile={profile} email={auth.email} />
+        <MainContainer
+          anim={this.state.anim}
+          email={auth.email}
+          profile={profile}
+        />
         <FavsButton>
           <img src={favIcon} />
           <Link style={{marginLeft: '8px', color: '#45484D'}} to="/favourites">
@@ -63,6 +63,11 @@ const mapStateToProps = state => {
     auth: state.firebase.auth,
     profile: state.firebase.profile,
   };
+};
+
+Profile.propTypes = {
+  auth: PropTypes.object,
+  profile: PropTypes.object,
 };
 
 export default connect(mapStateToProps)(Profile);

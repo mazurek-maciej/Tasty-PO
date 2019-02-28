@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import styled, {css} from 'styled-components';
+import PropTypes from 'prop-types';
 import posed from 'react-pose';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
@@ -104,7 +105,6 @@ class Index extends Component {
     if (!restaurant) return <Loading />;
     if (!profile) return <Loading />;
     const place = this.props.location.state.res;
-
     return (
       <>
         <AllWraper>
@@ -113,7 +113,7 @@ class Index extends Component {
             <RestaurantTile placeData={place} />
             <RatingsStars
               place={place.id}
-              auth={auth.uid}
+              authUid={auth.uid}
               disp={activeRatings}
               hide={userRated}
               handleClick={this.handleRatingClick}
@@ -127,7 +127,6 @@ class Index extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     auth: state.firebase.auth,
     restaurant: state.firestore.ordered.restaurants,
@@ -145,6 +144,19 @@ const mapDispatchToProps = dispatch => {
     addRatingToUserProfile: (restaurantId, userId) =>
       dispatch(addRatingToUserProfile(restaurantId, userId)),
   };
+};
+
+Index.propTypes = {
+  auth: PropTypes.object,
+  firebase: PropTypes.object,
+  firestore: PropTypes.object,
+  location: PropTypes.object,
+  profile: PropTypes.object.isRequired,
+  restaurant: PropTypes.array,
+  favourites: PropTypes.array,
+  ratesFromProfile: PropTypes.array,
+  addRatingToRestaurant: PropTypes.func,
+  addRatingToUserProfile: PropTypes.func,
 };
 
 export default compose(

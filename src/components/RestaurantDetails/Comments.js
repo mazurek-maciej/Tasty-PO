@@ -3,7 +3,9 @@ import {connect} from 'react-redux';
 import {compose} from 'redux';
 import {firestoreConnect} from 'react-redux-firebase';
 import {addComment} from '../../store/actions/addCommentAction';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
 import Loading from '../Loading';
 
 const Wraper = styled.div`
@@ -62,6 +64,26 @@ class CommentForm extends React.Component {
     id: '',
     restaurantId: '',
   };
+  handleSubmit = e => {
+    e.preventDefault();
+    this.props.addComment(this.state);
+    this.setState({
+      name: '',
+      comment: '',
+    });
+  };
+
+  handleChange = e => {
+    const userId = this.props.auth.uid;
+    const restId = this.props.restId;
+    const userName = this.props.profile.name;
+    this.setState({
+      name: userName,
+      id: userId,
+      restaurantId: restId,
+    });
+  };
+
   render() {
     const {store, restId, disp, profile} = this.props;
     if (!store.comments) return <Loading />;
@@ -100,8 +122,8 @@ class CommentForm extends React.Component {
           </form>
         </FormWraper>
         <MainCommentWraper>
-          {searchForComments.map(com => (
-            <Comment key={com.name}>
+          {searchForComments.map((com, index) => (
+            <Comment key={index}>
               <NameWraper>
                 <CommentName>{com.name}</CommentName>
               </NameWraper>
@@ -114,25 +136,6 @@ class CommentForm extends React.Component {
       </Wraper>
     );
   }
-
-  handleSubmit = e => {
-    e.preventDefault();
-    this.props.addComment(this.state);
-    this.setState({
-      name: '',
-      comment: '',
-    });
-  };
-  handleChange = e => {
-    const userId = this.props.auth.uid;
-    const restId = this.props.restId;
-    const userName = this.props.profile.name;
-    this.setState({
-      name: userName,
-      id: userId,
-      restaurantId: restId,
-    });
-  };
 }
 
 const mapStateToProps = state => {
@@ -146,6 +149,15 @@ const mapDispatchToProps = dispatch => {
   return {
     addComment: comment => dispatch(addComment(comment)),
   };
+};
+
+Comment.propTypes = {
+  restId: PropTypes.string,
+  disp: PropTypes.string,
+  store: PropTypes.object,
+  auth: PropTypes.object,
+  store: PropTypes.object,
+  profile: PropTypes.object,
 };
 
 export default compose(
