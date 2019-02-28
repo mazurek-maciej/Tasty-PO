@@ -3,12 +3,17 @@ import {connect} from 'react-redux';
 import {Redirect, Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import posed from 'react-pose';
+
 import Loading from '../Loading';
 import TopBar from './TopBar';
 import MainContainer from './MainContainer';
 import favIcon from '../../utils/icons/FavsIcon.svg';
 
-const MainWraper = styled.div`
+const PosedMainWraper = posed.div({
+  enter: {staggerChildren: 50},
+});
+const MainWraper = styled(PosedMainWraper)`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -25,28 +30,14 @@ const FavsButton = styled.div`
 `;
 
 class Profile extends React.Component {
-  state = {
-    anim: false,
-  };
-
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({anim: true});
-    }, 300);
-  }
-
   render() {
     const {auth, profile} = this.props;
     if (!auth.uid) return <Redirect to="/signin" />;
     if (!profile.name) return <Loading />;
     return (
       <MainWraper>
-        <TopBar anim={this.state.anim} />
-        <MainContainer
-          anim={this.state.anim}
-          email={auth.email}
-          profile={profile}
-        />
+        <TopBar />
+        <MainContainer email={auth.email} profile={profile} />
         <FavsButton>
           <img src={favIcon} />
           <Link style={{marginLeft: '8px', color: '#45484D'}} to="/favourites">

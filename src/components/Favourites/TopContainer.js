@@ -34,7 +34,7 @@ const TopContainer = ({anim}) => (
     <BackButton to="/main">
       <ALeft />
     </BackButton>
-    <H2 big>Twoje ulubione lokale</H2>
+    <H2 big>Twoja lista miejsc</H2>
   </TopWraper>
 );
 

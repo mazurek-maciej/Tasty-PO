@@ -2,11 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
+import posed from 'react-pose';
 import {ChevronLeft} from 'styled-icons/feather/ChevronLeft';
 import H2 from '../Fonts/H2';
 import editIcon from '../../utils/icons/Edit.svg';
 
-const TopBarWraper = styled.div`
+const PosedTopBar = posed.div({
+  enter: {x: 0, opacity: 1},
+  exit: {x: 50, opacity: 0},
+});
+const TopBarWraper = styled(PosedTopBar)`
   display: flex;
   align-items: center;
   border-bottom: 1px solid #ccc;

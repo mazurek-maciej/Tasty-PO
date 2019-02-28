@@ -1,6 +1,8 @@
 import React from 'react';
 import styled, {css} from 'styled-components';
 import {Link} from 'react-router-dom';
+import posed from 'react-pose';
+
 import P from '../Fonts/P';
 import exampleImage from '../../images/manekin.png';
 
@@ -8,16 +10,18 @@ const animationFade = css`
   opacity: 1;
   transform: translateY(0);
 `;
-const FavouriteWraper = styled.div`
+
+const PosedFav = posed.div({
+  enter: {y: 0, opacity: 1},
+  exit: {y: -50, opacity: 0},
+});
+
+const FavouriteWraper = styled(PosedFav)`
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 1rem 0;
-  opacity: 0;
-  transform: translateY(50px);
-  transition: 0.5s all ease-in-out;
   box-shadow: 0 4px 6px hsla(0, 0%, 0%, 0.1);
-  ${props => props.anim && animationFade};
   @media (min-width: 320px) and (max-width: 480px) {
     margin: 0.5rem 0 0.5rem 0;
   }
@@ -59,7 +63,7 @@ const FavouritesList = ({restaurant, favourites, anim}) => {
     restaurantFav.push(a);
   }
   return restaurantFav.map(res => (
-    <FavouriteWraper anim={anim}>
+    <FavouriteWraper anim={anim} key={res.id}>
       <FavouriteTopContainer>
         <FavouriteTopLeftContainer>
           <Link
@@ -74,9 +78,7 @@ const FavouritesList = ({restaurant, favourites, anim}) => {
           </Link>
         </FavouriteTopLeftContainer>
         <FavouriteTopRightContainer>
-          <P b d>
-            {res.title}
-          </P>
+          <P b>{res.title}</P>
           <P>{res.website}</P>
         </FavouriteTopRightContainer>
       </FavouriteTopContainer>

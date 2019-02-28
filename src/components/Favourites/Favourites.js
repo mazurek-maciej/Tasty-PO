@@ -3,6 +3,7 @@ import {Redirect} from 'react-router-dom';
 import Loading from '../Loading';
 import TopContainer from './TopContainer';
 import FavouritesList from './FavouritesList';
+import posed from 'react-pose';
 
 // Baza danych / autentykacja
 import {connect} from 'react-redux';
@@ -10,11 +11,15 @@ import {compose} from 'redux';
 import {firestoreConnect} from 'react-redux-firebase';
 import styled from 'styled-components';
 
-const FavouritesWraper = styled.div`
+const PosedFavsWraper = posed.div({
+  enter: {staggerChildren: 50},
+});
+const FavouritesWraper = styled(PosedFavsWraper)`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 `;
 const FavsWraper = styled.div`
   flex: 1;

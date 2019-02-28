@@ -1,12 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, {css} from 'styled-components';
-import avatar from '../../images/person.jpg';
 import {Link} from 'react-router-dom';
+import posed from 'react-pose';
+
+import avatar from '../../images/person.jpg';
 import H2 from '../Fonts/H2';
 import P from '../Fonts/P';
 
-const ImageWraper = styled.div``;
+const PosedDarkBg = posed.div({
+  enter: {opacity: 1},
+  exit: {opacity: 0},
+});
+const PosedTextWraper = posed.div({
+  enter: {y: 0, opacity: 1},
+  exit: {y: 50, opacity: 0},
+});
+const ImageWraper = styled(PosedTextWraper)``;
 const Image = styled.img`
   border-radius: 50%;
   width: 200px;
@@ -15,20 +25,20 @@ const Image = styled.img`
     inset 0 4px 8px 0 rgba(173, 173, 173, 0.4);
   border: solid 1px #cccccc;
 `;
-const DarkBg = styled.div`
+const DarkBg = styled(PosedDarkBg)`
   position: absolute;
   background-color: #45484d;
   height: 300px;
   width: 100%;
-  z-index: -1;
+  z-index: -2;
   top: 0;
 `;
-const TextWraper = styled.div`
+const TextWraper = styled(PosedTextWraper)`
   display: flex;
   flex-direction: column;
 `;
 
-const MainContainer = ({anim, email, profile}) => (
+const MainContainer = ({email, profile}) => (
   <>
     <DarkBg />
     <ImageWraper>
