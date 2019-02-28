@@ -10,7 +10,7 @@ import CommentForm from './Comments';
 import Loading from '../Loading';
 import RestaurantTile from './RestaurantTile';
 import RatingsStars from './RatingsStars';
-import PopUp from './PopUp';
+import PopUp from './popUp';
 
 import {addRatingToRestaurant} from '../../store/actions/addRatingToRestaurant';
 import {addRatingToUserProfile} from '../../store/actions/addRatingToUserProfile';
