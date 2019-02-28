@@ -30,7 +30,7 @@ class App extends Component {
             <Route
               render={({location}) => (
                 <PoseGroup>
-                  <PosedRoutes key={location.key}>
+                  <PosedRoutes key={location.pathname}>
                     <Switch location={location}>
                       <Route exact path="/" component={LogoutMain} />
                       <Route path="/main" component={MainSite} />
