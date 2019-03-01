@@ -52,17 +52,8 @@ const FavouriteBottomContainer = styled.div`
   flex: 1;
 `;
 const FavouritesList = ({restaurant, favourites, anim}) => {
-  let i;
-  let a;
-  let restaurantFav = [];
-  // pętla sprawdza dla tablicy z ulubionymi czy w tablicy z pobranymi restauracjami
-  // pojawia się element z tablicy ulubionych o takich samych id i wrzuca je do
-  // tablicy restaurantFav
-  for (i = 0; i < favourites.length; i++) {
-    a = restaurant.find(res => res.id === favourites[i]);
-    restaurantFav.push(a);
-  }
-  return restaurantFav.map(res => (
+  const restFavouristList = restaurant.filter(r => favourites.includes(r.id));
+  return restFavouristList.map(res => (
     <FavouriteWraper anim={anim} key={res.id}>
       <FavouriteTopContainer>
         <FavouriteTopLeftContainer>
