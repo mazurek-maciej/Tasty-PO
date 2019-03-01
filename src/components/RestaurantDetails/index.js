@@ -143,7 +143,6 @@ class Index extends Component {
               handleClick={this.handleRatingClick}
             />
           </RestaurantWraper>
-          {this.calculateRating()}
           <CommentForm disp={auth.uid} restId={place.id} />
         </AllWraper>
       </>
