@@ -5,11 +5,13 @@ import styled from 'styled-components';
 const MenuButton = styled.li`
   padding: 24px;
   cursor: pointer;
+  border-bottom: 1px solid transparent;
+  :hover,
+  :active {
+    border-bottom: 1px solid ${({theme}) => theme.colors.$D6};
+  }
   a {
-    color: ${({theme}) => theme.colors.$white};
-    :hover {
-      color: ${({theme}) => theme.colors.$dark};
-    }
+    color: ${({theme}) => theme.colors.$D9};
   }
 `;
 const LinksWraper = styled.ul`

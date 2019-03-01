@@ -13,9 +13,9 @@ const Navbar = styled.div`
   justify-content: flex-end;
   width: 100%;
   height: 60px;
-  background-color: ${({theme}) => theme.colors.$primary};
+  background-color: ${({theme}) => theme.colors.$D2};
   position: sticky;
-  box-shadow: 0 2px 5px hsla(0, 0%, 0%, 0.4);
+  box-shadow: 0 2px 5px hsla(0, 0%, 0%, 0.3);
 `;
 const MenuButton = styled.a`
   margin: 1rem;
@@ -25,19 +25,21 @@ const LogoButton = styled.a`
   color: #282c34;
   font-weight: lighter;
   transition: all 0.2s;
-  :hover {
-    color: #fff;
+  :active {
+    color: ${({theme}) => theme.colors.$D6};
   }
 `;
 const PosedMenu = posed(Menu)({
   visible: {
     opacity: 1,
+    x: 0,
     transition: {
       opacity: {ease: 'easeIn', duration: 300},
     },
   },
   hidden: {
     opacity: 0,
+    x: 20,
     transition: {
       opacity: {ease: 'easeOut', duration: 300},
     },
@@ -46,12 +48,14 @@ const PosedMenu = posed(Menu)({
 const PosedClickedMenu = posed(X)({
   visible: {
     opacity: 1,
+    x: 0,
     transition: {
       opacity: {ease: 'easeIn', duration: 300},
     },
   },
   hidden: {
     opacity: 0,
+    x: -20,
     transition: {
       opacity: {ease: 'easeOut', duration: 300},
     },
@@ -68,7 +72,7 @@ const LogoContainer = styled.div`
 `;
 const MenuIcon = styled(PosedMenu)`
   display: ${props => (!props.popOut ? 'flex' : 'none')};
-  color: ${({theme}) => theme.colors.$white};
+  color: ${({theme}) => theme.colors.$D9};
   width: 2rem;
   height: 2rem;
   :active {
@@ -77,7 +81,7 @@ const MenuIcon = styled(PosedMenu)`
 `;
 const ClickedMenuIcon = styled(PosedClickedMenu)`
   display: ${props => (props.popOut ? 'block' : 'none')};
-  color: ${({theme}) => theme.colors.$white};
+  color: ${({theme}) => theme.colors.$D9};
   width: 2rem;
   height: 2rem;
   :active {

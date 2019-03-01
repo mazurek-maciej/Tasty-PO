@@ -7,6 +7,17 @@ import {ChevronLeft} from 'styled-icons/feather/ChevronLeft';
 import H2 from '../Fonts/H2';
 import editIcon from '../../utils/icons/Edit.svg';
 
+const PosedIcon = posed(ChevronLeft)({
+  hoverable: true,
+  init: {
+    x: 0,
+    scale: 1,
+  },
+  hover: {
+    x: -2,
+    scale: 1.05,
+  },
+});
 const PosedTopBar = posed.div({
   enter: {x: 0, opacity: 1},
   exit: {x: 50, opacity: 0},
@@ -17,10 +28,10 @@ const TopBarWraper = styled(PosedTopBar)`
   border-bottom: 1px solid #ccc;
   height: 60px;
   margin: 0 16px;
-  margin-bottom: 80px;
+  margin-bottom: 48px;
   width: 340px;
 `;
-const BackIcon = styled(ChevronLeft)`
+const BackIcon = styled(PosedIcon)`
   width: 24px;
   height: 24px;
   color: ${({theme}) => theme.colors.$D1};

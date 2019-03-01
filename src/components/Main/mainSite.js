@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {Redirect} from 'react-router-dom';
 import HelloUserContainer from './helloUserContainer';
 import MapContainer from './mapContainer';
+import StarRatings from 'react-star-ratings';
 
 // Baza danych / autentykacja
 import {compose} from 'redux';
@@ -71,7 +72,16 @@ class MainSite extends Component {
       return <RatingNumber>Nie oceniono</RatingNumber>;
     }
     const calculation = rate / amount;
-    return <RatingNumber>{parseInt(calculation)}</RatingNumber>;
+    return (
+      <StarRatings
+        rating={parseInt(calculation)}
+        numberOfStars={5}
+        name="rating"
+        starRatedColor="orange"
+        starDimension="24px"
+        starSpacing="4px"
+      />
+    );
   };
 
   render() {

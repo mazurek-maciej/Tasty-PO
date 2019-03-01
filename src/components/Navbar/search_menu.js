@@ -25,7 +25,7 @@ const Wraper = styled(PosedNav)`
   justify-content: center;
   width: 100%;
   height: 100%;
-  background-color: ${({theme}) => theme.colors.$primary};
+  background-color: ${({theme}) => theme.colors.$D2};
   z-index: 999999;
 `;
 

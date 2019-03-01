@@ -25,20 +25,13 @@ const ratingCountSpanStyle = {
   color: '#B3B3B3',
 };
 
-const ImageTile = ({rating, ratingCount}) => (
+const ImageTile = ({rating, ratingCount, calculateRating}) => (
   <>
     <ImageWraper>
       <Image src={imejdz} alt="img" />
     </ImageWraper>
     <RatingWraper>
-      <StarRatings
-        rating={rating}
-        numberOfStars={5}
-        name="rating"
-        starRatedColor="orange"
-        starDimension="24px"
-        starSpacing="4px"
-      />
+      {calculateRating(rating, ratingCount)}
       <span style={ratingCountSpanStyle}>Ilość ocen: {ratingCount}</span>
     </RatingWraper>
   </>

@@ -5,6 +5,7 @@ import posed from 'react-pose';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {firestoreConnect} from 'react-redux-firebase';
+import StarRatings from 'react-star-ratings';
 
 import CommentForm from './Comments';
 import Loading from '../Loading';
@@ -59,6 +60,25 @@ class Index extends Component {
     }
   }
 
+  calculateRating = (rate, amount) => {
+    if (!rate && !amount) {
+      return <div>Nie oceniono</div>;
+    } else if (rate === 0 && amount === 0) {
+      return <div>Nie oceniono</div>;
+    }
+    const calculation = rate / amount;
+    return (
+      <StarRatings
+        rating={parseInt(calculation)}
+        numberOfStars={5}
+        name="rating"
+        starRatedColor="orange"
+        starDimension="24px"
+        starSpacing="4px"
+      />
+    );
+  };
+
   // Ocenianie
   handleRatingClick = (rate, id, userId) => {
     const locationId = this.props.location.state.res.id;
@@ -105,12 +125,16 @@ class Index extends Component {
     if (!restaurant) return <Loading />;
     if (!profile) return <Loading />;
     const place = this.props.location.state.res;
+    console.log(place);
     return (
       <>
         <AllWraper>
           <PopUp active={popUp} />
           <RestaurantWraper anim={animation}>
-            <RestaurantTile placeData={place} />
+            <RestaurantTile
+              placeData={place}
+              calculateRating={this.calculateRating}
+            />
             <RatingsStars
               place={place.id}
               authUid={auth.uid}
@@ -119,6 +143,7 @@ class Index extends Component {
               handleClick={this.handleRatingClick}
             />
           </RestaurantWraper>
+          {this.calculateRating()}
           <CommentForm disp={auth.uid} restId={place.id} />
         </AllWraper>
       </>

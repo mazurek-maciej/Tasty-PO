@@ -1,15 +1,10 @@
 import React from 'react';
-import styled, {css} from 'styled-components';
+import styled from 'styled-components';
 import {Link} from 'react-router-dom';
 import posed from 'react-pose';
 
 import P from '../Fonts/P';
 import exampleImage from '../../images/manekin.png';
-
-const animationFade = css`
-  opacity: 1;
-  transform: translateY(0);
-`;
 
 const PosedFav = posed.div({
   enter: {y: 0, opacity: 1},
@@ -21,7 +16,6 @@ const FavouriteWraper = styled(PosedFav)`
   flex-direction: column;
   align-items: center;
   margin: 1rem 0;
-  box-shadow: 0 4px 6px hsla(0, 0%, 0%, 0.1);
   @media (min-width: 320px) and (max-width: 480px) {
     margin: 0.5rem 0 0.5rem 0;
   }
@@ -36,6 +30,8 @@ const FavouriteTopContainer = styled.div`
   flex: 2;
   width: 100%;
   display: flex;
+  padding: 8px;
+  background-color: ${({theme}) => theme.colors.$D2};
 `;
 const FavouriteTopLeftContainer = styled.div`
   flex: 1;
@@ -50,6 +46,10 @@ const FavouriteTopRightContainer = styled.div`
 `;
 const FavouriteBottomContainer = styled.div`
   flex: 1;
+  text-align: center;
+  width: 100%;
+  padding: 8px 0;
+  background-color: ${({theme}) => theme.colors.$D1};
 `;
 const FavouritesList = ({restaurant, favourites, anim}) => {
   const restFavouristList = restaurant.filter(r => favourites.includes(r.id));
@@ -69,7 +69,7 @@ const FavouritesList = ({restaurant, favourites, anim}) => {
           </Link>
         </FavouriteTopLeftContainer>
         <FavouriteTopRightContainer>
-          <P b>{res.title}</P>
+          <P bold>{res.title}</P>
           <P>{res.website}</P>
         </FavouriteTopRightContainer>
       </FavouriteTopContainer>

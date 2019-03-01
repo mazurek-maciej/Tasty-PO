@@ -16,6 +16,7 @@ const PosedFavsWraper = posed.div({
 });
 const FavouritesWraper = styled(PosedFavsWraper)`
   display: flex;
+  height: 100%;
   flex-direction: column;
   justify-content: center;
   align-items: center;

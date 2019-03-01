@@ -53,7 +53,7 @@ const Img = styled.img`
   margin: 0 8px 8px 0;
 `;
 
-const RestaurantTile = ({placeData}) => (
+const RestaurantTile = ({placeData, calculateRating, rating, ratingCount}) => (
   <MainTileWraper>
     <DarkBg />
     <TopBar title={placeData.title} />
@@ -61,6 +61,7 @@ const RestaurantTile = ({placeData}) => (
       <ImageTile
         rating={placeData.rating}
         ratingCount={placeData.ratingCount}
+        calculateRating={calculateRating}
       />
       <InfoWraper>
         <H2 underline margin="8px 0 4px 0">
