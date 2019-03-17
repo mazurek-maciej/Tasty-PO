@@ -5,19 +5,20 @@ import PropTypes from 'prop-types';
 import posed from 'react-pose';
 import {ChevronLeft} from 'styled-icons/feather/ChevronLeft';
 import H2 from '../Fonts/H2';
+import {media} from '../../utils/media';
 
 const PosedTopBar = posed.div({
   enter: {x: 0, opacity: 1},
   exit: {x: 50, opacity: 0},
 });
-const TopBarWraper = styled(PosedTopBar)`
+const TopBarWrapper = styled(PosedTopBar)`
+  align-self: flex-start;
   display: flex;
   align-items: center;
   border-bottom: 1px solid #ccc;
   height: 60px;
   margin: 0 16px;
   margin-bottom: 48px;
-  width: 340px;
 `;
 const PosedIcon = posed(ChevronLeft)({
   hoverable: true,
@@ -37,12 +38,12 @@ const BackIcon = styled(PosedIcon)`
 `;
 
 const TopContainer = () => (
-  <TopBarWraper>
+  <TopBarWrapper>
     <Link to="/main" style={{marginRight: '8px'}}>
       <BackIcon />
     </Link>
     <H2 big>Twoja lista</H2>
-  </TopBarWraper>
+  </TopBarWrapper>
 );
 
 TopContainer.propTypes = {};

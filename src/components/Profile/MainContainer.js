@@ -8,10 +8,7 @@ import avatar from '../../images/person.jpg';
 import H2 from '../Fonts/H2';
 import P from '../Fonts/P';
 
-const PosedDarkBg = posed.div({
-  enter: {opacity: 1},
-  exit: {opacity: 0},
-});
+
 const PosedTextWraper = posed.div({
   enter: {y: 0, opacity: 1},
   exit: {y: 50, opacity: 0},
@@ -25,14 +22,7 @@ const Image = styled.img`
     inset 0 4px 8px 0 rgba(173, 173, 173, 0.4);
   border: solid 1px #cccccc;
 `;
-const DarkBg = styled(PosedDarkBg)`
-  position: absolute;
-  background-color: #45484d;
-  height: 300px;
-  width: 100%;
-  z-index: -2;
-  top: 0;
-`;
+
 const TextWraper = styled(PosedTextWraper)`
   display: flex;
   flex-direction: column;
@@ -40,7 +30,6 @@ const TextWraper = styled(PosedTextWraper)`
 
 const MainContainer = ({email, profile}) => (
   <>
-    <DarkBg />
     <ImageWraper>
       <Image src={avatar} alt="img" />
     </ImageWraper>

@@ -23,13 +23,13 @@ const PosedTopBar = posed.div({
   exit: {x: 50, opacity: 0},
 });
 const TopBarWraper = styled(PosedTopBar)`
+  align-self: flex-start;
   display: flex;
   align-items: center;
   border-bottom: 1px solid #ccc;
   height: 60px;
   margin: 0 16px;
   margin-bottom: 48px;
-  width: 340px;
 `;
 const BackIcon = styled(PosedIcon)`
   width: 24px;
@@ -50,7 +50,6 @@ const TopBar = () => (
     <H2 white big>
       Twój profil
     </H2>
-    <EditIcon src={editIcon} />
   </TopBarWraper>
 );
 

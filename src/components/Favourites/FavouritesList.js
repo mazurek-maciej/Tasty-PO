@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
 import posed from 'react-pose';
+import {media} from '../../utils/media';
 
 import P from '../Fonts/P';
 import exampleImage from '../../images/manekin.png';
@@ -11,14 +12,14 @@ const PosedFav = posed.div({
   exit: {y: -50, opacity: 0},
 });
 
-const FavouriteWraper = styled(PosedFav)`
+const FavouriteWrapper = styled(PosedFav)`
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 1rem 0;
-  @media (min-width: 320px) and (max-width: 480px) {
+  ${media.phone`
     margin: 0.5rem 0 0.5rem 0;
-  }
+  `}
   :after {
     content: '';
     width: 100%;
@@ -54,7 +55,7 @@ const FavouriteBottomContainer = styled.div`
 const FavouritesList = ({restaurant, favourites, anim}) => {
   const restFavouristList = restaurant.filter(r => favourites.includes(r.id));
   return restFavouristList.map(res => (
-    <FavouriteWraper anim={anim} key={res.id}>
+    <FavouriteWrapper anim={anim} key={res.id}>
       <FavouriteTopContainer>
         <FavouriteTopLeftContainer>
           <Link
@@ -77,7 +78,7 @@ const FavouritesList = ({restaurant, favourites, anim}) => {
       <FavouriteBottomContainer>
         <P>{res.address}</P>
       </FavouriteBottomContainer>
-    </FavouriteWraper>
+    </FavouriteWrapper>
   ));
 };
 

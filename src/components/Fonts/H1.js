@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import {theme} from '../../utils/theme';
+import styled from "styled-components";
+import { theme } from "../../utils/theme";
 
 const H1 = styled.h1`
   color: ${theme.colors.$darkFont};
