@@ -24,9 +24,9 @@ const BottomContainer = styled.div`
 const SearchButton = styled.input`
   width: 200px;
   height: 30px;
-  border: 1px solid transparent;
+  border: 1px solid ${({theme}) => theme.colors.$D3};
   border-radius: 5px;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.10);
   background-color: #f2f2f2;
   text-align: center;
 `;

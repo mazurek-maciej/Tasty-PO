@@ -16,16 +16,13 @@ const FavouriteWrapper = styled(PosedFav)`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 1rem 0;
+  margin: 1.5rem 3rem;
+  box-shadow: 0 6px 12px 0 rgba(0,0,0,0.10);
+  border-radius: 8px;
   ${media.phone`
     margin: 0.5rem 0 0.5rem 0;
   `}
-  :after {
-    content: '';
-    width: 100%;
-    height: 1px;
-    background-color: ${({theme}) => theme.colors.$D5};
-  }
+
 `;
 const FavouriteTopContainer = styled.div`
   flex: 2;

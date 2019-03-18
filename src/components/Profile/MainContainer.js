@@ -18,7 +18,7 @@ const Image = styled.img`
   border-radius: 50%;
   width: 200px;
   height: 200px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5),
+  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.3),
     inset 0 4px 8px 0 rgba(173, 173, 173, 0.4);
   border: solid 1px #cccccc;
 `;

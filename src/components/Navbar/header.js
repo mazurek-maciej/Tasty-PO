@@ -15,7 +15,7 @@ const Navbar = styled.div`
   height: 60px;
   background-color: ${({theme}) => theme.colors.$D2};
   position: sticky;
-  box-shadow: 0 2px 5px hsla(0, 0%, 0%, 0.3);
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.10);
 `;
 const MenuButton = styled.a`
   margin: 1rem;
