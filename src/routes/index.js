@@ -1,6 +1,6 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import posed, {PoseGroup} from 'react-pose';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import posed, { PoseGroup } from 'react-pose';
 import SignIn from '../components/Authentication/signIn';
 import SignUp from '../components/Authentication/signUp';
 import Header from '../components/Navbar/header';
@@ -12,16 +12,16 @@ import Profile from '../components/Profile';
 import LogoutMain from '../components/MainLoggedOff/logoutMain';
 
 const PosedRoutes = posed.div({
-  enter: {opacity: 1, delay: 300, beforeChildren: true},
-  exit: {opacity: 0},
+  enter: { opacity: 1, delay: 300, beforeChildren: true },
+  exit: { opacity: 0 },
 });
 
 const Root = () => (
   <Router>
-    <>
+    <React.Fragment>
       <Header />
       <Route
-        render={({location}) => (
+        render={({ location }) => (
           <PoseGroup>
             <PosedRoutes key={location.pathname}>
               <Switch location={location}>
@@ -38,7 +38,7 @@ const Root = () => (
           </PoseGroup>
         )}
       />
-    </>
+    </React.Fragment>
   </Router>
 );
 
