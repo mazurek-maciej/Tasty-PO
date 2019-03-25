@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@mdi/svg": "^3.0.39",
+    "ajv": "^6.10.0",
     "bulma": "^0.7.2",
     "firebase": "^5.5.8",
     "leaflet": "^1.3.4",
