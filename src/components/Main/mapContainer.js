@@ -1,16 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Favorite} from 'styled-icons/material/Favorite';
-import {Info} from 'styled-icons/material/Info';
-import {Link} from 'react-router-dom';
+import { Favorite } from 'styled-icons/material/Favorite';
+import { Info } from 'styled-icons/material/Info';
+import { Link } from 'react-router-dom';
 
 // Mapa
 import 'leaflet/dist/leaflet.css';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import shadowIcon from 'leaflet/dist/images/marker-shadow.png';
-import {Map, TileLayer, Marker, Popup} from 'react-leaflet';
+import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
-import {ReactLeafletSearch} from 'react-leaflet-search';
+import { ReactLeafletSearch } from 'react-leaflet-search';
 import '../../../node_modules/react-leaflet-search/lib/react-leaflet-search.css';
 
 const MarkerWraper = styled.div`
@@ -19,7 +19,7 @@ const MarkerWraper = styled.div`
   justify-content: flex-end;
   align-items: center;
 `;
-let myIcon = L.icon({
+const myIcon = L.icon({
   iconUrl: icon,
   iconSize: [30, 50],
   iconAnchor: [15, 50],
@@ -29,20 +29,12 @@ let myIcon = L.icon({
   shadowAnchor: [22, 94],
 });
 const MapOverride = styled(Map)`
-  ::before {
-    content: '';
-    width: 100%;
-    height: 4px;
-    background-color: #45484d;
-    position: absolute;
-    z-index: 2;
-    transform: translateY(-4px);
-  }
+  border-top: 4px solid ${({ theme }) => theme.colors.$cyan100};
 `;
 const InfoIcon = styled(Info)`
   width: 3rem;
   height: 3rem;
-  color: ${({theme}) => theme.colors.$dark};
+  color: ${({ theme }) => theme.colors.$dark};
   cursor: pointer;
   transition: all 0.2s;
   :hover {
@@ -58,7 +50,7 @@ const PopUpTitle = styled.span`
 const FavIcon = styled(Favorite)`
   width: 3rem;
   height: 3rem;
-  color: ${({theme}) => theme.colors.$primary};
+  color: ${({ theme }) => theme.colors.$primary};
   cursor: pointer;
   transition: all 0.2s;
   :hover {
@@ -68,11 +60,11 @@ const FavIcon = styled(Favorite)`
 
 class MapContainer extends React.Component {
   render() {
-    const {state, restaurantsList, calculateRating, authInfo} = this.props;
-    const {lat, lng, zoom} = state;
+    const { state, restaurantsList, calculateRating, authInfo } = this.props;
+    const { lat, lng, zoom } = state;
     const position = [lat, lng];
     return (
-      <MapOverride style={{height: '60vh'}} center={position} zoom={zoom}>
+      <MapOverride style={{ height: '60vh' }} center={position} zoom={zoom}>
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"

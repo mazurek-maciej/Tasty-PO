@@ -8,10 +8,10 @@ const P = styled.p`
   font-weight: ${props => (props.bold ? '700' : '300')};
   font-size: ${props =>
     props.big
-      ? `${theme.fonts.$18}`
+      ? `${theme.fonts.$h4}`
       : props.small
-      ? `${theme.fonts.$14}`
-      : `${theme.fonts.$16}`};
+      ? `${theme.fonts.$label}`
+      : `${theme.fonts.$text}`};
 `;
 
 export default P;

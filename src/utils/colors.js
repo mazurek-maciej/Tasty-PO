@@ -3,6 +3,8 @@ export const colors = {
   $dark: '#363636',
   $white: '#f9f9f9',
   $darkFont: '#202225',
+  $cyan100: '#07192b',
+  $cyan90: '#002b50',
   $D1: '#FAFAFA',
   $D2: '#F2F2F2',
   $D3: '#E6E6E6',

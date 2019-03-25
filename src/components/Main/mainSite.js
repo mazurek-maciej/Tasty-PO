@@ -1,19 +1,19 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
-import {Redirect} from 'react-router-dom';
-import HelloUserContainer from './helloUserContainer';
-import MapContainer from './mapContainer';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import StarRatings from 'react-star-ratings';
 
 // Baza danych / autentykacja
-import {compose} from 'redux';
-import {connect} from 'react-redux';
-import {firestoreConnect} from 'react-redux-firebase';
-import {getRestaurants} from '../../store/actions/restuarantActions';
-import {addFavourites} from '../../store/actions/addFavouritesAction';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { firestoreConnect } from 'react-redux-firebase';
+import styled from 'styled-components';
+import { getRestaurants } from '../../store/actions/restuarantActions';
+import { addFavourites } from '../../store/actions/addFavouritesAction';
 
 // Style
-import styled from 'styled-components';
+import MapContainer from './mapContainer';
+import HelloUserContainer from './helloUserContainer';
 import Loading from '../Loading';
 
 const MapAndTextWraper = styled.div`
@@ -39,20 +39,23 @@ class MainSite extends Component {
     anim: false,
     addedToFavs: false,
   };
+
   componentDidMount() {
     setTimeout(this.handleAnimState(), 500);
   }
+
   handleAnimState = () => {
-    this.setState(prevState => ({anim: prevState.anim}));
+    this.setState(prevState => ({ anim: prevState.anim }));
     console.log(this.state.anim);
   };
 
-  componentDidUpdate({markerPosition}) {
+  componentDidUpdate({ markerPosition }) {
     // check if position has changed
     if (this.props.markerPosition !== markerPosition) {
       this.marker.setLatLng(this.props.markerPosition);
     }
   }
+
   handleClick = (e, id) => {
     // sprawdzenie czy tablica ulubionych pobrana z firestore zawiera element
     // przesłany z buttona, czyli w tym przypadku ID danego lokalu
@@ -65,10 +68,12 @@ class MainSite extends Component {
       this.props.addFavourites(e, id);
     }
   };
+
   calculateRating = (rate, amount) => {
     if (!rate && !amount) {
       return <RatingNumber>Nie oceniono</RatingNumber>;
-    } else if (rate === 0 && amount === 0) {
+    }
+    if (rate === 0 && amount === 0) {
       return <RatingNumber>Nie oceniono</RatingNumber>;
     }
     const calculation = rate / amount;
@@ -85,8 +90,8 @@ class MainSite extends Component {
   };
 
   render() {
-    const {authInfo, restaurantsList, userInfo} = this.props;
-    const {userGeoIsLoaded} = this.state;
+    const { authInfo, restaurantsList, userInfo } = this.props;
+    const { userGeoIsLoaded } = this.state;
 
     if (!authInfo.uid) return <Redirect to="/signin" />;
     if (!restaurantsList && !userGeoIsLoaded) return <Loading />;
@@ -105,26 +110,22 @@ class MainSite extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    authInfo: state.firebase.auth,
-    restaurantsList: state.firestore.ordered.restaurants,
-    favourites: state.firebase.profile.favourites,
-    userInfo: state.firebase.profile,
-  };
-};
+const mapStateToProps = state => ({
+  authInfo: state.firebase.auth,
+  restaurantsList: state.firestore.ordered.restaurants,
+  favourites: state.firebase.profile.favourites,
+  userInfo: state.firebase.profile,
+});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getRestaurants: restaurant => dispatch(getRestaurants(restaurant)),
-    addFavourites: (fav, id) => dispatch(addFavourites(fav, id)),
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  getRestaurants: restaurant => dispatch(getRestaurants(restaurant)),
+  addFavourites: (fav, id) => dispatch(addFavourites(fav, id)),
+});
 
 export default compose(
   connect(
     mapStateToProps,
-    mapDispatchToProps,
+    mapDispatchToProps
   ),
-  firestoreConnect([{collection: 'restaurants'}]),
+  firestoreConnect([{ collection: 'restaurants' }])
 )(MainSite);
