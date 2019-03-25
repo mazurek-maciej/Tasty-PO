@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
-import {signIn} from '../../store/actions/authActions';
 import {Redirect} from 'react-router-dom';
+import {signIn} from '../../store/actions/authActions';
 import Layout from '../Layout/layout';
 
 const Wraper = styled.div`
@@ -13,7 +13,7 @@ const Wraper = styled.div`
   }
 `;
 const Error = styled.p`
-  color: ${({theme}) => theme.colors.$primary};
+  color: ${({ theme }) => theme.colors.$primary};
 `;
 
 class SignIn extends Component {
@@ -21,10 +21,12 @@ class SignIn extends Component {
     email: '',
     password: '',
   };
+
   handleSubmit = e => {
     e.preventDefault();
     this.props.signIn(this.state);
   };
+
   handleChange = e => {
     this.setState({
       [e.target.id]: e.target.value,
@@ -32,8 +34,8 @@ class SignIn extends Component {
   };
 
   render() {
-    const {authError, auth} = this.props;
-    if (auth.uid) return <Redirect to="/main" />;
+    const { authError, auth } = this.props;
+    if (auth.uid) return <Redirect to="/" />;
 
     return (
       <Layout>
@@ -85,20 +87,16 @@ class SignIn extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
+const mapStateToProps = state => ({
     authError: state.auth.authError,
     auth: state.firebase.auth,
-  };
-};
+  });
 
-const mapDispatchToProps = dispatch => {
-  return {
+const mapDispatchToProps = dispatch => ({
     signIn: creds => dispatch(signIn(creds)),
-  };
-};
+  });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(SignIn);

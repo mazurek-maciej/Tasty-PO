@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import H1 from '../Fonts/H1';
 import H2 from '../Fonts/H2';
@@ -76,22 +77,41 @@ const ShapeBg = styled.div`
   clip-path: circle(50% at 70% 30%);
   z-index: -2;
 `;
+const CallActionButton = styled(Link)`
+  color: ${({ theme }) => theme.colors.$D2};
+  background: hsl(140, 50%, 50%);
+  padding: 8px 16px;
+  border-radius: 8px;
+  margin-top: 8px;
+  box-shadow: 0 2px 5px hsla(0, 0%, 0%, 0.2);
+`;
 
-const HelloUserContainer = ({ userInfo }) => (
+const HelloUserContainer = ({ userInfo, auth }) => (
   <React.Fragment>
     <HelloWraper>
       <ContainersWrapper>
-        <TopContainer>
-          <H1 padding="16px 0 0 0">
-            Witaj {userInfo.name} {userInfo.surname}!
-          </H1>
-        </TopContainer>
-        <BottomContainer>
-          <H2 margin="0 0 8px 0">
-            Skorzystaj z mapy, lub szybkiego wyszukiwania!
-          </H2>
-          <SearchButton type="text" placeholder="Under construction 🚧" />
-        </BottomContainer>
+        {auth.uid ? (
+          <React.Fragment>
+            <TopContainer>
+              <H1 padding="16px 0 0 0">
+                Witaj {userInfo.name} {userInfo.surname}!
+              </H1>
+            </TopContainer>
+            <BottomContainer>
+              <H2 margin="0 0 8px 0">
+                Skorzystaj z mapy, lub szybkiego wyszukiwania!
+              </H2>
+              <SearchButton type="text" placeholder="Under construction 🚧" />
+            </BottomContainer>
+          </React.Fragment>
+        ) : (
+          <React.Fragment>
+            <H1>Witaj w aplikacji Tasty!</H1>
+            <div style={{ marginTop: '8px', alignSelf: 'flex-start' }}>
+              <CallActionButton to="/signup">Dołącz do nas</CallActionButton>
+            </div>
+          </React.Fragment>
+        )}
       </ContainersWrapper>
     </HelloWraper>
     <ImageShape />

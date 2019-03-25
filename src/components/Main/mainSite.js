@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Redirect } from 'react-router-dom';
 import StarRatings from 'react-star-ratings';
 
-// Baza danych / autentykacja
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
@@ -11,13 +8,9 @@ import styled from 'styled-components';
 import { getRestaurants } from '../../store/actions/restuarantActions';
 import { addFavourites } from '../../store/actions/addFavouritesAction';
 
-// Style
 import Loading from '../Loading';
 
 const HelloUserContainer = React.lazy(() => import('./helloUserContainer'));
-const LogoutUserContainer = React.lazy(() =>
-  import('./helloUserLogoutContainer')
-);
 const MapContainer = React.lazy(() => import('./mapContainer'));
 
 const MapAndTextWraper = styled.div`
@@ -90,18 +83,12 @@ class MainSite extends Component {
     const { authInfo, restaurantsList, userInfo } = this.props;
     const { userGeoIsLoaded } = this.state;
 
-    // if (!authInfo.uid) return <Redirect to="/signin" />;
     if (!restaurantsList && !userGeoIsLoaded) return <Loading />;
     return (
       <React.Fragment>
         <React.Suspense fallback={<Loading />}>
           <MapAndTextWraper>
-            {authInfo.uid ? (
-              <HelloUserContainer userInfo={userInfo} />
-            ) : (
-              <LogoutUserContainer />
-            )}
-
+            <HelloUserContainer userInfo={userInfo} auth={authInfo} />
             <MapContainer
               handleClick={this.handleClick}
               restaurantsList={restaurantsList}
