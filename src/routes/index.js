@@ -9,7 +9,6 @@ import RestaurantDetails from '../components/RestaurantDetails';
 import AddRestaurant from '../components/RestaurantDetails/add_restaurant';
 import Favourites from '../components/Favourites/Favourites';
 import Profile from '../components/Profile';
-import LogoutMain from '../components/MainLoggedOff/logoutMain';
 
 const PosedRoutes = posed.div({
   enter: { opacity: 1, delay: 300, beforeChildren: true },
@@ -25,8 +24,7 @@ const Root = () => (
           <PoseGroup>
             <PosedRoutes key={location.pathname}>
               <Switch location={location}>
-                <Route exact path="/" component={LogoutMain} />
-                <Route path="/main" component={MainSite} />
+                <Route exact path="/" component={MainSite} />
                 <Route path="/restaurant/:name" component={RestaurantDetails} />
                 <Route path="/signin" component={SignIn} />
                 <Route path="/signup" component={SignUp} />

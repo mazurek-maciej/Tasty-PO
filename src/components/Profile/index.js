@@ -1,7 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import posed from 'react-pose';
 
@@ -63,7 +63,7 @@ class Profile extends React.Component {
             <TopBar />
             <MainContainer email={auth.email} profile={profile} />
             <FavsButton>
-              <img src={favIcon} />
+              <img src={favIcon} alt="Back button" />
               <Link
                 style={{ marginLeft: '8px', color: '#45484D' }}
                 to="/favourites"
@@ -79,9 +79,9 @@ class Profile extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    auth: state.firebase.auth,
-    profile: state.firebase.profile,
-  });
+  auth: state.firebase.auth,
+  profile: state.firebase.profile,
+});
 
 Profile.propTypes = {
   auth: PropTypes.object,

@@ -1,8 +1,8 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
-import {connect} from 'react-redux';
-import {signOut} from '../../store/actions/authActions';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { signOut } from '../../store/actions/authActions';
 
 const MenuButton = styled.li`
   padding: 24px;
@@ -10,10 +10,10 @@ const MenuButton = styled.li`
   border-bottom: 1px solid transparent;
   :hover,
   :active {
-    border-bottom: 1px solid ${({theme}) => theme.colors.$D6};
+    border-bottom: 1px solid ${({ theme }) => theme.colors.$D6};
   }
   a {
-    color: ${({theme}) => theme.colors.$D9};
+    color: ${({ theme }) => theme.colors.$D9};
   }
 `;
 const LinksWraper = styled.ul`
@@ -26,24 +26,22 @@ const LinksWraper = styled.ul`
 const SignedInLinks = props => (
   <LinksWraper>
     <MenuButton>
-      <Link to={`/favourites`}>Ulubione</Link>
+      <Link to="/favourites">Ulubione</Link>
     </MenuButton>
     <MenuButton>
-      <Link to={`/profile`}>Profil</Link>
+      <Link to="/profile">Profil</Link>
     </MenuButton>
     <MenuButton onClick={props.signOut}>
-      <Link to={`/`}>Wyloguj się</Link>
+      <Link to="/">Wyloguj się</Link>
     </MenuButton>
   </LinksWraper>
 );
 
-const mapDispatchToProps = dispatch => {
-  return {
-    signOut: () => dispatch(signOut()),
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  signOut: () => dispatch(signOut()),
+});
 
 export default connect(
   null,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(SignedInLinks);

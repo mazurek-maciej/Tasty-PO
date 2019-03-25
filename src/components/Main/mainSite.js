@@ -12,9 +12,13 @@ import { getRestaurants } from '../../store/actions/restuarantActions';
 import { addFavourites } from '../../store/actions/addFavouritesAction';
 
 // Style
-import MapContainer from './mapContainer';
-import HelloUserContainer from './helloUserContainer';
 import Loading from '../Loading';
+
+const HelloUserContainer = React.lazy(() => import('./helloUserContainer'));
+const LogoutUserContainer = React.lazy(() =>
+  import('../MainLoggedOff/helloUserContainer')
+);
+const MapContainer = React.lazy(() => import('./mapContainer'));
 
 const MapAndTextWraper = styled.div`
   width: 100%;
@@ -32,34 +36,27 @@ const RatingNumber = styled.span`
 
 class MainSite extends Component {
   state = {
-    lat: 50.674577,
-    lng: 17.918693,
-    zoom: 16,
     favs: [],
     anim: false,
-    addedToFavs: false,
   };
 
   componentDidMount() {
     setTimeout(this.handleAnimState(), 500);
   }
 
-  handleAnimState = () => {
-    this.setState(prevState => ({ anim: prevState.anim }));
-    console.log(this.state.anim);
-  };
-
   componentDidUpdate({ markerPosition }) {
-    // check if position has changed
     if (this.props.markerPosition !== markerPosition) {
       this.marker.setLatLng(this.props.markerPosition);
     }
   }
 
+  handleAnimState = () => {
+    this.setState(prevState => ({ anim: prevState.anim }));
+  };
+
   handleClick = (e, id) => {
-    // sprawdzenie czy tablica ulubionych pobrana z firestore zawiera element
-    // przesłany z buttona, czyli w tym przypadku ID danego lokalu
-    if (this.props.favouritesTable.favourites.includes(e)) {
+    const { favouritesTable } = this.props;
+    if (favouritesTable.favourites.includes(e)) {
       console.log('lokal już został zapisany');
     } else {
       this.setState({
@@ -93,19 +90,27 @@ class MainSite extends Component {
     const { authInfo, restaurantsList, userInfo } = this.props;
     const { userGeoIsLoaded } = this.state;
 
-    if (!authInfo.uid) return <Redirect to="/signin" />;
+    // if (!authInfo.uid) return <Redirect to="/signin" />;
     if (!restaurantsList && !userGeoIsLoaded) return <Loading />;
     return (
-      <MapAndTextWraper>
-        <HelloUserContainer userInfo={userInfo} />
-        <MapContainer
-          state={this.state}
-          handleClick={this.handleClick}
-          restaurantsList={restaurantsList}
-          calculateRating={this.calculateRating}
-          authInfo={authInfo}
-        />
-      </MapAndTextWraper>
+      <React.Fragment>
+        <React.Suspense fallback={<Loading />}>
+          <MapAndTextWraper>
+            {authInfo.uid ? (
+              <HelloUserContainer userInfo={userInfo} />
+            ) : (
+              <LogoutUserContainer />
+            )}
+
+            <MapContainer
+              handleClick={this.handleClick}
+              restaurantsList={restaurantsList}
+              calculateRating={this.calculateRating}
+              authInfo={authInfo}
+            />
+          </MapAndTextWraper>
+        </React.Suspense>
+      </React.Fragment>
     );
   }
 }
@@ -113,7 +118,6 @@ class MainSite extends Component {
 const mapStateToProps = state => ({
   authInfo: state.firebase.auth,
   restaurantsList: state.firestore.ordered.restaurants,
-  favourites: state.firebase.profile.favourites,
   userInfo: state.firebase.profile,
 });
 

@@ -60,11 +60,10 @@ const FavIcon = styled(Favorite)`
 
 class MapContainer extends React.Component {
   render() {
-    const { state, restaurantsList, calculateRating, authInfo } = this.props;
-    const { lat, lng, zoom } = state;
-    const position = [lat, lng];
+    const { restaurantsList, calculateRating, authInfo } = this.props;
+    const position = [50.667367, 17.926544];
     return (
-      <MapOverride style={{ height: '60vh' }} center={position} zoom={zoom}>
+      <MapOverride style={{ height: '60vh' }} center={position} zoom="16">
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
@@ -93,11 +92,13 @@ class MapContainer extends React.Component {
                   >
                     <InfoIcon />
                   </Link>
-                  <FavIcon
-                    onClick={() =>
-                      this.handleClick(restaurant.id, authInfo.uid)
-                    }
-                  />
+                  {authInfo.uid ? (
+                    <FavIcon
+                      onClick={() =>
+                        this.handleClick(restaurant.id, authInfo.uid)
+                      }
+                    />
+                  ) : null}
                 </div>
               </MarkerWraper>
             </Popup>

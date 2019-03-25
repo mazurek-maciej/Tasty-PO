@@ -63,7 +63,8 @@ class Index extends Component {
   calculateRating = (rate, amount) => {
     if (!rate && !amount) {
       return <div>Nie oceniono</div>;
-    } if (rate === 0 && amount === 0) {
+    }
+    if (rate === 0 && amount === 0) {
       return <div>Nie oceniono</div>;
     }
     const calculation = rate / amount;
@@ -79,7 +80,6 @@ class Index extends Component {
     );
   };
 
-  // Ocenianie
   handleRatingClick = (rate, id, userId) => {
     const locationId = this.props.location.state.res.id;
     const name = this.props.restaurant.find(r => r.id === locationId);
@@ -90,9 +90,19 @@ class Index extends Component {
     this.checkIfUserRateThisLocation();
     this.handlePopUp();
   };
-  //
 
-  // Sprawdzenie czy lokal zostal oceniony
+  handleAnimation = () => {
+    setTimeout(() => this.setState({ animation: true }), 500);
+  };
+
+  handlePopUp = () => {
+    this.setState(prevState => ({ popUp: !prevState.popUp }));
+    setTimeout(() => {
+      this.setState({ popUp: false });
+      this.checkIfUserRateThisLocation();
+    }, 1000);
+  };
+
   checkIfUserRateThisLocation() {
     if (this.props.profile) {
       const restId = this.props.location.state.res.id;
@@ -104,18 +114,6 @@ class Index extends Component {
       }
     }
   }
-
-  handlePopUp = () => {
-    this.setState(prevState => ({ popUp: !prevState.popUp }));
-    setTimeout(() => {
-      this.setState({ popUp: false });
-      this.checkIfUserRateThisLocation();
-    }, 1000);
-  };
-
-  handleAnimation = () => {
-    setTimeout(() => this.setState({ animation: true }), 500);
-  };
 
   render() {
     const { auth, restaurant, location, profile, userRated } = this.props;
@@ -151,20 +149,20 @@ class Index extends Component {
 }
 
 const mapStateToProps = state => ({
-    auth: state.firebase.auth,
-    restaurant: state.firestore.ordered.restaurants,
-    favourites: state.firebase.profile.favourites,
-    ratesFromProfile: state.firebase.profile.userRatings,
-    profile: state.firebase.profile,
-    userRated: state.auth.userRated,
-  });
+  auth: state.firebase.auth,
+  restaurant: state.firestore.ordered.restaurants,
+  favourites: state.firebase.profile.favourites,
+  ratesFromProfile: state.firebase.profile.userRatings,
+  profile: state.firebase.profile,
+  userRated: state.auth.userRated,
+});
 
 const mapDispatchToProps = dispatch => ({
-    addRatingToRestaurant: (rate, count, id) =>
-      dispatch(addRatingToRestaurant(rate, count, id)),
-    addRatingToUserProfile: (restaurantId, userId) =>
-      dispatch(addRatingToUserProfile(restaurantId, userId)),
-  });
+  addRatingToRestaurant: (rate, count, id) =>
+    dispatch(addRatingToRestaurant(rate, count, id)),
+  addRatingToUserProfile: (restaurantId, userId) =>
+    dispatch(addRatingToUserProfile(restaurantId, userId)),
+});
 
 Index.propTypes = {
   auth: PropTypes.object,

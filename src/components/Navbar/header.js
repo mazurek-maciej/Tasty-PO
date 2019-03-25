@@ -103,6 +103,14 @@ class Header extends Component {
     popMenu: false,
   };
 
+  componentDidMount() {
+    window.addEventListener('click', this.toggleOutsideClick);
+  }
+
+  componentWillUnmount() {
+    window.addEventListener('click', this.toggleOutsideClick);
+  }
+
   toggleMenu = () => {
     if (this.state.isSearchMenuActive === '') {
       this.setState({
@@ -129,11 +137,8 @@ class Header extends Component {
     }
   };
 
-  componentDidMount() {
-    window.addEventListener('click', this.toggleOutsideClick);
-  }
-
   render() {
+    const { popMenu, isSearchMenuActive } = this.state;
     const { auth } = this.props;
     const links = auth.uid ? <SignedInLinks /> : <SignedOutLinks />;
     return (
@@ -147,20 +152,17 @@ class Header extends Component {
           <ButtonsContainer className="column">
             <MenuButton ref={this.navToggle} onClick={this.toggleMenu}>
               <MenuIcon
-                popOut={this.state.popMenu}
-                pose={this.state.popMenu ? 'hidden' : 'visible'}
+                popOut={popMenu}
+                pose={popMenu ? 'hidden' : 'visible'}
               />
               <ClickedMenuIcon
-                popOut={this.state.popMenu}
-                pose={this.state.popMenu ? 'visible' : 'hidden'}
+                popOut={popMenu}
+                pose={popMenu ? 'visible' : 'hidden'}
               />
             </MenuButton>
           </ButtonsContainer>
         </Navbar>
-        <SearchMenu
-          isSearchMenuActive={this.state.isSearchMenuActive}
-          links={links}
-        />
+        <SearchMenu isSearchMenuActive={isSearchMenuActive} links={links} />
       </React.Fragment>
     );
   }
