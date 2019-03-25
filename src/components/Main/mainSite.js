@@ -16,7 +16,7 @@ import Loading from '../Loading';
 
 const HelloUserContainer = React.lazy(() => import('./helloUserContainer'));
 const LogoutUserContainer = React.lazy(() =>
-  import('../MainLoggedOff/helloUserContainer')
+  import('../MainLoggedOff/helloUserLogoutContainer')
 );
 const MapContainer = React.lazy(() => import('./mapContainer'));
 
