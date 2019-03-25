@@ -25,8 +25,8 @@ const ratingCountSpanStyle = {
   color: '#B3B3B3',
 };
 
-const ImageTile = ({rating, ratingCount, calculateRating}) => (
-  <>
+const ImageTile = ({ rating, ratingCount, calculateRating }) => (
+  <React.Fragment>
     <ImageWraper>
       <Image src={imejdz} alt="img" />
     </ImageWraper>
@@ -34,7 +34,7 @@ const ImageTile = ({rating, ratingCount, calculateRating}) => (
       {calculateRating(rating, ratingCount)}
       <span style={ratingCountSpanStyle}>Ilość ocen: {ratingCount}</span>
     </RatingWraper>
-  </>
+  </React.Fragment>
 );
 ImageTile.propTypes = {
   rating: PropTypes.number,

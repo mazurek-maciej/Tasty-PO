@@ -1,10 +1,10 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {compose} from 'redux';
-import {firestoreConnect} from 'react-redux-firebase';
-import {addComment} from '../../store/actions/addCommentAction';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { firestoreConnect } from 'react-redux-firebase';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import {addComment} from '../../store/actions/addCommentAction';
 
 import Loading from '../Loading';
 
@@ -19,7 +19,7 @@ const CommentsWraper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: ${({theme}) => theme.colors.$white};
+  color: ${({ theme }) => theme.colors.$white};
 `;
 const FormWraper = styled.div`
   max-width: 600px;
@@ -31,7 +31,7 @@ const FormWraper = styled.div`
 const Comment = styled.div`
   border: 1px solid hsla(0, 0%, 30%, 0.3);
   border-radius: 24px;
-  color: ${({theme}) => theme.colors.$dark};
+  color: ${({ theme }) => theme.colors.$dark};
   padding: 24px;
   margin: 1rem;
   box-shadow: 0 4px 15px 0 hsla(220, 15%, 80%, 1);
@@ -52,7 +52,7 @@ const CommentWraper = styled.div`
   box-shadow: inset 0 0 10px hsla(0, 0%, 30%, 0.3);
 `;
 const Title = styled.h3`
-  color: ${({theme}) => theme.colors.$dark};
+  color: ${({ theme }) => theme.colors.$dark};
   font-weight: 600;
   margin: 1rem 0;
 `;
@@ -64,6 +64,7 @@ class CommentForm extends React.Component {
     id: '',
     restaurantId: '',
   };
+
   handleSubmit = e => {
     e.preventDefault();
     this.props.addComment(this.state);
@@ -75,7 +76,7 @@ class CommentForm extends React.Component {
 
   handleChange = e => {
     const userId = this.props.auth.uid;
-    const restId = this.props.restId;
+    const {restId} = this.props;
     const userName = this.props.profile.name;
     this.setState({
       name: userName,
@@ -85,11 +86,11 @@ class CommentForm extends React.Component {
   };
 
   render() {
-    const {store, restId, disp, profile} = this.props;
+    const { store, restId, disp, profile } = this.props;
     if (!store.comments) return <Loading />;
     if (!store.comments) return <Loading />;
     const searchForComments = store.comments.filter(
-      com => com.restaurantId === restId,
+      com => com.restaurantId === restId
     );
     return (
       <Wraper disp={disp}>
@@ -138,18 +139,14 @@ class CommentForm extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
+const mapStateToProps = state => ({
     auth: state.firebase.auth,
     store: state.firestore.ordered,
     profile: state.firebase.profile,
-  };
-};
-const mapDispatchToProps = dispatch => {
-  return {
+  });
+const mapDispatchToProps = dispatch => ({
     addComment: comment => dispatch(addComment(comment)),
-  };
-};
+  });
 
 Comment.propTypes = {
   restId: PropTypes.string,
@@ -163,7 +160,7 @@ Comment.propTypes = {
 export default compose(
   connect(
     mapStateToProps,
-    mapDispatchToProps,
+    mapDispatchToProps
   ),
-  firestoreConnect([{collection: 'comments'}]),
+  firestoreConnect([{ collection: 'comments' }])
 )(CommentForm);

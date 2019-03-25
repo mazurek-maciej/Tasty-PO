@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
-import styled, {css} from 'styled-components';
+import React, { Component } from 'react';
+import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import posed from 'react-pose';
-import {compose} from 'redux';
-import {connect} from 'react-redux';
-import {firestoreConnect} from 'react-redux-firebase';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { firestoreConnect } from 'react-redux-firebase';
 import StarRatings from 'react-star-ratings';
 
 import CommentForm from './Comments';
@@ -13,8 +13,8 @@ import RestaurantTile from './RestaurantTile';
 import RatingsStars from './RatingsStars';
 import PopUp from './popUp';
 
-import {addRatingToRestaurant} from '../../store/actions/addRatingToRestaurant';
-import {addRatingToUserProfile} from '../../store/actions/addRatingToUserProfile';
+import { addRatingToRestaurant } from '../../store/actions/addRatingToRestaurant';
+import { addRatingToUserProfile } from '../../store/actions/addRatingToUserProfile';
 
 const AllWraper = styled.div`
   height: fit-content;
@@ -43,7 +43,7 @@ class Index extends Component {
   constructor(props) {
     super(props);
     this.checkIfUserRateThisLocation = this.checkIfUserRateThisLocation.bind(
-      this,
+      this
     );
     this.state = {
       animation: false,
@@ -63,7 +63,7 @@ class Index extends Component {
   calculateRating = (rate, amount) => {
     if (!rate && !amount) {
       return <div>Nie oceniono</div>;
-    } else if (rate === 0 && amount === 0) {
+    } if (rate === 0 && amount === 0) {
       return <div>Nie oceniono</div>;
     }
     const calculation = rate / amount;
@@ -97,29 +97,29 @@ class Index extends Component {
     if (this.props.profile) {
       const restId = this.props.location.state.res.id;
       const restaurantIdFromUserProfile = this.props.profile.userRatings.find(
-        id => id === restId,
+        id => id === restId
       );
       if (!restaurantIdFromUserProfile) {
-        this.setState({activeRatings: true});
+        this.setState({ activeRatings: true });
       }
     }
   }
 
   handlePopUp = () => {
-    this.setState(prevState => ({popUp: !prevState.popUp}));
+    this.setState(prevState => ({ popUp: !prevState.popUp }));
     setTimeout(() => {
-      this.setState({popUp: false});
+      this.setState({ popUp: false });
       this.checkIfUserRateThisLocation();
     }, 1000);
   };
 
   handleAnimation = () => {
-    setTimeout(() => this.setState({animation: true}), 500);
+    setTimeout(() => this.setState({ animation: true }), 500);
   };
 
   render() {
-    const {auth, restaurant, location, profile, userRated} = this.props;
-    const {activeRatings, popUp, animation} = this.state;
+    const { auth, restaurant, location, profile, userRated } = this.props;
+    const { activeRatings, popUp, animation } = this.state;
 
     if (!location.state) return <Loading />;
     if (!restaurant) return <Loading />;
@@ -127,7 +127,7 @@ class Index extends Component {
     const place = this.props.location.state.res;
     console.log(place);
     return (
-      <>
+      <React.Fragment>
         <AllWraper>
           <PopUp active={popUp} />
           <RestaurantWraper anim={animation}>
@@ -145,30 +145,26 @@ class Index extends Component {
           </RestaurantWraper>
           <CommentForm disp={auth.uid} restId={place.id} />
         </AllWraper>
-      </>
+      </React.Fragment>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {
+const mapStateToProps = state => ({
     auth: state.firebase.auth,
     restaurant: state.firestore.ordered.restaurants,
     favourites: state.firebase.profile.favourites,
     ratesFromProfile: state.firebase.profile.userRatings,
     profile: state.firebase.profile,
     userRated: state.auth.userRated,
-  };
-};
+  });
 
-const mapDispatchToProps = dispatch => {
-  return {
+const mapDispatchToProps = dispatch => ({
     addRatingToRestaurant: (rate, count, id) =>
       dispatch(addRatingToRestaurant(rate, count, id)),
     addRatingToUserProfile: (restaurantId, userId) =>
       dispatch(addRatingToUserProfile(restaurantId, userId)),
-  };
-};
+  });
 
 Index.propTypes = {
   auth: PropTypes.object,
@@ -186,7 +182,7 @@ Index.propTypes = {
 export default compose(
   connect(
     mapStateToProps,
-    mapDispatchToProps,
+    mapDispatchToProps
   ),
-  firestoreConnect([{collection: 'restaurants'}]),
+  firestoreConnect([{ collection: 'restaurants' }])
 )(Index);

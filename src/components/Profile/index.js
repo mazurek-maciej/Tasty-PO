@@ -1,6 +1,6 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {Redirect, Link} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Redirect, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import posed from 'react-pose';
@@ -11,7 +11,7 @@ import MainContainer from './MainContainer';
 import favIcon from '../../utils/icons/FavsIcon.svg';
 
 const PosedMainWraper = posed.div({
-  enter: {staggerChildren: 50},
+  enter: { staggerChildren: 50 },
 });
 const MainWrapper = styled(PosedMainWraper)`
   display: flex;
@@ -30,7 +30,7 @@ const ProfileWrapper = styled.div`
   @media (min-width: 320px) and (max-width: 480px) {
     height: 100%;
   }
-`
+`;
 const FavsButton = styled.div`
   align-self: flex-start;
   display: flex;
@@ -38,8 +38,8 @@ const FavsButton = styled.div`
   margin: 32px 0 0 16px;
 `;
 const PosedDarkBg = posed.div({
-  enter: {opacity: 1},
-  exit: {opacity: 0},
+  enter: { opacity: 1 },
+  exit: { opacity: 0 },
 });
 const DarkBg = styled(PosedDarkBg)`
   position: absolute;
@@ -52,35 +52,36 @@ const DarkBg = styled(PosedDarkBg)`
 
 class Profile extends React.Component {
   render() {
-    const {auth, profile} = this.props;
+    const { auth, profile } = this.props;
     if (!auth.uid) return <Redirect to="/signin" />;
     if (!profile.name) return <Loading />;
     return (
-      <>
-      <DarkBg />
-      <MainWrapper>
-        <ProfileWrapper>
-          <TopBar />
-          <MainContainer email={auth.email} profile={profile} />
-          <FavsButton>
-            <img src={favIcon} />
-            <Link style={{marginLeft: '8px', color: '#45484D'}} to="/favourites">
-              Lista ulubionych
-            </Link>
-          </FavsButton>
-        </ProfileWrapper>
-      </MainWrapper>
-      </>
+      <React.Fragment>
+        <DarkBg />
+        <MainWrapper>
+          <ProfileWrapper>
+            <TopBar />
+            <MainContainer email={auth.email} profile={profile} />
+            <FavsButton>
+              <img src={favIcon} />
+              <Link
+                style={{ marginLeft: '8px', color: '#45484D' }}
+                to="/favourites"
+              >
+                Lista ulubionych
+              </Link>
+            </FavsButton>
+          </ProfileWrapper>
+        </MainWrapper>
+      </React.Fragment>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {
+const mapStateToProps = state => ({
     auth: state.firebase.auth,
     profile: state.firebase.profile,
-  };
-};
+  });
 
 Profile.propTypes = {
   auth: PropTypes.object,

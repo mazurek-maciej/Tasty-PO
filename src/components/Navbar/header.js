@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import posed from 'react-pose';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import {Menu, X} from 'styled-icons/feather';
+import { Menu, X } from 'styled-icons/feather';
 import SearchMenu from './search_menu';
 import SignedOutLinks from './signed-out-links';
 import SignedInLinks from './signed-in-links';
@@ -137,7 +137,7 @@ class Header extends Component {
     const { auth } = this.props;
     const links = auth.uid ? <SignedInLinks /> : <SignedOutLinks />;
     return (
-      <>
+      <React.Fragment>
         <Navbar>
           <LogoContainer className="column">
             <LogoButton as={Link} to="/">
@@ -161,13 +161,13 @@ class Header extends Component {
           isSearchMenuActive={this.state.isSearchMenuActive}
           links={links}
         />
-      </>
+      </React.Fragment>
     );
   }
 }
 
 const mapStateToProps = state => ({
-    auth: state.firebase.auth,
-  });
+  auth: state.firebase.auth,
+});
 
 export default connect(mapStateToProps)(Header);

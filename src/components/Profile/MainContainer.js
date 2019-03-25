@@ -1,17 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled, {css} from 'styled-components';
-import {Link} from 'react-router-dom';
+import styled, { css } from 'styled-components';
+import { Link } from 'react-router-dom';
 import posed from 'react-pose';
 
 import avatar from '../../images/person.jpg';
 import H2 from '../Fonts/H2';
 import P from '../Fonts/P';
 
-
 const PosedTextWraper = posed.div({
-  enter: {y: 0, opacity: 1},
-  exit: {y: 50, opacity: 0},
+  enter: { y: 0, opacity: 1 },
+  exit: { y: 50, opacity: 0 },
 });
 const ImageWraper = styled(PosedTextWraper)``;
 const Image = styled.img`
@@ -28,20 +27,20 @@ const TextWraper = styled(PosedTextWraper)`
   flex-direction: column;
 `;
 
-const MainContainer = ({email, profile}) => (
-  <>
+const MainContainer = ({ email, profile }) => (
+  <React.Fragment>
     <ImageWraper>
       <Image src={avatar} alt="img" />
     </ImageWraper>
     <TextWraper>
-      <H2 style={{textAlign: 'center'}} size="22" margin="0 0 8px 0">
+      <H2 style={{ textAlign: 'center' }} size="22" margin="0 0 8px 0">
         {profile.name} {profile.surname}
       </H2>
       {/*  Uzupełnić w bazie */}
       <P margin="0 0 8px 0">600600600</P>
       <P margin="0 0 8px 0">{email}</P>
     </TextWraper>
-  </>
+  </React.Fragment>
 );
 
 MainContainer.propTypes = {
