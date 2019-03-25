@@ -37,7 +37,7 @@ const BackIcon = styled(PosedIcon)`
 
 const TopBar = () => (
   <TopBarWraper>
-    <Link to="/main" style={{ marginRight: '8px' }}>
+    <Link to="/" style={{ marginRight: '8px' }}>
       <BackIcon />
     </Link>
     <H2 white big>
