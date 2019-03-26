@@ -108,7 +108,7 @@ class Header extends Component {
   }
 
   componentWillUnmount() {
-    window.addEventListener('click', this.toggleOutsideClick);
+    window.removeEventListener('click', this.toggleOutsideClick);
   }
 
   toggleMenu = () => {
