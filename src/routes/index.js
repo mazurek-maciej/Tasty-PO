@@ -26,6 +26,7 @@ const Root = () => (
               <Switch location={location}>
                 <Route exact path="/" component={MainSite} />
                 <Route path="/restaurant/:name" component={RestaurantDetails} />
+                <Route path="/restaurant/:slug" component={RestaurantDetails} />
                 <Route path="/signin" component={SignIn} />
                 <Route path="/signup" component={SignUp} />
                 <Route path="/profile" component={Profile} />
