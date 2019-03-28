@@ -1,24 +1,26 @@
-import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
-import Loading from "../Loading";
-import TopContainer from "./TopContainer";
-import FavouritesList from "./FavouritesList";
-import posed from "react-pose";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
+import posed from 'react-pose';
+import styled from 'styled-components';
 
 // Baza danych / autentykacja
-import { connect } from "react-redux";
-import { compose } from "redux";
-import { firestoreConnect } from "react-redux-firebase";
-import styled from "styled-components";
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { firestoreConnect } from 'react-redux-firebase';
+
+import TopContainer from './TopContainer';
+import FavouritesList from './FavouritesList';
+import Loading from '../Loading';
 
 const PosedFavsWraper = posed.div({
-  enter: { staggerChildren: 50 }
+  enter: { staggerChildren: 50 },
 });
 const FavouritesWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 const MainWrapper = styled(PosedFavsWraper)`
   display: flex;
   height: 100%;
@@ -37,7 +39,7 @@ const FavsWraper = styled.div`
 
 class Favourites extends Component {
   state = {
-    anim: false
+    anim: false,
   };
 
   componentDidMount() {
@@ -48,18 +50,19 @@ class Favourites extends Component {
 
   render() {
     const { auth, favourites, restaurant } = this.props;
+    const { anim } = this.state;
     if (!auth.uid) return <Redirect to="/signin" />;
-    if (!favourites) return <Loading />;
     if (!restaurant) return <Loading />;
+    if (!favourites) return <Loading />;
     return (
       <FavouritesWrapper>
         <MainWrapper>
-          <TopContainer anim={this.state.anim} />
+          <TopContainer anim={anim} />
           <FavsWraper>
             <FavouritesList
               favourites={favourites}
               restaurant={restaurant}
-              anim={this.state.anim}
+              anim={anim}
             />
           </FavsWraper>
         </MainWrapper>
@@ -68,15 +71,19 @@ class Favourites extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    auth: state.firebase.auth,
-    favourites: state.firebase.profile.favourites,
-    restaurant: state.firestore.ordered.restaurants
-  };
+Favourites.propTypes = {
+  auth: PropTypes.object.isRequired,
+  favourites: PropTypes.array,
+  restaurant: PropTypes.array,
 };
+
+const mapStateToProps = state => ({
+  auth: state.firebase.auth,
+  favourites: state.firebase.profile.favourites,
+  restaurant: state.firestore.ordered.restaurants,
+});
 
 export default compose(
   connect(mapStateToProps),
-  firestoreConnect([{ collection: "restaurants" }])
+  firestoreConnect([{ collection: 'restaurants' }])
 )(Favourites);

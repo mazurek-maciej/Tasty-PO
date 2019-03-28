@@ -1,6 +1,7 @@
 import React from 'react';
-import styled, {keyframes} from 'styled-components';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { media } from '../../utils/media';
 import TopBar from './TopBar';
 import ImageTile from './ImageTile';
 import H2 from '../Fonts/H2';
@@ -10,6 +11,7 @@ import localizationIcon from '../../utils/icons/Localization.svg';
 
 const MainTileWraper = styled.div`
   display: flex;
+  max-width: 900px;
   width: 100%;
   flex-direction: column;
   justify-content: center;
@@ -21,8 +23,7 @@ const ContentWraper = styled.div`
   flex: 2;
   display: flex;
   flex-direction: column;
-  width: 280px;
-  margin: 0 48px;
+  margin: 0 1rem;
 `;
 const InfoWraper = styled.div`
   height: 100%;
@@ -53,48 +54,57 @@ const Img = styled.img`
   margin: 0 8px 8px 0;
 `;
 
-const RestaurantTile = ({placeData, calculateRating, rating, ratingCount}) => (
-  <MainTileWraper>
+const RestaurantTile = ({
+  placeData,
+  calculateRating,
+  rating,
+  ratingCount,
+  imageUrl,
+}) => (
+  <React.Fragment>
     <DarkBg />
-    <TopBar title={placeData.title} />
-    <ContentWraper>
-      <ImageTile
-        rating={placeData.rating}
-        ratingCount={placeData.ratingCount}
-        calculateRating={calculateRating}
-      />
-      <InfoWraper>
-        <H2 underline margin="8px 0 4px 0">
-          Informacje
-        </H2>
-        <IconsWraper>
-          <Img src={localizationIcon} alt="localization" />
-          <P>{placeData.address}</P>
-        </IconsWraper>
-        <IconsWraper>
-          <Img src={phoneIcon} alt="phone" />
-          <P>{placeData.phone}</P>
-        </IconsWraper>
-        <H2 underline margin="8px 0 4px 0">
-          Godziny otwarcia
-        </H2>
-        <HoursWraper>
-          <LeftHourWraper>
-            {placeData.openingTime.slice(0, 4).map((time, index) => (
-              <P hours key={index}>
-                {time}
-              </P>
-            ))}
-          </LeftHourWraper>
-          <RightHourWraper>
-            {placeData.openingTime.slice(4, 8).map((time, index) => (
-              <P key={index}>{time}</P>
-            ))}
-          </RightHourWraper>
-        </HoursWraper>
-      </InfoWraper>
-    </ContentWraper>
-  </MainTileWraper>
+    <MainTileWraper>
+      <TopBar title={placeData.title} />
+      <ContentWraper>
+        <ImageTile
+          rating={placeData.rating}
+          ratingCount={placeData.ratingCount}
+          calculateRating={calculateRating}
+          imageUrl={imageUrl}
+        />
+        <InfoWraper>
+          <H2 underline margin="8px 0 4px 0">
+            Informacje
+          </H2>
+          <IconsWraper>
+            <Img src={localizationIcon} alt="localization" />
+            <P>{placeData.address}</P>
+          </IconsWraper>
+          <IconsWraper>
+            <Img src={phoneIcon} alt="phone" />
+            <P>{placeData.phone}</P>
+          </IconsWraper>
+          <H2 underline margin="8px 0 4px 0">
+            Godziny otwarcia
+          </H2>
+          <HoursWraper>
+            <LeftHourWraper>
+              {placeData.openingTime.slice(0, 4).map((time, index) => (
+                <P hours key={index}>
+                  {time}
+                </P>
+              ))}
+            </LeftHourWraper>
+            <RightHourWraper>
+              {placeData.openingTime.slice(4, 8).map((time, index) => (
+                <P key={index}>{time}</P>
+              ))}
+            </RightHourWraper>
+          </HoursWraper>
+        </InfoWraper>
+      </ContentWraper>
+    </MainTileWraper>
+  </React.Fragment>
 );
 
 RestaurantTile.propTypes = {

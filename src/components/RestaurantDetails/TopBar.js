@@ -5,15 +5,14 @@ import PropTypes from 'prop-types';
 import { ChevronLeft } from 'styled-icons/feather/ChevronLeft';
 import H2 from '../Fonts/H2';
 
-const TopBarWraper = styled.div`
+const TopBarWrapper = styled.div`
+  align-self: flex-start;
   display: flex;
-  justify-content: baseline;
+  justify-content: center;
   align-items: center;
   border-bottom: 1px solid #ccc;
   height: 60px;
   margin: 0 16px;
-  margin-bottom: 80px;
-  width: 340px;
 `;
 const BackIcon = styled(ChevronLeft)`
   width: 24px;
@@ -21,14 +20,16 @@ const BackIcon = styled(ChevronLeft)`
   color: ${({ theme }) => theme.colors.$D1};
 `;
 const TopBar = ({ title }) => (
-  <TopBarWraper>
-    <Link to="/" style={{ marginRight: '8px' }}>
-      <BackIcon />
-    </Link>
-    <H2 white big>
-      {title}
-    </H2>
-  </TopBarWraper>
+  <React.Fragment>
+    <TopBarWrapper>
+      <Link to="/" style={{ marginRight: '8px' }}>
+        <BackIcon />
+      </Link>
+      <H2 white big>
+        {title}
+      </H2>
+    </TopBarWrapper>
+  </React.Fragment>
 );
 
 TopBar.propTypes = {

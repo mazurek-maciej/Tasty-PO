@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import StarRatings from 'react-star-ratings';
 
-import CommentForm from './Comments';
+import CommentForm from './Comments/index.js';
 import Loading from '../Loading';
 import RestaurantTile from './RestaurantTile';
 import RatingsStars from './RatingsStars';
@@ -123,7 +123,6 @@ class Index extends Component {
     if (!restaurant) return <Loading />;
     if (!profile) return <Loading />;
     const place = this.props.location.state.res;
-    console.log(place);
     return (
       <React.Fragment>
         <AllWraper>
@@ -132,6 +131,7 @@ class Index extends Component {
             <RestaurantTile
               placeData={place}
               calculateRating={this.calculateRating}
+              imageUrl={place.imageUrl}
             />
             <RatingsStars
               place={place.id}
@@ -141,7 +141,7 @@ class Index extends Component {
               handleClick={this.handleRatingClick}
             />
           </RestaurantWraper>
-          <CommentForm disp={auth.uid} restId={place.id} />
+          {auth.uid ? <CommentForm restId={place.id} /> : null}
         </AllWraper>
       </React.Fragment>
     );

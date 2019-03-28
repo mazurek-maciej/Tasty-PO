@@ -99,9 +99,8 @@ const HelloUserContainer = ({ userInfo, auth }) => (
             </TopContainer>
             <BottomContainer>
               <H2 margin="0 0 8px 0">
-                Skorzystaj z mapy, lub szybkiego wyszukiwania!
+                Skorzystaj z mapy i znajdź swój ulubiony lokal!
               </H2>
-              <SearchButton type="text" placeholder="Under construction 🚧" />
             </BottomContainer>
           </React.Fragment>
         ) : (

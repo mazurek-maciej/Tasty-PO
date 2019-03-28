@@ -6,7 +6,7 @@ import imejdz from '../../images/alternative.jpeg';
 
 const ImageWraper = styled.div`
   width: 100%;
-  height: 180px;
+  padding: 1rem;
 `;
 const RatingWraper = styled.div`
   height: 60px;
@@ -25,10 +25,10 @@ const ratingCountSpanStyle = {
   color: '#B3B3B3',
 };
 
-const ImageTile = ({ rating, ratingCount, calculateRating }) => (
+const ImageTile = ({ rating, ratingCount, calculateRating, imageUrl }) => (
   <React.Fragment>
     <ImageWraper>
-      <Image src={imejdz} alt="img" />
+      <Image src={imageUrl} alt="img" />
     </ImageWraper>
     <RatingWraper>
       {calculateRating(rating, ratingCount)}
