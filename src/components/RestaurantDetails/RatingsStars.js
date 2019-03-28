@@ -1,89 +1,78 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import StarRatings from 'react-star-ratings';
 
-import styled, {css} from 'styled-components';
-import H2 from '../../components/Fonts/H2';
+import styled from 'styled-components';
+import H2 from '../Fonts/H2';
 
-const ratingsCheck = css`
-  display: none;
-`;
 const RatingWraper = styled.div`
+  position: fixed;
+  bottom: 0;
   display: ${props => (props.disp ? 'flex' : 'none')};
   flex-direction: column;
-  max-width: 900px;
+  width: 100%;
   text-align: center;
-  padding-bottom: 2rem;
-  * > h2 {
-    font-size: 1.2rem;
-  }
-  @media (min-width: 320px) and (max-width: 480px) {
-    h2 {
-      font-size: 1rem;
-    }
-  }
-  ${props => props.hide && ratingsCheck}
+  padding: 1rem;
+  background: ${({ theme }) => theme.colors.$cyan90};
+  box-shadow: 0 6px 14px hsla(0, 0%, 0%, 0.5);
+  z-index: 1;
+`;
+const TopWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+`;
+const CloseButton = styled.button`
+  background: transparent;
+  border: transparent;
+  color: white;
+  font-size: 1rem;
 `;
 
-const RatingStar = styled.button`
-  flex: 1;
-  margin: 8px;
-  padding: 20px 30px;
-  border: 1px solid ${({theme}) => theme.colors.$primary};
-  color: ${({theme}) => theme.colors.$dark};
-  font-size: 2rem;
-  border-radius: 100%;
-  background: ${({theme}) => theme.colors.$primary};
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
-  transition: all 0.2s;
-  cursor: pointer;
-  position: relative;
-  &::after {
-    position: absolute;
-    content: '';
-    z-index: -1;
-    opacity: 0;
-    top: 0;
-    left: 0;
-    border-radius: 100%;
-    width: 100%;
-    height: 100%;
-    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.6);
-    transition: all 0.2s ease-in;
-  }
-  :hover::after,
-  :active::after {
-    opacity: 1;
-  }
-  @media (min-width: 320px) and (max-width: 480px) {
-    font-size: 1rem;
-    padding: 10px 15px;
-  }
-`;
-const RatingsStars = ({place, authUid, disp, handleClick, hide}) => (
-  <RatingWraper disp={disp} hide={hide}>
-    <div>
-      <H2>Jak oceniasz tą restauracje?</H2>
-    </div>
-    <div>
-      <RatingStar onClick={() => handleClick(1, place, authUid)}>1</RatingStar>
+const RatingsStars = ({
+  profile,
+  handleRatingClick,
+  visible,
+  setRateVisible,
+  checkIfUserRateThisLocation,
+}) => {
+  useEffect(() => {
+    if (profile.name) return checkIfUserRateThisLocation();
+  });
+  const handleChange = e => {
+    handleRatingClick(e);
+  };
 
-      <RatingStar onClick={() => handleClick(2, place, authUid)}>2</RatingStar>
+  return (
+    <RatingWraper disp={visible}>
+      <TopWrapper>
+        <CloseButton
+          style={{ alignSelf: 'flex-end' }}
+          type="submit"
+          onClick={() => setRateVisible(false)}
+          placeholder="x"
+        >
+          X
+        </CloseButton>
+        <H2 white>Oceń restaurację</H2>
+      </TopWrapper>
+      <div>
+        <StarRatings
+          numberOfStars={5}
+          name="rating"
+          changeRating={e => handleChange(e)}
+        />
+      </div>
+    </RatingWraper>
+  );
+};
 
-      <RatingStar onClick={() => handleClick(3, place, authUid)}>3</RatingStar>
-
-      <RatingStar onClick={() => handleClick(4, place, authUid)}>4</RatingStar>
-
-      <RatingStar onClick={() => handleClick(5, place, authUid)}>5</RatingStar>
-    </div>
-  </RatingWraper>
-);
-
-RatingStar.propTypes = {
-  place: PropTypes.string,
-  authUid: PropTypes.string,
-  disp: PropTypes.bool,
-  hide: PropTypes.bool,
-  handleClick: PropTypes.func,
+RatingsStars.propTypes = {
+  visible: PropTypes.bool.isRequired,
+  profile: PropTypes.object,
+  handleRatingClick: PropTypes.func.isRequired,
+  setRateVisible: PropTypes.func.isRequired,
 };
 
 export default RatingsStars;

@@ -31,15 +31,6 @@ const BottomContainer = styled.div`
   align-items: center;
   justify-content: center;
 `;
-const SearchButton = styled.input`
-  width: 200px;
-  height: 30px;
-  border: 1px solid ${({ theme }) => theme.colors.$D3};
-  border-radius: 5px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
-  background-color: #f2f2f2;
-  text-align: center;
-`;
 const ContainersWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -64,6 +55,9 @@ const ImageShape = styled.div`
   height: 600px;
   clip-path: circle(50% at 70% 30%);
   z-index: -1;
+  ${media.phone`
+    clip-path: circle(30% at 70% 30%);
+  `}
 `;
 const ShapeBg = styled.div`
   position: absolute;
@@ -76,6 +70,9 @@ const ShapeBg = styled.div`
   height: 640px;
   clip-path: circle(50% at 70% 30%);
   z-index: -2;
+  ${media.phone`
+    clip-path: circle(30% at 70% 30%);
+  `}
 `;
 const CallActionButton = styled(Link)`
   color: ${({ theme }) => theme.colors.$D2};

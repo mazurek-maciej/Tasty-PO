@@ -69,12 +69,14 @@ class Index extends React.Component {
     return (
       <Wraper>
         {!userAddComment ? <AddComment /> : null}
-        <MainCommentWraper>
-          <H2>Komentarze</H2>
-          {commentsToDisplay.slice(0, 4).map((com, index) => (
-            <Comment key={index} name={com.name} text={com.comment} />
-          ))}
-        </MainCommentWraper>
+        {commentsToDisplay.length !== 0 ? (
+          <MainCommentWraper>
+            <H2>Komentarze</H2>
+            {commentsToDisplay.slice(0, 4).map((com, index) => (
+              <Comment key={index} name={com.name} text={com.comment} />
+            ))}
+          </MainCommentWraper>
+        ) : null}
       </Wraper>
     );
   }
